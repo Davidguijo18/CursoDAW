@@ -1,0 +1,12 @@
+Enlace al repositorio de GitHub: https://github.com/Davidguijo/rally-fotografico
+Enlace de la web: https://deepshot.infinityfreeapp.com/
+
+
+IMPORTANTE: 
+
+Viene explicado en la documentación, pero para configurar el backend en local debes de crear una carpeta llamada "rally-fotografico" dentro de htdocs y, cuando accedas a esa carpeta que acabas de crear, ahí ya puedes pegar la carpeta del backend.
+
+Si quieres probar un usuario con rol administrador puedes probar el siguiente perfil:
+
+	- Correo electrónico: admin@gmail.com
+	- Contraseña: Contrasena1
