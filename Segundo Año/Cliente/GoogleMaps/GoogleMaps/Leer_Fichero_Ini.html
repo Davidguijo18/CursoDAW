@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ejemplo de acceso a fichero XML (local)</title>
+    <script type = "text/javascript">
+
+    function Leer_Fichero(evento) {
+		var e = evento | window.event;
+    	var fichero = evento.target.files[0];
+
+		function convertir_a_XML(texto){
+			var xml = null;
+			if(window.ActiveXObject){
+				xml = new ActiveXObject("Microsoft.XMLDOM");
+				xml.loadXML(texto);
+			}else
+				xml = new DOMParser().parseFromString(texto,"text/html");
+				return xml;
+		}
+
+    	var reader = new FileReader();
+    	reader.onload = function (e) {
+    		let miXml = convertir_a_XML(reader.result);
+			console.log("miXml: ",miXml);
+			tratarXML(miXml);
+    	}
+
+    	reader.readAsText(fichero);	
+    } 
+
+	
+	function tratarXML(xml){
+		var puntos = xml.getElementsByTagName("trkpt");
+		var sal = document.getElementById("sal");
+		alert("Numero de puntos: " + puntos.length);
+		sal.innerHTML += "<p>Listado de puntos: </p>";
+		var latitud, longitud;
+		for(var i = 0; i < puntos.length; i++){
+			latitud = puntos[i].getAttributeNode("lat").nodeValue;
+			longitud = puntos[i].getAttributeNode("lon").nodeValue;
+			sal.innerHTML += "Latitud: " + latitud + "  Longitud: " + longitud + "<br> \n";
+		}
+	}
+
+    
+
+    window.onload = function () {
+    	document.getElementById("id_fichero").addEventListener('change', Leer_Fichero, false);
+    }
+
+    </script>
+  </head>
+
+  <body>
+
+  	<p>
+  		<label for="id_fichero">Selecciona el fichero a leer:</label><br>
+  		<input id="id_fichero" type="file" />
+  	</p>
+
+		<p>
+    <div id="sal">
+    </div>
+    </p>
+
+
+  </body>
+
+</html>

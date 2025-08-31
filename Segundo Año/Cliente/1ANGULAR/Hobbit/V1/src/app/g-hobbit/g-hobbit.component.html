@@ -1,0 +1,42 @@
+<ul>
+    <li *ngFor="let hobbit of lista">
+        {{hobbit}}
+    </li>
+</ul>
+
+<form>
+    <p>
+        <input type="text" 
+        name="nombre_hobbit"
+        [(ngModel)]="gHobbit"
+        placeholder="Mete un enano de esos">
+
+        <button (click)="anadir()">Añadir hobbit</button>
+    </p>
+
+    <p>
+        <input type="text" 
+        name="nombre_hobbit_mod"
+        [(ngModel)]="gHobbitMod"
+        placeholder="Modifica un enano">
+
+        <button (click)="modificar()">Modificar hobbit</button>
+    </p>
+</form>
+
+    <table *ngIf="lista.length > 0">
+        <thead>
+            <tr>
+                <th>Nombre del hobbit</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hobbit of lista; index as i">
+                <td>{{hobbit}}</td>
+                <td>
+                    <button (click)="editar(hobbit,i)">Editar</button>
+                    <button (click)="eliminar(hobbit,i)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>

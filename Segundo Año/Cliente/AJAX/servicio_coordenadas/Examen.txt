@@ -1,0 +1,15 @@
+Servicio Coordenadas: (5 puntos)
+
+Dados los ficheros servicio_coordenadas.php y Examen_coordenadas.html, suministrados por el profesor. Añadir codigo
+Javascript necesario para conseguir, haciendo uso servicio_coordenadas.php, las siguientes funcionalidades
+
+Se trata de mostrar al usuario un par de coordenadas, la primera es un número y la segunda es una letra mayuscula. Con esas coordenadas, el usuario buscara el número asociado según su tarjeta de coordenadas. Introducirá dicho numero en el único input text de la página) y cuando haga click en el botón ACEPTAR, se mostrará un mensaje indicando si el número/valor introducido es o no correcto. IMPORTANTE: El tiempo de respuesta del servidor es INDETERMINADO
+
+Sabiendo que las dimensiones del array “asociativo” de servicio_coordenadas.php es de O a 9 (ambos inclusive) para las filas, y de A a F (ambas inclusive) para las columnas. Mostrar al usuario, al cargarse la página, unas coordenadas según dichos rangos, DE FORMA ALEATORIA, Esto es, cada vez que se cargue la página se calculará una fila y una forma aleatoria, y se le mostrará al usuario. (1 punto)
+
+IMPORTANTE: Dicha coordenada debe ser SIEMPRE fila y columna. esto es: número y letra. POR ESE ORDEN ESTRICTO. Condición NECESARIA para poder corregir toda esta parte del examen.
+
+Cando el usuario haga click en el botón ACEPTAR, entonces y SOLO ENTONCES..Se hará uso del servicio correspondiente del fichero servicio_coordenadas.php para, MEDIANTE PETICIÓN AJAX, comprobar si el número/valor introducido por el usuario es o no correcto y hacérselo saber al usuario
+
+
+Para el ejercicio 5. En vez de utilizar un rango de filas y de columnas, pesando que estás (las filas y columnas) del array "asociativo" pueden cambiar (el array puede crecer), hacer uso de los servicios correspondientes para obtener dicho rango, MEDIANTE PETICIONES AJAX (también al cargarse la página)

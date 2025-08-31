@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de vets</title>
+</head>
+<body>
+    <h2>Lista de veterinarios</h2>
+    <button class="btn btn-primary" type="submit" (click)="viajarFormAnadirVet()">Añadir veterinario</button>
+    <table class="table table-hover table-borderer table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>EDITAR</th>
+            <th>ELIMINAR</th>
+        </tr>
+        @for (row of listaVets; track $index) {
+        <tr>
+            <td>{{row.id}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td><button class="btn btn-primary btn-sm" type="button" (click)="viajarFormEditarVet(row.id)">Editar</button></td>
+            <td><button class="btn btn-danger btn-sm" type="button" (click)="eliminarVet(row)">Eliminar</button></td>
+        </tr>
+        }
+    </table>
+</body>
+</html>

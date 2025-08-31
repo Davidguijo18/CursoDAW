@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Validar Formularios</title>
+
+		<script type ="text/javascript">
+
+            window.onload = function(){
+                document.getElementById("boton").onclick = btnSelect;
+            }
+
+            function btnSelect(){
+                var cantidad = document.getElementById("cantidadOpciones").value;
+                var select = document.getElementById("select");
+                llenarSelect(select,cantidad)
+            }
+
+
+            function llenarSelect(select, nOpciones){
+                select.options.length = 1;
+                var contador = 1
+
+                for (var i=0; i < nOpciones; i++) {
+                    var opcion = document.createElement("option");
+                    opcion.value = i;
+                    var texto = document.createTextNode("Opcion " + contador);
+                    opcion.appendChild(texto);
+                    select.appendChild(opcion);
+                    contador++;
+                }
+
+                body.appendChild(select);
+            }
+
+            
+
+		</script>
+	</head>
+
+	<body>
+        <h3>Ejercicio para rellenar un select</h3>
+
+        <button id = "boton">Llenar select</button>
+
+        <label for ="cantidadOpciones">Cantidad</label>
+        <input type = "number" id="cantidadOpciones">
+        
+        <br><br>
+
+        <label for ="select">Select generico</label>
+        <select id = "select">
+            <option value = "-1">Seleccione una opcion</option>
+        </select>
+	</body>
+</html>
+
+

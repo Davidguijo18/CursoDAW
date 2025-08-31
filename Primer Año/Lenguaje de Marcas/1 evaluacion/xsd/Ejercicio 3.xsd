@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="biblioteca">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="libro" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="autor" type="xs:string"/>
+                        <xs:element name="titulo" type= "xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+</xs:schema>
+
+
+
+
+
+
+<!--
+<biblioteca>
+	<libro>
+		<autor>Miguel de Cervantes Saavedra</autor>
+		<titulo>El Quijote de la Mancha</titulo>
+	</libro>
+	<libro>
+		<autor>Pablo Neruda</autor>
+		<titulo>Veinte poemas de amor y una canción desesperada</titulo>
+	</libro>
+</biblioteca>
+-->

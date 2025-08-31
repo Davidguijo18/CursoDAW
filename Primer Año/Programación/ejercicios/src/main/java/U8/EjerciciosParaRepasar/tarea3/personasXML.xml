@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><personas info="personas" otro="ejemplo">
+    <persona id="1">
+        <nombre>Pepe</nombre>
+        <edad>15</edad>
+    </persona>
+    <persona id="2">
+        <nombre>María</nombre>
+        <edad>51</edad>
+    </persona>
+    <persona id="3">
+        <nombre>Raul</nombre>
+        <edad>22</edad>
+    </persona>
+</personas>

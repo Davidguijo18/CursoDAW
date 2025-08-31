@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Examen Coordenadas</title>
+    <style type="text/css">
+        span {
+            color: red;
+        }
+        .resultado {
+            text-align: center;
+            font-size: 1.5em;
+            color: maroon;
+        }
+    </style>
+    <script type="text/javascript" src="UtilAJAX.js"></script>
+    <script type="text/javascript">
+        let peti = new pAJAX();
+        let url = 'servicio_coordenadas.php';
+        let filaAleatoria;
+        let columnaAleatoria;
+        let valorUsuario; 
+
+        window.onload = function() {
+            obtenerRangos();
+            document.getElementById("btValidar").onclick = validarEntrada;
+        }
+
+        function obtenerRangos() {
+            let p = { servicio: "rangoFilas" };
+            peti.peticion(url, "POST", generarFila, JSON.stringify(p));
+
+            let q = { servicio: "rangoColumnas" };
+            peti.peticion(url, "POST", generarColumna, JSON.stringify(q));
+        }
+
+        function generarFila(filas) {
+            const rangoFilas = filas.split("");
+            filaAleatoria = rangoFilas[Math.floor(Math.random() * rangoFilas.length)];
+
+            if (columnaAleatoria) mostrarCoordenadas();
+        }
+
+        function generarColumna(columnas) {
+            const rangoColumnas = columnas.split("");
+            columnaAleatoria = rangoColumnas[Math.floor(Math.random() * rangoColumnas.length)];
+
+            if (filaAleatoria) mostrarCoordenadas();
+        }
+
+        function mostrarCoordenadas() {
+            document.getElementById("coordenadas").innerHTML = filaAleatoria + columnaAleatoria;
+        }
+
+        function validarEntrada() {
+            valorUsuario = document.getElementById("valor").value.trim();
+
+            if (valorUsuario === "") {
+                document.getElementById("info_valor").innerHTML = "Introduzca un valor";
+                return;
+            }
+
+            let p = {
+                servicio: "elemento",
+                fila: filaAleatoria,
+                columna: columnaAleatoria
+            };
+
+            peti.peticion(url, "POST", comprobacion, JSON.stringify(p));
+        }
+
+        function comprobacion(respuesta) {
+            if (respuesta == valorUsuario) {
+                document.querySelector(".resultado").innerHTML = "Valor correcto";
+            } else {
+                document.querySelector(".resultado").innerHTML = "Valor incorrecto";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Acceso al sistema</h1>
+    <form>
+        <p>
+            <h3>Sistema de validación según tarjeta de coordenadas:</h3>
+            <label for="valor">Introduzca el valor para las coordenadas: <span id="coordenadas"> </span> </label>
+            <br>
+            <input type="text" id="valor" maxlength="2" size="1" autofocus />
+            <span id="info_valor"> </span>
+            <br><br>
+        </p>
+        <p class="resultado"></p>
+        <p>
+            <input type="button" id="btValidar" value="ACEPTAR" >
+        </p>
+    </form>
+</body>
+</html>

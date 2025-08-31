@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Examen 1ª Evaluación DWEC</title>
+		<style>
+		
+		 h3{
+        color: red;
+      }
+			
+			/* CSS para el formulario:   */
+			.formProfes{
+				visibility: hidden;  
+				position: absolute;
+				top: 20%;
+				left: 20%;
+				z-index:11;
+				background-color: pink;
+				border: 2px solid maroon;
+				border-radius: 15px;
+				padding: 1em;
+				color: red;
+			}
+
+			.formProfes div label {
+				display: block;
+				margin-top: .5em;
+			}
+			
+			.formProfes .btn {
+				display: block;
+				margin-top: 1em;
+			}
+			
+			
+			.ver {
+				visibility: visible;  
+			}
+		
+		
+		#deptoDelProfe{
+			font-family: "Lucida Console", "Courier New", monospace;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: blue;
+		}
+		
+		</style>
+	<script type="text/javascript" src="UtilAJAX.js"></script>
+    <script type="text/javascript">
+		
+		let peti = new pAJAX();
+		let url = 'deptosProfes.php';
+
+		//Esto lo hago para comprobar, a la hora de añadir un nuevo profesor, que haya sido anteriormente seleccionado un departamento 
+		idDepartamentoActual ={
+			id:0
+		}
+		
+		window.onload = function(){
+			cargarDepartamentos();
+
+			document.getElementById("btNuevoDepto").onclick = mostrarFormularioDepartamento;
+			document.getElementById("btCancelarDepto").onclick = ocultarFormularioDepartamento;
+			document.getElementById("btAnadeDepto").onclick = anadirDepartamento;
+			document.getElementById("btNuevaProfe").onclick = mostrarFormularioProfesorNuevo;
+			document.getElementById("btCancelar").onclick = ocultarFormularioProfesorNuevo;
+			document.getElementById("btAnade").onclick = function(){
+				if(document.getElementById("formProfes").dataset.idprofe)
+					modificarProfesor();
+				else
+					anadirProfe();
+				}
+		}
+
+
+		//EJERCICIO 1 -> MUESTRO LA TABLA DE DEPARTAMENTOS 
+		function cargarDepartamentos(){
+			var p ={
+				servicio:"departamentos"
+			}
+
+			peti.peticion(url,"POST", imprimirTablaDepartamentos,JSON.stringify(p));
+		}
+
+
+		const imprimirTablaDepartamentos = (departamentos) =>{
+			var tabla = document.getElementById("detalle_departamentos");
+			tabla.innerHTML = "";
+
+			departamentos.forEach(departamento => {
+				var fila = document.createElement("tr");
+
+				var atributosDepartamento = [departamento.id,departamento.nombre,departamento.descripcion];
+				console.log(atributosDepartamento);
+
+				atributosDepartamento.forEach(atributo => {
+					var columna = document.createElement("td");
+					columna.innerHTML = atributo;
+
+					fila.appendChild(columna);
+				});
+
+				//Creo un boton que, al darle click, mostrar la tabla de empleados que estan en ese departamento
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Ver profes";
+				boton.onclick = obtenerProfesoresDepartamento;
+				boton.dataset.idDepartamento = departamento.id;
+				boton.dataset.nombreDepartamento = departamento.nombre;
+				td.appendChild(boton);
+				fila.append(td);
+
+				tabla.appendChild(fila);
+			});
+		}
+
+
+
+
+		//EJERCICIO 2 -> ANADIR DEPARTAMENTOS 
+		function mostrarFormularioDepartamento(){
+			document.getElementById("formDeptos").classList.add("ver");
+		}
+
+
+		function ocultarFormularioDepartamento(){
+			document.getElementById("formDeptos").classList.remove("ver");
+			limiarFormularioDepartamento();
+		}	
+
+		function limiarFormularioDepartamento(){
+			document.getElementById("nombreDepto").value = "";
+			document.getElementById("descripcion").value = "";
+		}
+
+
+		function anadirDepartamento(){
+			var nombre = document.getElementById("nombreDepto").value;
+			var descripcion = document.getElementById("descripcion").value;
+
+			var p ={
+				servicio:"anadeDepto",
+				nombre:nombre,
+				descripcion:descripcion,
+			}
+
+			peti.peticion(url,"POST",cargarDepartamentos,JSON.stringify(p));
+			ocultarFormularioDepartamento();
+		}
+
+
+
+
+		//EJERCICIO 3 -> OBTENER EL LISTADO DE LOS PROFESORES
+		function obtenerProfesoresDepartamento(e){
+			e.preventDefault();
+
+			//EJERCICIO 4 -> Indico cual es el nombre departamento donde se ha clicado 
+			var departamento = document.getElementById("deptoDelProfe").innerHTML = this.dataset.nombreDepartamento;
+
+			//Aqui es donde establezco el id del departamento seleccionado al objeto json del inicio
+			idDepartamentoActual.id = this.dataset.idDepartamento;
+
+			var p ={
+				servicio:"profesores",
+				id_departamento:this.dataset.idDepartamento
+			}
+
+			peti.peticion(url,"POST",mostrarProfesoresDepartamento,JSON.stringify(p));
+		}
+
+
+		function mostrarProfesoresDepartamento(profesores){
+			console.log(profesores);
+
+			var tabla = document.getElementById("detalle_profesores");
+			tabla.innerHTML = "";
+
+			profesores.forEach(profesor => {
+				var fila = document.createElement("tr");
+
+				var atributosProfesor = [profesor.id ,profesor.dni, profesor.nombre, profesor.apellidos];
+
+				atributosProfesor.forEach(atributo => {
+					var columna = document.createElement("td");
+					columna.innerHTML = atributo;
+
+					fila.appendChild(columna);
+				});
+
+				//Aqui creo los botones para eliminar y editar a los profesores
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Eliminar";
+				boton.onclick = eliminarProfe;
+				boton.dataset.idProfesor = profesor.id;
+				boton.dataset.nombreape = profesor.nombre + " " + profesor.apellidos;
+				td.appendChild(boton);
+				fila.append(td);
+
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Editar";
+				boton.onclick = obtenerProfesor;
+				boton.dataset.idProfesor = profesor.id;
+				td.appendChild(boton);
+				fila.append(td);
+				tabla.appendChild(fila);
+			});
+		}
+
+
+
+
+		//EJERCICIO 5 -> ELIMINACION DE UN PROFESOR
+			function eliminarProfe(e){
+			e.preventDefault();
+
+			if(confirm("¿Desea eliminar a " + this.dataset.nombreape + " ?")){
+				var p = {
+					servicio:"eliminaProfe",
+					id_departamento:idDepartamentoActual.id,
+					id:this.dataset.idProfesor
+				}
+
+			peti.peticion(url,"POST",mostrarProfesoresDepartamento,JSON.stringify(p));
+			}
+		}
+
+
+
+
+		//EJERCICIO 6 -> ANADIR UN NUEVO PROFESOR
+		function mostrarFormularioProfesorNuevo(){
+			//En la siguiente linea es donde compruebo que antes de insertar un nuevo profesor haya sido seleccionado un departamento
+			if(idDepartamentoActual.id != 0){
+				document.querySelector("#formProfes legend").innerHTML = "Alta en el servicio";
+				document.getElementById("btAnade").innerHTML = "Añadir";
+				document.getElementById("formProfes").classList.add("ver");
+			}
+		}
+
+
+		function ocultarFormularioProfesorNuevo(){
+			document.getElementById("formProfes").classList.remove("ver");
+			limpiarFormulario();
+		}
+
+
+		function anadirProfe(){
+			var dni = document.getElementById("dni").value;
+			var nombre = document.getElementById("nombre").value;
+			var apellidos = document.getElementById("apellidos").value;
+
+			var p ={
+				servicio:"anadeProfe",
+				id_departamento:idDepartamentoActual.id,
+				dni:dni,
+				nombre:nombre,
+				apellidos:apellidos
+			}
+
+			peti.peticion(url,"POST",mostrarProfesoresDepartamento,JSON.stringify(p));
+			ocultarFormularioProfesorNuevo();
+		}
+
+
+
+
+		//EJERCICIO 7 -> MODIFICAR UN PROFESOR
+		function obtenerProfesor(e){
+			e.preventDefault();
+
+			p ={
+				servicio:"selProfeID",
+				id:this.dataset.idProfesor
+			}
+
+			peti.peticion(url,"POST",cargarDatosFormularioEdicion,JSON.stringify(p));
+		}
+
+
+		function cargarDatosFormularioEdicion(profesor){
+			console.log(profesor);
+
+			document.getElementById("dni").value = profesor.dni;
+			document.getElementById("nombre").value = profesor.nombre;
+			document.getElementById("apellidos").value = profesor.apellidos;
+			document.getElementById("formProfes").dataset.idprofe = profesor.id
+
+			mostrarFormularioProfesorModificar();
+		}
+
+
+		function mostrarFormularioProfesorModificar(){
+			document.querySelector("#formProfes legend").innerHTML = "Modificacion en el servicio";
+			document.getElementById("btAnade").innerHTML = "Modificar";
+			document.getElementById("formProfes").classList.add("ver");
+		}
+
+		
+		function ocultarFormularioProfesorModificar(){
+			document.getElementById("formProfes").classList.remove("ver");
+			limpiarFormulario();
+		}
+
+
+		function limpiarFormulario(){
+			document.getElementById("formProfes").dataset.idprofe = "";
+			document.getElementById("dni").value = "";
+			document.getElementById("nombre").value = "";
+			document.getElementById("apellidos").value = "";
+		}
+
+
+		function modificarProfesor(){
+			var id = document.getElementById("formProfes").dataset.idprofe;
+			var dni = document.getElementById("dni").value;
+			var nombre = document.getElementById("nombre").value;
+			var apellidos = document.getElementById("apellidos").value;
+
+			var p ={
+				servicio:"modificaProfe",
+				id_departamento:idDepartamentoActual.id,
+				id:id,
+				dni:dni,
+				nombre:nombre,
+				apellidos:apellidos
+			}
+
+			peti.peticion(url,"POST",mostrarProfesoresDepartamento,JSON.stringify(p));
+			ocultarFormularioProfesorModificar();
+		}
+		
+    </script>
+  </head>
+  <body>
+    <h1>Registro de Usuarios</h1>
+    <form>
+			<br>
+			<button class="btn" id="btNuevoDepto" type="button">Nuevo Departamento</button> 
+      <p>
+      	<div id="departamentos">
+      		<table border="1">
+      			<thead>
+      			<tr>
+      				<th>ID</th>
+      				<th>NOMBRE</th>
+							<th>DESCRIPCION</th>
+      				<th>Acción</th>
+      			</tr>
+      			</thead>
+      			
+      			<tbody id="detalle_departamentos">
+      				
+      			</tbody>
+      			
+      			
+      		</table>
+      	</div>
+      </p>
+      
+			
+			<div id="formDeptos" class="formProfes">
+				<fieldset>
+					<legend>Nuevo Departamento</legend>
+					<div>
+						<label for="nombreDepto">Nombre</label>
+						<input type="text" id="nombreDepto" />
+					</div>
+					
+					<div>
+						<label for="descripcion">Descripcion</label>
+						<textarea id="descripcion"></textarea>
+					</div>
+					<div class="btn">
+						<button id="btAnadeDepto" type="button">Añadir </button> 
+						<button id="btCancelarDepto" type="button">Cancelar </button>
+					</div>
+				</fieldset>
+			</div>
+      
+      
+      <br/>
+			<br/>
+      Tabla de Profesores. Departamento de <span id="deptoDelProfe"></span>:
+			<br><br>
+			<button class="btn" id="btNuevaProfe" type="button">Nueva profe</button> 
+			
+      <p>
+      	<div id="profesores">
+      		<table border="1">
+      			<thead>
+							<tr>
+								<th>ID</th>
+								<th>DNI</th>
+								<th>NOMBRE</th>
+								<th>APELLIDOS</th>
+								<th>Eliminar</th>
+								<th>Editar</th>
+							</tr>
+						</thead>
+      			
+      			<tbody id="detalle_profesores">
+      				
+      			</tbody>
+      			
+      			
+      		</table>
+      	</div>
+      </p>
+      
+			
+			<div id="formProfes" class="formProfes">
+				<fieldset>
+					<legend>Alta en el servicio</legend>
+					<div>
+						<label for="dni">DNI</label>
+						<input type="text" id="dni" size="10" maxlength="9" />
+					</div>
+					<div>
+						<label for="nombre">Nombre</label>
+						<input type="text" id="nombre" />
+					</div>
+					<div>
+						<label for="apellidos">Apellidos</label>
+						<input type="text" id="apellidos" size="40" />
+					</div>
+					<div class="btn">
+						<button id="btAnade" type="button" data-idprofe="-1">Añadir </button> 
+						<button id="btCancelar" type="button">Cancelar </button>
+					</div>
+				</fieldset>
+			</div>
+      
+    </form>
+
+  </body>
+</html>

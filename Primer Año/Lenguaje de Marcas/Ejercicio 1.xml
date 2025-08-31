@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipos>
+   <equipo>
+      <nombre>Sevilla FC</nombre>
+      <ciudad>Sevilla</ciudad>
+      <entrenador></entrenador>
+      <jugadores>
+           <jugador posicion="Delantero"/>
+              <nombre>Erik Manuel</nombre>
+              <nacionalidad>Argentino</nacionalidad>
+            </jugador>
+            <jugador posicion="Portero"/>
+              <nombre>Yassine</nombre>
+              <nacionalidad>Canadiense</nacionalidad>
+            </jugador>
+      </jugadores>
+   </equipo>
+
+      <equipo>
+      <nombre>Real Madrid</nombre>
+      <ciudad>Madrid</ciudad>
+      <entrenador></entrenador>
+      <jugadores>
+           <jugador posicion="Delantero"/>
+              <nombre>Karim Benzema</nombre>
+              <nacionalidad>Francesa</nacionalidad>
+            </jugador>
+            <jugador posicion="Extremo derecho"/>
+              <nombre>Marco Asensio</nombre>
+              <nacionalidad>Espanola</nacionalidad>
+            </jugador>
+      </jugadores>
+   </equipo>
+</equipos>
+   

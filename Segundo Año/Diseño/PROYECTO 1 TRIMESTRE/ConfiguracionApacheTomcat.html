@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Apache Tomcat en Ubuntu</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            min-height: 100%;
+            height: auto;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera */
+        #cabecera {
+            display: flex;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #222;
+            color: white;
+            justify-content: space-between;
+        }
+        #logo img {
+            width: 80px;
+            height: auto;
+        }
+        #nombreweb h1 {
+            font-size: 2em;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul {
+            display: flex;
+            list-style: none;
+        }
+        .menuDesplegable ul > li {
+            position: relative;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul a {
+            color: #333;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
+            background-color: #ebeba8;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .menuDesplegable ul a:hover, .menuDesplegable ul a:focus {
+            background-color: #b8a314;
+        }
+        .menuDesplegable ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ebeba8;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0.5em 0;
+        }
+        .menuDesplegable ul li:hover ul {
+            display: block;
+        }
+
+        #configuracion {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 2em;
+            flex-grow: 1;
+        }
+        #configuracion h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+        #configuracion h3 {
+            font-size: 1.5em;
+            color: #444;
+            margin-top: 1.5em;
+        }
+        #configuracion p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1em;
+        }
+        #configuracion ul {
+            font-size: 1em;
+            margin-left: 1em;
+            list-style: none;
+        }
+        #configuracion ul li::before {
+            content: "• ";
+            color: #0077cc;
+        }
+        #configuracion pre {
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            padding: 1em;
+            overflow-x: auto;
+            margin-bottom: 1em;
+            font-size: 0.9em;
+        }
+        #configuracion a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        #configuracion a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        #piePagina {
+            background-color: #222;
+            color: white;
+            padding: 1.5em;
+            text-align: center;
+        }
+        #piePagina p, #piePagina a {
+            font-size: 0.9em;
+            color: #ddd;
+            margin: 0.5em 0;
+        }
+        #piePagina a:hover {
+            color: #ebeba8;
+            text-decoration: underline;
+        }
+
+        #logo img:hover { transform: scale(1.1); transition: transform 0.3s ease; }
+
+        body{
+            background-color: #ebeba8;
+            color: #333;    
+        }
+
+        body #cabecera {
+            background-color: #b8a314;
+        }
+
+        body #piePagina{
+            background-color: #b8a314;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cabecera -->
+<div id="cabecera">
+    <div id="logo">
+        <img src="imagenes/logopagina.jpg" alt="Logo GuijoWeb">
+    </div>
+    <div id="nombreweb">
+        <h1>GuijoWeb</h1>
+    </div>
+    <div class="menuDesplegable">
+        <ul>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Apache Tomcat</a>
+                <ul>
+                    <li><a href="DescargaApacheTomcat.html">Descarga</a></li>
+                    <li><a href="TutorialApacheTomcat.html">Intalacion</a></li>
+                    <li><a href="ConfiguracionApacheTomcat.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">WildFly</a>
+                <ul>
+                    <li><a href="DescargaWindFly.html">Descarga</a></li>
+                    <li><a href="TutorialWindFly.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionWindFly.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">GlassFish</a>
+                <ul>
+                    <li><a href="DescargaGlassFish.html">Descarga</a></li>
+                    <li><a href="TutorialGlassFish.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionGlassFish.html">Configuracion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Configuración -->
+<div id="configuracion">
+    <h2>Configuración de Apache Tomcat en Ubuntu</h2>
+
+    <h3>1. Configuración de Usuarios y Roles</h3>
+    <p>Para acceder a la consola de administración de Tomcat, edita el archivo <code>tomcat-users.xml</code>:</p>
+    <pre>sudo nano /opt/tomcat/conf/tomcat-users.xml</pre>
+    <p>Añade los siguientes roles y usuarios:</p>
+    <pre>
+        &lt;role rolename="manager-gui"/&gt;
+        &lt;role rolename="admin-gui"/&gt;
+        &lt;user username="admin" password="password" roles="manager-gui,admin-gui"/&gt;
+    </pre>
+    <p>Guarda los cambios y reinicia Tomcat:</p>
+    <pre>sudo /opt/tomcat/bin/shutdown.sh
+sudo /opt/tomcat/bin/startup.sh</pre>
+
+    <h3>2. Configuración del Puerto</h3>
+    <p>Por defecto, Tomcat usa el puerto <code>8080</code>. Para cambiarlo, edita el archivo <code>server.xml</code>:</p>
+    <pre>sudo nano /opt/tomcat/conf/server.xml</pre>
+    <p>Busca esta línea y reemplaza el número de puerto:</p>
+    <pre>&lt;Connector port="8080" protocol="HTTP/1.1" .../&gt;</pre>
+    <p>Por ejemplo, para usar el puerto <code>9090</code>, edita así:</p>
+    <pre>&lt;Connector port="9090" protocol="HTTP/1.1" .../&gt;</pre>
+
+    <h3>3. Configuración del Firewall</h3>
+    <p>Permite el puerto configurado en el firewall:</p>
+    <pre>sudo ufw allow 8080/tcp</pre>
+
+    <h3>4. Configuración del Inicio Automático</h3>
+    <p>Crea un archivo de servicio para que Tomcat se inicie automáticamente:</p>
+    <pre>sudo nano /etc/systemd/system/tomcat.service</pre>
+    <p>Añade el siguiente contenido:</p>
+    <pre>
+        [Unit]
+        Description=Apache Tomcat Web Server
+        After=network.target
+
+        [Service]
+        Type=forking
+        Environment=CATALINA_HOME=/opt/tomcat
+        Environment=CATALINA_BASE=/opt/tomcat
+        ExecStart=/opt/tomcat/bin/startup.sh
+        ExecStop=/opt/tomcat/bin/shutdown.sh
+        User=tomcat
+        Group=tomcat
+        Restart=always
+
+        [Install]
+        WantedBy=multi-user.target
+    </pre>
+    <p>Habilita el servicio:</p>
+    <pre>sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat</pre>
+
+    <h3>5. Prueba de Configuración</h3>
+    <p>Abre tu navegador y accede a <code>http://localhost:8080</code> (o el puerto que configuraste).</p>
+</div>
+
+<!-- Pie de Página -->
+<div id="piePagina">
+    <p>© 2024 GuijoWeb. Todos los derechos reservados.</p>
+    <p><a href="Index.html">Volver al Inicio</a></p>
+    <p>Contacto: <a href="mailto:contacto@guijoweb.com">contacto@guijoweb.com</a></p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+</div>
+
+</body>
+</html>

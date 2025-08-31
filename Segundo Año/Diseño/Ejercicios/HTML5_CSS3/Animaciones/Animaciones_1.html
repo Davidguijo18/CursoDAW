@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Plantilla</title>
+		<style type="text/css">
+			.prueba1 {
+				margin-top: 50px;
+				width: 100px;
+				height: 100px;
+				color: yellow;
+				background: black;
+				border: 1px solid #666;
+				
+				position: fixed;
+				
+				animation: agitalo 3s linear;
+				animation-iteration-count: infinite;
+				animation-direction: alternate;
+				
+			}
+			
+			#d1{
+				animation-delay: 0s;
+			}
+			
+			#d2{
+				animation-delay: .4s;
+			}
+			
+			#d3{
+				animation-delay: .8s;
+			}
+			
+			
+			
+		@keyframes agitalo {
+			15% {
+			transform: translateX(100px) rotate(25deg);
+			filter: sepia(1);
+			filter: invert(0);
+			filter: blur(2px);
+			}
+			30%	{
+			transform: translateX(200px) rotate(100deg);
+			filter: sepia(5);
+			filter: blur(4px);
+			}
+			50%	{
+			transform: translateX(400px) rotate(180deg);
+			filter: invert(.5);
+			filter: blur(5px);
+			}
+			65%	{
+			transform: translateX(500px) rotate(250deg);
+			filter: invert(1);
+			filter: blur(4px);
+			}
+			80%	{
+			transform: translateX(600px) rotate(290deg);
+			filter: blur(2px);
+			}
+			100% {
+			transform: translateX(700px) rotate(360deg);
+			}
+		}
+
+		</style>
+		
+	</head>
+
+	<body>
+
+		<div id="d1" class="prueba1">
+			<p>
+				Hace mucho tiempo, en una galaxia lejana, muy lejana.
+			</p>
+		</div>
+		
+		<div id="d2" class="prueba1">
+			<p>
+				Hace mucho tiempo, en una galaxia lejana, muy lejana.
+			</p>
+		</div>
+		
+		<div id="d3" class="prueba1">
+			<p>
+				Hace mucho tiempo, en una galaxia lejana, muy lejana.
+			</p>
+		</div>
+		
+	</body>
+
+</html>

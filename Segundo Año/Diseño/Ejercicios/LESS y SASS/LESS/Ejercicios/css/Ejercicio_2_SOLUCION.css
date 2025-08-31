@@ -1,0 +1,51 @@
+#titulo {
+  color: #008080;
+}
+.destacado {
+  color: #ffff00;
+}
+#subtitulo {
+  color: #0000ff;
+}
+p strong {
+  color: #ff0000;
+}
+p a {
+  color: red;
+}
+p a em {
+  color: #0000ff;
+}
+p .especial {
+  color: #800080;
+}
+tbody tr th {
+  color: red;
+}
+tbody tr th.especial {
+  color: #ffa500;
+}
+tbody tr td {
+  color: green;
+}
+tbody tr td strong {
+  color: #ffa500;
+}
+#adicional {
+  color: olive;
+}
+#adicional #especial {
+  color: #ff00ff;
+}
+#adicional a {
+  color: #008000;
+}
+caption {
+  color: #0000ff;
+}
+thead tr th {
+  color: #ffa500;
+}
+tfoot tr th {
+  color: #ff0000;
+}

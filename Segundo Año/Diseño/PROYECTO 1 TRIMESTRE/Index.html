@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuijoWeb</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            height: 100%;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera */
+        #cabecera {
+            display: flex;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #222;
+            color: white;
+            justify-content: space-between;
+        }
+        #logo img {
+            width: 5em;
+            height: auto;
+        }
+        #nombreweb h1 {
+            font-size: 2em;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul {
+            display: flex;
+            list-style: none;
+        }
+        .menuDesplegable ul > li {
+            position: relative;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
+            background-color: #444;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .menuDesplegable ul a:hover, .menuDesplegable ul a:focus {
+            background-color: #ff9101;
+        }
+        .menuDesplegable ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0.5em 0;
+        }
+        .menuDesplegable ul li:hover ul {
+            display: block;
+        }
+
+        /* Contenido principal */
+        #contenido {
+            flex: 1;
+            max-width: 75em;
+            margin: 2em auto;
+            padding: 0 2em;
+        }
+        #contenido h1 {
+            font-size: 1.5em;
+            margin-bottom: 1em;
+            text-align: center;
+            color: #444;
+        }
+        #contenidoPrincipal {
+            display: flex;
+            gap: 2em;
+            flex-wrap: wrap;
+            margin-top: 1em;
+        }
+        #parrafo {
+            flex: 1;
+            line-height: 1.6;
+            font-size: 1em;
+            color: #555;
+        }
+
+        #servidoresWeb {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            gap: 2em;
+            padding: 1em;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        #servidoresWeb div {
+            width: 12em;
+            text-align: center;
+            background-color: #fafafa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 1em;
+            transition: transform 0.3s ease;
+        }
+        #servidoresWeb div:hover {
+            transform: translateY(-0.3em);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        #servidoresWeb div img {
+            width: 6em;
+            height: 6em;
+        }
+        #servidoresWeb hr {
+            width: 80%;
+            border: 1px solid #ccc;
+            margin: 1em 0;
+        }
+        #servidoresWeb h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+        #servidoresWeb ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9em;
+        }
+        #servidoresWeb ul li {
+            margin: 0.5em 0;
+        }
+        #servidoresWeb ul a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        #servidoresWeb ul a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        #piePagina {
+            background-color: #222;
+            color: white;
+            padding: 1.5em;
+            text-align: center;
+        }
+        #piePagina p, #piePagina a {
+            font-size: 0.9em;
+            color: #ddd;
+            margin: 0.5em 0;
+        }
+        #piePagina a:hover {
+            color: #ff9101;
+            text-decoration: underline;
+        }
+
+        #logo img:hover { transform: scale(1.1); transition: transform 0.3s ease; }
+    </style>
+</head>
+<body>
+
+<div id="cabecera">
+    <div id="logo">
+        <img src="imagenes/logopagina.jpg" alt="Logo GuijoWeb">
+    </div>
+    <div id="nombreweb">
+        <h1>GuijoWeb</h1>
+    </div>
+    <div class="menuDesplegable">
+        <ul>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Apache Tomcat</a>
+                <ul>
+                    <li><a href="DescargaApacheTomcat.html">Descarga</a></li>
+                    <li><a href="TutorialApacheTomcat.html">Intalacion</a></li>
+                    <li><a href="ConfiguracionApacheTomcat.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">WildFly</a>
+                <ul>
+                    <li><a href="DescargaWindFly.html">Descarga</a></li>
+                    <li><a href="TutorialWindFly.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionWindFly.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">GlassFish</a>
+                <ul>
+                    <li><a href="DescargaGlassFish.html">Descarga</a></li>
+                    <li><a href="TutorialGlassFish.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionGlassFish.html">Configuracion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="contenido">
+    <h1>En este manual web aprenderemos lo que es un servidor web para Java, su configuración, cómo descargarlo y empezaremos a usarlo</h1>
+    <h2>Introducción</h2>
+    <div id="contenidoPrincipal">
+        <div id="parrafo">
+            <p>Un servidor de aplicaciones Java, dentro del contexto de la Java Enterprise Edition (Java EE), es un software que proporciona un entorno para ejecutar aplicaciones web desarrolladas en el lenguaje de programación Java. Este tipo de servidor gestiona y ejecuta componentes esenciales de las aplicaciones como servlets, JSP (JavaServer Pages), y Enterprise JavaBeans (EJB). Además de proporcionar un entorno de ejecución para estos componentes, los servidores web también manejan la seguridad, la conectividad a bases de datos y la integración con otros servicios.</p>
+            <p>Existen diferentes servidores de aplicaciones que permiten a los desarrolladores ejecutar aplicaciones basadas en Java, cada uno con sus características específicas, ventajas y limitaciones. A continuación, vamos a describir algunos de los servidores más populares y utilizados en el mundo Java: Apache Tomcat, WindFly y GlassFish.</p>
+        </div>
+
+        <div id="servidoresWeb">
+            <!-- Apache Tomcat -->
+            <div id="apacheTomcat">
+                <img src="imagenes/apachelogo.png" alt="Logo Apache Tomcat">
+                <hr>
+                <h3>Apache Tomcat</h3>
+                <ul>
+                    <li>Plataformas: Linux, Windows y macOS</li>
+                    <li>Versión Actual: 10.1.7</li>
+                    <li>Licencia: Apache License 2.0</li>
+                    <li>Requisitos de Java: JDK 8+</li>
+                    <li><a href="https://tomcat.apache.org/" target="_blank">Web Oficial</a></li>
+                </ul>
+            </div>
+            <!-- WindFly -->
+            <div id="windfly">
+                <img src="imagenes/windflylogo.png" alt="Logo WildFly">
+                <hr>
+                <h3>WildFly</h3>
+                <ul>
+                    <li>Plataformas: Linux, Windows</li>
+                    <li>Versión Actual: 26.0.1</li>
+                    <li>Licencia: Apache License 2.0</li>
+                    <li>Requisitos de Java: JDK 11+</li>
+                    <li><a href="https://www.wildfly.org/" target="_blank">Web Oficial</a></li>
+                </ul>
+            </div>
+            <!-- GlassFish -->
+            <div id="glassfish">
+                <img src="imagenes/GlassFish_logo.png" alt="Logo GlassFish">
+                <hr>
+                <h3>GlassFish</h3>
+                <ul>
+                    <li>Plataformas: Linux, Windows y macOS</li>
+                    <li>Versión Actual: 6.2.5</li>
+                    <li>Licencia: Eclipse Public License 2.0</li>
+                    <li>Requisitos de Java: JDK 11+</li>
+                    <li><a href="https://glassfish.org/" target="_blank">Web Oficial</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="piePagina">
+    <p>© 2024 GuijoWeb. Todos los derechos reservados.</p>
+    <p><a href="Index.html">Volver al Inicio</a></p>
+    <p>Contacto: <a href="mailto:contacto@guijoweb.com">contacto@guijoweb.com</a></p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+</div>
+
+</body>
+</html>

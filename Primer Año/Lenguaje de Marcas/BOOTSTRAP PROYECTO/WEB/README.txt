@@ -1,0 +1,2 @@
+Esta web es simplemente un proyecto de Instituto (IES Velazquez) para la asignatura Lenguaje de Marcas
+Esta página no saca ningún rédito económico ni pretende lucrarse a partir de otras webs existentes

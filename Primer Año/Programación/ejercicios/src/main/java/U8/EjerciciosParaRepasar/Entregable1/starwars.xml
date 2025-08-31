@@ -1,0 +1,31 @@
+<jedis>
+    <jedi rango="maestro">
+        <nombre>Anakin Skywalker</nombre>
+        <maestro>Obi Wan Kenobi</maestro>
+        <colorSable>Azul</colorSable>
+    </jedi>
+
+    <jedi rango="maestro">
+        <nombre>Qui Gon Jinn</nombre>
+        <maestro>Conde Dooku</maestro>
+        <colorSable>Verde</colorSable>
+    </jedi>
+
+    <jedi rango="caballero">
+        <nombre>Cal Kestis</nombre>
+        <maestro>Jaro Tapal</maestro>
+        <colorSable>Azul</colorSable>
+    </jedi>
+
+    <jedi rango="padawan">
+        <nombre>Ahsoka Tano</nombre>
+        <maestro>Anakin Skywalker</maestro>
+        <colorSable>Verde</colorSable>
+    </jedi>
+
+    <jedi rango="padawan">
+        <nombre>Barris Offee</nombre>
+        <maestro>Luminara Unduli</maestro>
+        <colorSable>Verde</colorSable>
+    </jedi>
+</jedis>

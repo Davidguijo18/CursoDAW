@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Ejercicio 13 - DOM b�sico y atributos XHTML</title>
+<script type="text/javascript">
+function anade() {
+    var crearElementoLista = document.createElement("li");
+    var crearTexto = document.createTextNode("Nueva fila para la lista");
+    crearElementoLista.appendChild(crearTexto);
+
+    var boton = document.createElement("input");
+    boton.type= "button";
+    boton.value = "Borrar";
+    boton.onclick = function borrar(){
+        crearElementoLista.parentNode.removeChild(crearElementoLista);
+        boton.parentNode.removeChild(boton);
+    }
+
+    var lista = document.getElementById("lista");
+    lista.appendChild(crearElementoLista);
+    lista.appendChild(boton);
+}
+
+</script>
+</head>
+<body>
+<ul id="lista">
+<li>Lorem ipsum dolor sit amet</li>
+<li>Consectetuer adipiscing elit</li>
+<li>Sed mattis enim vitae orci</li>
+<li>Phasellus libero</li>
+<li>Maecenas nisl arcu</li>
+</ul>
+<input type="button" value="Anadir elemento" onclick="anade();" data-cf-modified-7e704c8092d2b4460dd75904->
+</body>
+</html>

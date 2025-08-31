@@ -1,0 +1,42 @@
+{
+"biblioteca"{
+    "libro":[
+        {
+        "nombre":"Everyday Italian",
+        "lenguaje": "Ingles",
+        "autor":"Giada de Laurentiis",
+        "ano":"2005",
+        "precio":"30.00",
+        "categoria":"Cocina"
+        },
+
+        {
+        "nombre":"Harry Potter",
+        "lenguaje": "Ingles",
+        "autor":"JK Rowling",
+        "ano":"2005",
+        "precio":"29.99",
+        "categoria":"Ninos"
+        },
+
+        {
+        "nombre":"X Query K Per Bothner",
+        "lenguaje": "Ingles",
+        "autor":"Kurt Cagle y James Linn y Vaidyanathan Nagarajan",
+        "ano":"2003",
+        "precio":"49.99",
+        "categoria":"WEB"
+        },
+
+        {
+        "nombre":"Learning XML",
+        "lenguaje": "Ingles",
+        "autor":"Erik T. Ray",
+        "ano":"2003",
+        "precio":"39.95",
+        "categoria":"WEB"
+        },
+
+           ]
+}
+}

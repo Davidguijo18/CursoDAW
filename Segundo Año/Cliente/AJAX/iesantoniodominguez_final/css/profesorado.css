@@ -1,0 +1,243 @@
+:root {
+    --color-primario: #0056a3;      
+    --color-secundario: #4caf50;    
+    --color-fondo: #f8f9fa;         
+    --color-texto: #333;            
+    --sombra-card: 0 5px 15px rgba(0,0,0,0.1);
+    --sombra-card-hover: 0 10px 25px rgba(0,0,0,0.15);
+    --transicion: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--color-primario) 0%, #003366 100%);
+    color: white;
+    padding: 1.5rem 0;
+    position: relative;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-secundario);
+}
+
+.logo img {
+    max-height: 90px;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 0.5rem 0;
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-primario);
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    transition: var(--transicion);
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover, 
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+    color: var(--color-secundario);
+    transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 3px;
+    background-color: var(--color-secundario);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-top: 3px solid var(--color-secundario);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover, 
+.dropdown-item:focus {
+    background-color: var(--color-secundario);
+    color: white;
+    padding-left: 1.75rem;
+}
+
+.hero-profesorado {
+    background: linear-gradient(rgba(0, 86, 163, 0.8), rgba(0, 51, 102, 0.8));
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+}
+
+.hero-profesorado h1 {
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.hero-profesorado .breadcrumb {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
+.info-card {
+    border-radius: 8px;
+    border-left: 5px solid var(--color-secundario);
+    transition: var(--transicion);
+    background-color: white;
+    box-shadow: var(--sombra-card);
+    height: 100%;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.info-card .card-header {
+    background-color: var(--color-primario);
+    color: white;
+    font-weight: 600;
+    border-bottom: none;
+    padding: 0.75rem 1.5rem;
+}
+
+.info-card .card-body {
+    padding: 1.5rem;
+}
+
+.feature-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.feature-list i {
+    color: var(--color-secundario);
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    min-width: 25px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(0, 86, 163, 0.1);
+    color: var(--color-primario);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-primario);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-secundario);
+}
+
+footer {
+    background: linear-gradient(135deg, #1a2a3a 0%, #0d1a26 100%);
+    color: white;
+    padding: 3rem 0 1.5rem;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-secundario);
+}
+
+.footer-link {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.footer-link:hover {
+    color: var(--color-secundario);
+    transform: translateX(5px);
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    margin-right: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: var(--color-secundario);
+    color: white;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 767.98px) {
+    .header, .hero-profesorado {
+        padding: 2rem 0;
+    }
+    
+    .logo img {
+        max-height: 70px;
+    }
+}

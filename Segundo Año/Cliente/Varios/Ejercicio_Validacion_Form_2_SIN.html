@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Validar Formularios</title>
+		<style type="text/css">
+			span {
+				color: red;
+			}
+			
+		</style>
+		<script src="https://educacionadistancia.juntadeandalucia.es/centros/sevilla/pluginfile.php/360295/mod_folder/content/0/Utilidades.js"></script>
+		<script>
+
+			window.onload = function(){
+				document.getElementById("formulario_1").onsubmit = validarFormulario;
+				document.getElementById("nombre").onkeydown = restriccionNombreApellido;
+				document.getElementById("apellidos").onkeydown = restriccionNombreApellido;
+			}
+
+			function validarFormulario(){
+				var foco = null;
+				var requisitosCumplidos = 0;
+
+				// Validación del nombre
+				var nombre = document.getElementById("nombre");
+				if (nombre.value.trim().length < 2) {
+					foco = nombre;
+					document.getElementById("info_nombre").innerHTML = "El nombre debe tener al menos 2 caracteres";
+				} else {
+					requisitosCumplidos++;
+					document.getElementById("info_nombre").innerHTML = "";
+				}
+
+
+
+				// Validación de los apellidos
+				var apellidos = document.getElementById("apellidos");
+				if (apellidos.value.trim().length < 4) {
+					if (!foco) {
+						foco = apellidos;
+					}
+					document.getElementById("info_apellidos").innerHTML = "El campo apellido debe tener al menos 4 caracteres";
+				} else {
+					requisitosCumplidos++;
+					document.getElementById("info_apellidos").innerHTML = "";
+				}
+
+
+
+				// Validación del dni
+				var dni = document.getElementById("dni");
+				var letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+				if (dni.value.length == 9) {
+					var numero = dni.value.trim().substring(0, 8);
+					if (letras[numero % 23] === dni.value[8].toUpperCase()) {
+						requisitosCumplidos++;
+						document.getElementById("info_dni").innerHTML = "";
+					} else {
+						document.getElementById("info_dni").innerHTML = "El DNI es INCORRECTO";
+						if (!foco) {
+							foco = dni;
+						}
+					}
+				} else {
+					document.getElementById("info_dni").innerHTML = "El DNI es INCORRECTO";
+					if (!foco) {
+						foco = dni;
+					}
+				}
+
+
+
+				// Validación del sexo
+				var sexo = document.getElementsByName("sexo");
+				var sexoSeleccionado = false;
+
+				for(var i = 0; i < sexo.length;i++){
+					sexoSeleccionado = sexoSeleccionado || sexo[i].checked;
+				}
+
+				if(!sexoSeleccionado){
+					document.getElementById("info_sexo").innerHTML = "Debes seleccionar una opcion sexual";
+
+					if(!foco){
+						foco = sexo;
+					}
+				}else{
+					document.getElementById("info_sexo").innerHTML = "";
+					requisitosCumplidos++;
+				}
+
+
+
+				// Validación de la fecha
+				var dia = parseInt(document.getElementById("f_dia").value);
+				var mes = parseInt(document.getElementById("f_mes").value) - 1;
+				var ano = parseInt(document.getElementById("f_ano").value);
+
+				var fechaObj = new Date(ano,mes,dia);
+				if (fechaObj.getFullYear() === ano && fechaObj.getMonth() === mes && fechaObj.getDate() === dia) {
+					requisitosCumplidos++;
+					document.getElementById("info_fecha").innerHTML = "";
+				} else {
+					document.getElementById("info_fecha").innerHTML = "La fecha no es correcta";
+					if (!foco) {
+						foco = document.getElementById("f_dia");
+					}
+				}
+
+
+
+				//Estatura en metros
+				var estatura = document.getElementById("estatura");
+				var comprobacion = estatura.split(",");
+
+				if(comprobacion[0].length == 1 && (comprobacion[1].length == 1 || comprobacion[1].length == 2)){
+					requisitosCumplidos++;
+					document.getElementById("info_estatura").innerHTML = ""
+				}else{
+					document.getElementById("info_estatura").innerHTML = "Estatura en un formato incorrecto";
+					if(!foco){
+						foco = estatura
+					}
+				}
+
+
+
+				//Estado civil
+				var estadoCivil = document.getElementById("estado_civil");
+				if(estadoCivil.value == "-1"){
+					var estadoCivil = document.getElementById("info_estado_civil").innerHTML = "Debes seleccionar un estado civil";
+					if(!foco){
+						foco = estadoCivil;
+					}
+				}else{
+					requisitosCumplidos++;
+					var estadoCivil = document.getElementById("estado_civil").innerHTML = "";
+				}
+
+
+
+				//Preferencia de zumos de cebada
+				var cervezas = document.getElementsByName("bebidas");
+				var contadorCervezas = 0;
+
+				for(var i = 0; i < cervezas.length; i++){
+					if(cervezas[i].checked)
+						contadorCervezas++;
+				}
+
+				if(contadorCervezas < 3){
+					document.getElementById("info_bebidas").innerHTML = "Debes seleccionar como minimo 3 cervezas";
+					if(!foco){
+						foco = cervezas;
+					}
+
+				}else{
+					requisitosCumplidos++;
+					document.getElementById("info_bebidas").innerHTML = "";
+				}
+
+				//Validacion cuenta corriente
+
+
+				// Validación de sugerencia
+				var sugerencia = document.getElementById("sugerencia");
+				if (sugerencia.value.trim().length < 10) {
+					document.getElementById("info_sugerencia").innerHTML = "Te sugiero que sugieras";
+					if (!foco) {
+						foco = sugerencia;
+					}
+				} else {
+					requisitosCumplidos++;
+					document.getElementById("info_sugerencia").innerHTML = "";
+				}
+
+
+				if (foco) {
+					foco.focus();
+					return false; 
+				}
+
+
+				return requisitosCumplidos === 10;
+			}
+
+
+			function restriccionNombreApellido(event){
+				var tecla = event.charCode || window.event.keyCode;
+				
+				return(((teclaPulsada >= 65 && teclaPulsada <= 90) || teclaPulsada == 32 || teclaPulsada == 8));
+			}
+			
+		</script>
+	</head>
+
+	<body>
+
+		<h1>Ejercicio Validación de Formularios</h1>
+		<form id="formulario_1">
+		<p>
+			<h3>Formulario de Registro:</h3>
+			<label for="nombre">Nombre: </label>
+			<input type="text" name="nombre" id="nombre" maxlength="25" size="15" />
+			<span id="info_nombre"></span>
+			<div>(Mínimo 2 letras)</div>
+			<br><br>
+			
+			<label for="apellidos">Apellidos: </label>
+			<input type="text" name="apellidos" id="apellidos" maxlength="50" size="25" />
+			<span id="info_apellidos"></span>
+			<div>(Mínimo 4 letras)</div>
+			<br><br>
+			
+			<label for="dni">NIF: </label>
+			<input type="text" name="dni" id="dni" maxlength="9" size="9" />
+			<span id="info_dni"></span>
+			<br><br><br>
+			
+      		
+			
+			<label>Sexo: </label>
+      <input type="radio" name="sexo" value="femenino" />
+      <label for="femenino">Femenino</label>
+			<input type="radio" name="sexo" value="masculino" />
+			<label for="masculino">Masculino</label>
+			<input type="radio" name="sexo" value="ni_me_acuerdo" />
+			<label for="ni_me_acuerdo">hace tanto que ni me acuerdo</label>
+      <span id="info_sexo"></span>
+			<br><br><br>
+			
+			
+			
+			<label for="f_dia">Fecha: </label>
+      <input type="text" id="f_dia" maxlength="2" size="1" /> / 
+      <input type="text" id="f_mes" maxlength="2" size="1" /> / 
+      <input type="text" id="f_ano" maxlength="4" size="3" /> (dd/mm/aaaa) 
+      <span id="info_fecha"></span>
+      <br><br><br>
+			
+			
+			
+			<label for="estatura">Estatura (en metros): </label>
+			<input type="text" id="estatura" size="5" maxlength="7"> 
+			<span id="info_estatura"></span>
+			<br><br><br>
+			
+			
+			<label for="estado_civil">Estado Civil: </label>
+      <select id="estado_civil"><span id="info_estado_civil"></span>
+      	<option value="-1">Selecciona una opción</option>
+      	<option value="1">Soltera/o</option>
+      	<option value="2">Casada/o</option>
+      	<option value="3">Separada/o</option>
+      	<option value="4">Divorciada/o</option>
+      	<option value="5">Pareja de hecho</option>
+      	<option value="6">En la gloria</option>
+      	<option value="7">Es complicado!!!!</option>
+      </select> 
+			<span id="info_estado_civil"></span>
+      <br><br><br>
+			
+			
+			<div>Preferencias en zumos de cebada: </div>
+			
+			<ul>
+				<li>
+					<input type="checkbox" name="bebidas" value="paulaner" />
+					<label>Paulaner</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="coronita" />
+					<label>Coronita</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="cruzcampo" />
+					<label>Cruzcampo</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="desperados" />
+					<label>Desperados</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="grimbergen" />
+					<label>Grimbergen optimo bruno</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="judas" />
+					<label>Judas</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="lucifer" />
+					<label>Lucifer</label>
+				</li>
+				<li>
+					<input type="checkbox" name="bebidas" value="ambar" />
+					<label>Ambar Export</label>
+				</li>
+			</ul>
+      <span id="info_bebidas"></span>
+			<div>(Mínimo 3 opciones)</div>
+      <br><br>
+			
+			
+			<label for="cc">Número Cuenta Corriente: </label>
+			<input type="text" name="ccc" id="ccc" maxlength="20" size="22" /> 
+      <span id="info_ccc"></span>
+			<div>(20 dígitos sin blancos)</div>
+			<br><br><br>
+			
+      
+      <label for="sugerencia">Alguna sugerencia: </label>
+      <textarea id="sugerencia" name="sugerencia"></textarea>
+			<span id="info_sugerencia"></span>
+      <br><br>
+		</p>
+		<p><b>Todos los campos son obligatorios.</b></p>
+		<br>
+		<p>
+			<input type="submit" value="ENVIAR" >
+			<br><br>
+			<input type="reset" value="Limpiar">
+			
+		</p>
+		</form>
+	</body>
+</html>
+
+

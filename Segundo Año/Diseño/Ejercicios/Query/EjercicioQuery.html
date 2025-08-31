@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Query</title>
+    <style type="text/css">
+        #tabla{
+            height: 100px;
+            width: 100px;
+            border: 1px solid;
+            padding: 3px;
+        }
+
+        @media screen and (max-width: 1500px){
+            #tabla{
+                height: 200px;
+                width: 200px;
+            }
+            .columna{
+                color: yellow;
+                font-size: 1.3em;
+            }
+        }
+
+        @media screen and (max-width: 1000px){
+            #tabla{
+                height: 150px;
+                width: 150px;
+            }
+            .columna{
+                color: green;
+                font-size: 1em;
+            }
+        }
+
+        @media screen and (max-width: 800px){
+            #tabla{
+                height: 100px;
+                width: 100px;
+            }
+            .columna{
+                color: red;
+                font-size: 0.8em;
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            #tabla{
+                height: 50px;
+                width: 50px;
+            }
+            .columna{
+                color: blue;
+                font-size: 0.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table id ="tabla">
+        <tr class="fila">
+            <td class="columna">Fila 1</td>
+        </tr>
+        <tr class="fila">
+            <td class="columna">Fila 2</td>
+        </tr>
+        <tr class="fila">
+            <td class="columna">Fila 3</td>
+        </tr>
+        <tr class="fila">
+            <td class="columna">Fila 4</td>
+        </tr>
+        <tr class="fila">
+            <td class="columna">Fila 5</td>
+        </tr>
+    </table>
+</body>
+</html>

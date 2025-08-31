@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ejemplo de acceso a fichero XML (local)</title>
+    <style type="text/css">
+        /* TENEMOS QUE DARLE UN TAMAÑO AL DIV QUE CONTIENE EL MAPA. SI NO, NO SE VERÁ  */
+        #divmapa {
+            width: 700px;
+            height: 700px;
+            border: 1px solid blue; 
+           }
+    </style>
+    <script type="text/javascript" 
+       src="http://maps.google.com/maps/api/js?key=AIzaSyB5KWBzrJvp3Pzrg6ilHkF4O1zFSTVmfjE">
+   </script>
+
+    <script type = "text/javascript">
+        var mapa;
+
+    function Leer_Fichero(evento) {
+		var e = evento | window.event;
+    	var fichero = evento.target.files[0];
+
+		function convertir_a_XML(texto){
+			var xml = null;
+			if(window.ActiveXObject){
+				xml = new ActiveXObject("Microsoft.XMLDOM");
+				xml.loadXML(texto);
+			}else
+				xml = new DOMParser().parseFromString(texto,"text/html");
+				return xml;
+		}
+
+    	var reader = new FileReader();
+    	reader.onload = function (e) {
+    		let miXml = convertir_a_XML(reader.result);
+			console.log("miXml: ",miXml);
+			tratarXML(miXml);
+    	}
+
+    	reader.readAsText(fichero);	
+    } 
+
+	
+	function tratarXML(xml){
+		var puntos = xml.getElementsByTagName("trkpt");
+		var sal = document.getElementById("sal");
+		alert("Numero de puntos: " + puntos.length);
+		sal.innerHTML += "<p>Listado de puntos: </p>";
+		var latitud, longitud;
+		for(var i = 0; i < puntos.length; i++){
+			latitud = puntos[i].getAttributeNode("lat").nodeValue;
+			longitud = puntos[i].getAttributeNode("lon").nodeValue;
+            PonPunto(latitud,longitud);
+            sal.innerHTML += "Latitud: " + latitud + "  Longitud: " + longitud + "<br> \n";
+		}
+	}
+
+    function PonPunto(lat,lon){
+        var img = "punto.png";
+        new google.maps.Marker({
+            position: new google.maps.LatLng(lat,lon),
+            map:mapa,
+            title:"Rutica",
+            icon: img
+        });
+    }
+
+    function CargarMapa() {
+      	var divMapa = document.getElementById("divmapa");
+      	var centro = new google.maps.LatLng(36.996018,  -5.203535);
+      	
+      	var opciones = {
+					center: centro,  
+					zoom: 7,	
+				};
+
+      	mapa = new google.maps.Map(divMapa, opciones);
+      }
+
+    
+
+    window.onload = function () {
+        CargarMapa();
+    	document.getElementById("id_fichero").addEventListener('change', Leer_Fichero, false);
+    }
+
+    </script>
+  </head>
+
+  <body>
+
+  	<p>
+  		<label for="id_fichero">Selecciona el fichero a leer:</label><br>
+  		<input id="id_fichero" type="file" />
+  	</p>
+
+    <div id="divmapa">
+        Aquí pondremos el mapa
+    </div>
+
+	<p>
+    <div id="sal">
+    </div>
+    </p>
+
+
+  </body>
+
+</html>

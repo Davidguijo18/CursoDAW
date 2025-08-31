@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Ejercicio 15 - Informacion sobre eventos</title>
+<style type="text/css">
+body {font-family: arial, helvetica;}
+#info {width:160px; border:thin solid silver; padding:.5em; position:fixed;}
+#info h1 {margin: 0;}
+</style>
+<script type="text/javascript">
+
+window.onload = function(){
+	document.onmousemove = mostrarCoordenadasRaton;
+	document.onkeypress = mostrarTeclaPulsada;
+	document.onclick = cambiarColorHaciendoClick;
+}
+
+function mostrarCoordenadasRaton(elEvento){
+	var evento = elEvento || event.type;
+
+	var coordenadaXNavegador = evento.clientX;
+	var coordenadaYNavegador = evento.clientY;
+
+	var coordenadaXPantalla = evento.screenX
+	var coordenadaYPantalla = evento.screenY;
+
+	var coordenadaXPagina = evento.pageX;
+	var coordenadaYPagina = evento.pageY;
+
+    var mensaje = ["Raton","Navegador [" + coordenadaXNavegador + ", " + coordenadaYNavegador + "]","Pagina [" + coordenadaXPagina + ", " + coordenadaYPagina + "]", "Pantalla [" + coordenadaXPantalla + ", " + coordenadaYPantalla + "]"];
+	muestraInformacion(mensaje);
+
+	document.getElementById("info").style.backgroundColor = "#FFFFFF";
+
+}
+
+function mostrarTeclaPulsada(elEvento){
+	var evento = elEvento || window.event;
+
+	var caracterPulsado = evento.charCode || evento.keyCode;
+	var mensaje = ["Teclado","Caracter [" + String.fromCharCode(caracterPulsado) + "]","Codigo [" + evento.charCode + "]"];
+
+	muestraInformacion(mensaje);
+
+	document.getElementById("info").style.backgroundColor = "#CCE6FF";
+}
+
+function cambiarColorHaciendoClick(elEvento){
+	var evento = elEvento || window.event;
+
+	document.getElementById("info").style.backgroundColor = "#FFFFCC";
+}
+
+function muestraInformacion(mensaje) {
+	document.getElementById("info").innerHTML = '<h1>'+mensaje[0]+'</h1>';
+	for(var i=1; i<mensaje.length; i++) {
+		document.getElementById("info").innerHTML += '<p>'+mensaje[i]+'</p>';
+	}
+}
+</script>
+</head>
+<body>
+<div id="info"></div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</body>
+</html>

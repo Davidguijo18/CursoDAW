@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE matricula SYSTEM "Actividad 14(Externa).dtd">
+<matricula>
+    <personal>
+        <dni>99223366M</dni>
+        <nombre>Juan Pardo Martin</nombre>
+        <titulacion>Ingenieria Informatica</titulacion>
+        <curso_academico>1997/1998</curso_academico>
+        <domicilios>
+            <domicilio tipo="familiar">
+                <nombre>C/ Principal n1</nombre>
+            </domicilio>
+            <domicilio tipo="habitual">
+                <nombre>C/ Secundaria n2</nombre>
+        </domicilio>
+        </domicilios>
+    </personal>
+    <pago>
+        <tipo_matricula>Matricula Ordinaria</tipo_matricula>
+    </pago>
+</matricula>

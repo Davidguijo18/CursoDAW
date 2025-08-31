@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Los atributos van dentro de la etiqueta <1>,<2> o <6>, la cual es una sub etiqueta de <num>, que va dentro de la etiqueta <numeros> que engloba a todo,
+cada atributo debe ir separado con una etiqueta letra, ademas de que las lineas 3,4,5,6 estan mal cerradas, tampoco es posible temer una etiqueta que empiece por un numero -->
+
+    <numeros>
+         <num>
+             <n1>
+               <letra>u</letra>
+               <letra>n</letra>
+               <letra>o</letra>
+             </n1>
+         </num>
+             
+         <num>
+             <n2>
+               <letra>d</letra>
+               <letra>o</letra>
+               <letra>s</letra>
+             </n2>
+         </num>
+           
+         <num>
+              <n6>
+               <letra>s</letra>
+               <letra>e</letra>
+               <letra>i</letra>
+               <letra>s</letra>
+              </n6>
+         </num>
+
+    </numeros>
+
+    

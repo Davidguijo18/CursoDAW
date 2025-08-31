@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Ejercicio Tablas. CREAR TABLAS V3</title>
+
+		<style type = text/css>
+			table,td,tr{border: solid 0.5px;
+				   border-spacing: 10px;
+				}
+		</style>
+
+		<script type="text/javascript">
+			window.onload = function(){
+				document.getElementById("boton").onclick = datosTabla;
+			}
+
+			function saludar(f,c){
+				alert("Esto es saluda. \n Has pulsado enla fila " + f + " y columna " + c);
+			}
+
+			function datosTabla(){
+				var filas = document.getElementById("nfilas").value;
+				var columnas = document.getElementById("ncolumnas").value;
+
+				crearTabla(filas,columnas);
+			}
+
+
+			function crearTabla(filas,columnas){
+
+				//Creo el thead
+				document.getElementById("tabla").innerHTML = ""
+				var tabla = document.getElementById("tabla");
+
+
+				var thead = document.createElement("thead");
+				var theadTR = document.createElement("tr");
+				var contadorColumnasTHead = 0;
+
+				for(var i = 0; i < columnas;i++){
+					var columnasThead = document.createElement("td");
+					var textoColumasThead = document.createTextNode("Columna " + contadorColumnasTHead);
+					columnasThead.appendChild(textoColumasThead);
+
+					contadorColumnasTHead++;
+					theadTR.appendChild(columnasThead);
+				}
+
+				thead.appendChild(theadTR);
+				tabla.appendChild(thead);
+
+
+
+
+				//Creo el tbody
+				var tbody = document.createElement("tbody");
+
+				for(var i = 0; i < filas;i++){
+					var filaTbody = document.createElement("tr");
+					
+					for(var j = 0;j < columnas;j++){
+						var columnaTBody = document.createElement("td");
+						columnaTBody.innerHTML = "Fila " + i + " Columna: " + j;
+
+						filaTbody.appendChild(columnaTBody);
+
+						(function (_i,_j){
+							columnaTBody.onclick = function(){ saludar(_i,_j);}
+						})(i,j);
+
+					tbody.appendChild(filaTbody);
+				}
+
+				tabla.appendChild(tbody);
+			}
+		}
+		
+		
+		</script>
+
+	</head>
+
+	<body>
+		<br>
+		
+		<h2>Ejercicio Tablas. CREAR TABLAS V4</h2>
+		<h2>USAMOS UNA CLAUSURA</h2>
+		
+		<h3>Introducir el código javascript necesario, para que al pulsar sobre
+		el botón, se cree una tabla con un número fijo de filas y columnas. </h3>
+		
+		<h3>Ahora generamos la tabla con formato: "thead" y "tbody"</h3>
+		
+		<h3>Añadimos un evento (onclick en este caso) a cada una de las celdas de la tabla</h3>
+		
+		<br/>
+		<form>
+			<p>
+				<label for="nfilas">Introduce el número de filas:</label>
+				<input type="number" id="nfilas" value="4" min="1" max="1000" />
+				<br />
+				<label for="ncolumnas">Introduce el número de columnas:</label>
+				<input type="number" id="ncolumnas" value="5" min="1" max="1000" />
+			</p>
+			<p>
+				<button type="button" id = "boton">Generar tabla</button>
+			</p>
+		</form>
+		<br>
+
+		<div id="tabla">
+			
+		</div>
+
+	</body>
+</html>

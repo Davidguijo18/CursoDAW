@@ -1,0 +1,15 @@
+<div class="container">
+    <!--<h2>Eta no son hora de yamal</h2>
+    <a routerLink="/nuevo">Navegar al nuevo componente</a><br><br>
+    <button routerLink="/borrar">Navegar al componente borrar</button><br><br>
+    <a routerLink="">Volver al inicio</a><br><br>
+    <button routerLink="/owner">Listar todos</button><br><br>-->
+
+    <app-search class="hijo" [labelButton]="'Vamo a buscar'" (searchEvent)="search($event)"></app-search>
+
+    <p>Resultado de la busqueda: {{msgEventSearch}}</p>
+    <br><br><br>
+    <button routerLink="/owner">Listar todos</button><br><br>
+    <app-owner></app-owner>
+    <!--<router-outlet />-->
+</div>

@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>Ejercicio 6-David Guijo Lopez</title>
+</head>
+
+<body>
+<form>
+    <h1>Informacion sobre el producto</h1>
+    <fieldset>
+        <legend>Datos Basicos</legend>
+            Nombre
+            <p><input type="text" name="nombre"></p>
+
+            <br>
+
+            Descripcion
+            <br>
+            <textarea name="descripcion" rows="4" cols="40"></textarea>
+
+            <br>
+
+            <p>Foto <input type="file" name="foto"></p>
+
+            <br>
+
+            <p><input type="checkbox" name="visitas">Añadir contador de visitas </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Datos Economicos</legend>
+        <p>Precio <input type="number" name="precio"> €
+        
+        ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+        Impuestos
+            <select name="iva">
+            <option value="1">4%</option>
+            <option value="2">7%</option>
+            <option value="3">16%</option>
+            <option value="4">25%</option>
+            </select>
+        </p>
+
+        <br>
+
+        <p>
+            Promocion
+            <br>
+            <input type="radio" name="promocion" value="ninguno"> Ninguno
+            <br>
+            <input type="radio" name="promocion" value="transporte"> Transporte gratuito
+            <br>
+            <input type="radio" name="promocion" value="descuento"> Descuento 5%
+        </p>
+
+    </fieldset>
+</form>
+</body>
+
+</html>

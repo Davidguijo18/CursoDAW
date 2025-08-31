@@ -1,0 +1,43 @@
+<h2>Propietario</h2>
+
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <td>Nombre:</td>
+        <td><b>{{ owner.firstName }} {{ owner.lastName }}</b></td>
+    </tr>
+    <tr>
+        <td>Direccion:</td>
+        <td>{{ owner.address }}</td>
+    </tr>
+    <tr>
+        <td>Ciudad:</td>
+        <td>{{ owner.city }}</td>
+    </tr>
+    <tr>
+        <td>Telefono:</td>
+        <td>{{ owner.telephone }}</td>
+    </tr>
+    </thead>
+</table>
+
+<br>
+
+<table class="botones">
+    <tr>
+        <td><a role="button" routerLink="">&#60; Volver</a></td>
+        <td><a routerLink="/formOwner/{{owner.id}}">Modificar</a></td>
+        <td><a (click)="eliminarOwner(owner)" routerLink="">Eliminar</a></td>
+        <td><a routerLink="/petAdd/{{owner.id}}/-1">Añadir mascota</a></td>
+    </tr>
+</table>
+
+<br><br><br>
+
+@if (owner.pets && owner.pets.length > 0) {
+    <app-pet-list [pets]="owner.pets" [nombreOwner]="owner.firstName" [idOwner]="owner.id" (eliminaPet)="borrarPet($event)"></app-pet-list>
+}@else {
+    <div class="container">
+        <p>Este owner no tiene mascotas</p>
+    </div>
+}

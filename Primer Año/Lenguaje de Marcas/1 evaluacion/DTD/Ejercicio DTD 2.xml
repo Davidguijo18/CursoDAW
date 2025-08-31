@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<DOCTYPE lista [
+<!ELEMENT lista(alumno,asignatura)>
+<!ELEMENT alumno(nombre, apellidos)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT apellidos (#PDDATA)>
+<!ELEMENT asignatura (nombre,dia,hora)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT dia (#PCDATA)>
+<!ELEMENT hora(#PCDATA)>
+]>
+
+
+<lista xmlns:xsi ="http://www.w3.org/2001/XMLSchema-instance">
+    <alumno id="1">
+        <nombre>Arturo</nombre>
+        <apellidos>Perez Rubio</apellidos>
+    </alumno>
+    <alumno id="2">
+        <nombre>Manuel</nombre>
+        <apellidos>Rodriguez Garcia</apellidos>
+    </alumno>
+    <asignatura codigo="059">
+        <nombre>ingles</nombre>
+        <dia>Miercoles</dia>
+        <hora>12:00</hora>
+    </asignatura>
+<lista>

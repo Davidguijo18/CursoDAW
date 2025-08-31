@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Faltaría la etiqueta vehísulos que englobase a todo, etiquetas para cerrar a terrestres, aereos y acuáticos, y al cerrar las etiquetas de vehiculo
+ falta una / delante (/vehiculo) y en la primera linea falta (?)-->
+
+    <vehiculos>
+      <terrrestres>
+        <vehiculo>bicicleta</vehiculo>
+        <vehiculo>coche</vehiculo>
+        <vehiculo>tractor</vehiculo>
+      </terrestres>
+      <acuaticos>
+        <vehiculo>canoa</vehiculo>
+      </acuaticos>
+      <aereos>
+        <vehiculo>avioneta</vehiculo>
+        <vehiculo>helicoptero</vehiculo>
+      </aereos>
+    </vehiculos>
+
+    

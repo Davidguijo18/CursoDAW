@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Cartas Clash Royale</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h1 class="text-center text-white mt-5">Cartas de Clash Royale</h1>
+                <div class="card-container" id="contenedor-cartas"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-success" onclick="abrirModalAgregar()">Añadir Carta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarLabel">Añadir Carta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregar" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="tipo" name="tipo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rareza" class="form-label">Rareza</label>
+                            <input type="text" class="form-control" id="rareza" name="rareza" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="costeElixir" class="form-label">Coste de Elixir</label>
+                            <input type="number" class="form-control" id="costeElixir" name="coste_elixir" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vida" class="form-label">Vida</label>
+                            <input type="number" class="form-control" id="vida" name="vida" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dano" class="form-label">Daño</label>
+                            <input type="number" class="form-control" id="dano" name="dano" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alcanze" class="form-label">Alcance</label>
+                            <input type="number" class="form-control" id="alcanze" name="alcanze" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCarta('agregar')">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar Carta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditar" enctype="multipart/form-data">
+                        <input type="hidden" id="idCarta" name="id">
+                        <div class="mb-3">
+                            <label for="editNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTipo" class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="editTipo" name="tipo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editRareza" class="form-label">Rareza</label>
+                            <input type="text" class="form-control" id="editRareza" name="rareza" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCosteElixir" class="form-label">Coste de Elixir</label>
+                            <input type="number" class="form-control" id="editCosteElixir" name="coste_elixir" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVida" class="form-label">Vida</label>
+                            <input type="number" class="form-control" id="editVida" name="vida" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDano" class="form-label">Daño</label>
+                            <input type="number" class="form-control" id="editDano" name="dano" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAlcanze" class="form-label">Alcance</label>
+                            <input type="number" class="form-control" id="editAlcanze" name="alcanze" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editImagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="editImagen" name="imagen">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCarta('editar')">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script src="validaciones.js"></script>
+
+</body>
+</html>

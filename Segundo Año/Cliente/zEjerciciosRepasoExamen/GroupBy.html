@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        const mostrarGrafico = (e) => {
+            if (e.target.selectedOptions.length <= 0) return;
+
+            let sel = e.target.selectedOptions;
+            let indi = sel[0].value;  // Valor seleccionado
+            console.log("sel[0].value: ", indi);
+
+            // Utilizamos groupBy para agrupar datosG[indi] por MetaData[2].Nombre
+            let opciones = groupBy(datosG[indi], s => s.MetaData[2].Nombre);
+
+            console.log("opciones: ", opciones);
+        };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

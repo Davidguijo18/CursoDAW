@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>David Guijo - API Pokemon</title>
+    <style type="text/css">
+        body {
+            background: url(fondo.jpg) center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            margin: auto;
+            margin-top: 16px;
+            border-radius: 15px;
+            width: 60%;
+            border-collapse: collapse;
+            background-color: yellow;
+        }
+
+        h3 {
+            color: #3a5fcd;
+        }
+
+        .estiloTabla th, .estiloTabla td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .estiloTabla th {
+            background-color: blue;
+            color: yellow;
+        }
+
+        .botones input {
+            width: 9em;
+            height: 3em;
+            margin: 20px;
+            font-size: medium;
+            background-color: blue;
+            color: yellow;
+            border-radius: 20px;
+        }
+
+        #estadisticas {
+            margin-top: 15px;
+            background-color: blue;
+            color: yellow;
+            padding-top: 1px;
+            padding-bottom: 10px;
+            border-radius: 10px;
+            width: 15%;
+            margin-bottom: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            display: none;
+        }
+
+        #estadisticas ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+        }
+        
+    </style>
+
+    <script type="text/javascript">
+        var urlPokemon = 'https://pokeapi.co/api/v2/pokemon?limit=5';
+        var enlaceAnterior = null;
+        var enlacePosterior = null;
+
+        window.onload = function() {
+            fetchPokemon(urlPokemon);
+
+            document.getElementById("siguiente").onclick = cargarNuevaPagina;
+            document.getElementById("anterior").onclick = cargarPaginaAnterior;
+        };
+
+
+        function fetchPokemon(url) {
+            fetch(url)
+                .then(r => r.json())
+                .then(pokemones => mostrarListaPokemon(pokemones))
+                .catch(error => console.error("Error al obtener los datos: ", error));
+        }
+
+
+        function mostrarListaPokemon(pokemones) {
+            enlaceAnterior = pokemones.previous;
+            enlacePosterior = pokemones.next;
+
+            var tabla = document.getElementById("cuerpoPokemon");
+            tabla.innerHTML = "";
+
+            pokemones.results.forEach(pokemon => {
+                obtenerDetallesPokemon(pokemon.url);
+            });
+        }
+
+
+        function obtenerDetallesPokemon(url) {
+            fetch(url)
+                .then(r => r.json())
+                .then(pokemon => {
+                    var fila = document.createElement("tr");
+
+
+                    var nombre = document.createElement("td");
+                    nombre.innerText = pokemon.name;
+                    fila.appendChild(nombre);
+
+
+                    var tdImagen = document.createElement("td");
+                    var imagen = document.createElement("img");
+                    imagen.src = pokemon.sprites.front_default;
+                    imagen.height = 90;
+                    imagen.onclick = function() {
+                        mostrarEstadisticas(pokemon);
+                    };
+                    tdImagen.appendChild(imagen);
+                    fila.appendChild(tdImagen);
+
+
+                    var altura = document.createElement("td");
+                    altura.innerText = pokemon.height;
+                    fila.appendChild(altura);
+
+
+                    var peso = document.createElement("td");
+                    peso.innerText = pokemon.weight;
+                    fila.appendChild(peso);
+
+
+                    var tipo = document.createElement("td");
+                    var tiposTexto = "";
+                    for (var i = 0; i < pokemon.types.length; i++) {
+                        tiposTexto += pokemon.types[i].type.name;
+                        if (i < pokemon.types.length - 1) {
+                            tiposTexto += ", ";
+                        }
+                    }
+                    tipo.innerHTML = tiposTexto;
+                    fila.appendChild(tipo);
+
+
+                    document.getElementById("cuerpoPokemon").appendChild(fila);
+                })
+                .catch(error => console.error("Error al obtener los datos: ", error));
+        }
+
+
+        function mostrarEstadisticas(pokemon) {
+            var estadisticas = document.getElementById("estadisticas");
+            estadisticas.innerHTML = `<h4>Estadisticas de ${pokemon.name}:</h4>`;
+            
+            estadisticas.innerHTML += `
+                <ul>
+                    <li>HP: ${pokemon.stats[0].base_stat}</li>
+                    <li>Ataque: ${pokemon.stats[1].base_stat}</li>
+                    <li>Defensa: ${pokemon.stats[2].base_stat}</li>
+                    <li>Ataque Especial: ${pokemon.stats[3].base_stat}</li>
+                    <li>Defensa Especial: ${pokemon.stats[4].base_stat}</li>
+                    <li>Velocidad: ${pokemon.stats[5].base_stat}</li>
+                </ul>`;
+            
+            estadisticas.style.display = "block";
+        }
+
+
+        function cargarNuevaPagina() {
+            if (enlacePosterior) {
+                fetchPokemon(enlacePosterior);
+            }
+        }
+
+
+        function cargarPaginaAnterior() {
+            if (enlaceAnterior) {
+                fetchPokemon(enlaceAnterior);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h3>API POKEMON</h3>
+    <br/>
+
+    <table id="pokemon" class="estiloTabla">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoPokemon"></tbody>
+    </table>
+
+    <div class="botones">
+        <input type="button" id="anterior" value="Anterior">
+        <input type="button" id="siguiente" value="Siguiente">
+    </div>
+
+    <div id="estadisticas"></div>
+</body>
+</html>

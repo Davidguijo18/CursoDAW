@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista facturas</title>
+</head>
+<body>
+    <h2>Listado de facturas</h2>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>NUMERO</th>
+        <th>ID CLIENTE</th>
+        <th>FECHA</th>
+    </tr>
+    @for (i of listadoFacturas; track $index) {
+    <tr>
+        <td>{{i.id}}</td>
+        <td><a routerLink="/listaDetalles/{{i.id}}/{{i.numero}}">{{i.numero}}</a></td>
+        <td>{{i.id_cliente}}</td>
+        <td>{{i.fecha}}</td>
+    </tr>
+    }
+</table>
+</body>
+</html>

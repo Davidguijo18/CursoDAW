@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--He anadido el encoding, el doctype de receta y he declarado titulo, ingredientes y procedimiento. He quitado titulo en receta y en el xml tambien he quitado titulo-->
+<!DOCTYPE receta[
+<!ELEMENT receta (ingredientes,procedimiento)>
+<!ELEMENT ingredientes(#PCDATA)>
+<!ELEMENT procedimiento (#PCDATA)>
+]>
+
+<receta>
+    <ingredientes>...</ingredientes>
+    <procedimiento>...</procedimiento>
+</receta>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Prueba IndexedDB con JsStore</title>
+  
+  <!-- Referencia a JsStore y su worker -->
+  <script src="https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.worker.min.js"></script>
+  
+  <script>
+    // Inicializar la conexión con JsStore
+    const jsStoreCon = new JsStore.Connection(new Worker("https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.worker.min.js"));
+
+    // Crear la base de datos y las tablas
+    const createDB = async () => {
+      const dbName = 'prueba1';
+      const database = {
+        name: dbName,
+        tables: [
+          {
+            name: 'provincias',
+            columns: {
+              id: { primaryKey: true, autoIncrement: true },
+              id_provincia: { notNull: true, dataType: "number" },
+              provincia: { notNull: false, dataType: "string" }
+            }
+          }
+        ]
+      };
+
+      try {
+        const isDbCreated = await jsStoreCon.initDb(database);
+        if (isDbCreated === true) {
+          console.log("Base de datos creada");
+          // Insertar provincias de ejemplo si la DB es nueva
+          insertarProvincias();
+        } else {
+          console.log("Base de datos abierta");
+        }
+      } catch (ex) {
+        console.error("Error al crear la base de datos", ex);
+      }
+    };
+
+    // Insertar provincias de ejemplo
+    const insertarProvincias = async () => {
+      const provincias = [
+        { id_provincia: 2, provincia: 'Albacete' },
+        { id_provincia: 3, provincia: 'Alicante/Alacant' },
+        { id_provincia: 4, provincia: 'Almería' },
+        { id_provincia: 1, provincia: 'Araba/Álava' },
+        { id_provincia: 33, provincia: 'Asturias' }
+        // Puedes agregar más provincias aquí
+      ];
+
+      try {
+        const insertCount = await jsStoreCon.insert({
+          into: 'provincias',
+          values: provincias
+        });
+        console.log(`${insertCount} filas insertadas en 'provincias'`);
+      } catch (error) {
+        console.error("Error al insertar provincias", error);
+      }
+    };
+
+    // Obtener todas las provincias
+    const obtenerProvincias = async () => {
+      try {
+        const provincias = await jsStoreCon.select({
+          from: 'provincias'
+        });
+        console.log('Provincias:', provincias);
+        mostrarProvincias(provincias);
+      } catch (error) {
+        console.error("Error al obtener provincias", error);
+      }
+    };
+
+    // Mostrar provincias en el HTML
+    const mostrarProvincias = (provincias) => {
+      const sal = document.getElementById('sal');
+      sal.innerHTML = '<h3>Provincias:</h3>';
+      provincias.forEach(provincia => {
+        const divProvincia = document.createElement('div');
+        divProvincia.textContent = `ID: ${provincia.id_provincia} - Provincia: ${provincia.provincia}`;
+        sal.appendChild(divProvincia);
+      });
+    };
+
+    // Crear una nueva provincia
+    const insertarProvincia = async () => {
+      const idProvincia = parseInt(prompt("Ingresa el ID de la provincia"));
+      const provincia = prompt("Ingresa el nombre de la provincia");
+      
+      if (idProvincia && provincia) {
+        try {
+          await jsStoreCon.insert({
+            into: 'provincias',
+            values: [{ id_provincia: idProvincia, provincia: provincia }]
+          });
+          alert("Provincia insertada correctamente");
+          obtenerProvincias(); // Refrescar la lista
+        } catch (error) {
+          console.error("Error al insertar provincia", error);
+        }
+      } else {
+        alert("Por favor ingresa un ID y un nombre de provincia válidos");
+      }
+    };
+
+    // Actualizar una provincia
+    const actualizarProvincia = async () => {
+      const idProvincia = parseInt(prompt("Ingresa el ID de la provincia que quieres actualizar"));
+      const provincia = prompt("Ingresa el nuevo nombre de la provincia");
+      
+      if (idProvincia && provincia) {
+        try {
+          const updateCount = await jsStoreCon.update({
+            in: 'provincias',
+            set: { provincia: provincia },
+            where: { id_provincia: idProvincia }
+          });
+          alert("Provincia actualizada correctamente");
+          obtenerProvincias(); // Refrescar la lista
+        } catch (error) {
+          console.error("Error al actualizar provincia", error);
+        }
+      } else {
+        alert("Por favor ingresa un ID y un nuevo nombre de provincia válidos");
+      }
+    };
+
+    // Eliminar una provincia
+    const eliminarProvincia = async () => {
+      const idProvincia = parseInt(prompt("Ingresa el ID de la provincia que deseas eliminar"));
+      
+      if (idProvincia) {
+        try {
+          const deleteCount = await jsStoreCon.remove({
+            from: 'provincias',
+            where: { id_provincia: idProvincia }
+          });
+          alert("Provincia eliminada correctamente");
+          obtenerProvincias(); // Refrescar la lista
+        } catch (error) {
+          console.error("Error al eliminar provincia", error);
+        }
+      } else {
+        alert("Por favor ingresa un ID de provincia válido");
+      }
+    };
+
+    // Inicializar la base de datos y cargar provincias al iniciar la página
+    window.onload = () => {
+      createDB();
+      obtenerProvincias();
+    };
+  </script>
+</head>
+
+<body>
+  <div id="pPrincipal">
+    <h1>Gestión de Provincias</h1>
+
+    <div id="sal"></div>
+
+    <button onclick="insertarProvincia()">Agregar Provincia</button>
+    <button onclick="actualizarProvincia()">Actualizar Provincia</button>
+    <button onclick="eliminarProvincia()">Eliminar Provincia</button>
+  </div>
+</body>
+</html>

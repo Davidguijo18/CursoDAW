@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de profesor</title>
+</head>
+<body>
+    <h4>{{h4Texto}}</h4>
+<div>
+    <p>{{infoTexto}}</p>
+
+<form class="form-horizontal" #profeForm="ngForm" (ngSubmit)="enviar()">
+    <div class="mb-3">
+        <label for="dni" class="form-label"><b>DNI</b></label>
+        <input type="text" class="form-control" id="dni" required [(ngModel)]="profesor.dni" name="dni" #dni="ngModel">
+
+        <div [hidden]="dni.valid || dni.pristine" class="alert alert-danger">
+            El DNI es obligatorio
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="nombre" class="form-label"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="nombre" required [(ngModel)]="profesor.nombre" name="nombre" #nombre="ngModel">
+
+        <div [hidden]="nombre.valid || nombre.pristine" class="alert alert-danger">
+            El nombre es obligatorio
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="apellidos" class="form-label"><b>Apellidos</b></label>
+        <input type="text" class="form-control" id="apellidos" required [(ngModel)]="profesor.apellidos" name="apellidos" #apellidos="ngModel">
+
+        <div [hidden]="apellidos.valid || apellidos.pristine" class="alert alert-danger">
+            El apellido es obligatorio
+        </div>
+    </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-2" type="submit" [disabled]="!profeForm.valid">{{textBoton}}</button>
+        <span>|</span>
+        <a class="btn btn-primary col-2" routerLink="" role="button">Volver</a>  
+    </div>
+
+</form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE videoclub[
+<!ELEMENT videoclub(factura+)>
+<!ELEMENT factura(datosCliente,datosFactura,datosPelicula)>
+<!ELEMENT datosCliente(nombre,apellidos,dni,telefono,identificador)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT apellidos (#PCDATA)>
+<!ELEMENT dni (#PCDATA)>
+<!ELEMENT telefono (#PCDATA)>
+<!ELEMENT direccion (#PCDATA)>
+<!ELEMENT datosFactura(resguardo,alquiler,compra)>
+<!ELEMENT resguardo(forma_de_pago,importeTotal)>
+<!ELEMENT forma_de_pago (#PCDATA)>
+<!ELEMENT importeTotal (#PCDATA)>
+<!ELEMENT compra(dvd,cintas_video)>
+<!ELEMENT dvd (titulo,contieneExtras,fechaSalida)>
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT contieneExtras (#PCDATA)>
+<!ELEMENT fechaSalida (#PCDATA)>
+<!ELEMENT cintas_video(formato,reboninada)>
+<!ELEMENT formato (#PCDATA)>
+<!ELEMENT rebobinada(#PCDATA)>
+<!ELEMENT alquiler(fechaDevolucion)>
+<!ELEMENT compra(dvd, cintas_video)>
+<ELEMENT datosPelicula(titulo, genero,duracion,id,actores,aplicaciones)
+<!ELEMENT
+]>
+
+
+
+<videoclub>
+    <factura>
+
+        <datosCliente>
+            <nombre>Agustin</nombre>
+            <apellidos>Martinez Gomez</apellidos>
+            <dni>72037423P</dni>
+            <telefono>643982334</telefono>
+            <identificador>BT702</identificador>
+        </datosCliente>
+
+
+        <datosFactura>   
+            <resguardo>
+                <forma_de_pago>Efectivo</forma_de_pago>
+                <importeTotal>12 euros</importeTotal>
+            </resguardo>
+            
+            <alquiler>
+                <fechaDevolucion>12/12/2022</fechaDevolucion>
+            </alquiler>
+            
+            <compra>
+                <dvd>
+                    <titulo>Avatar</titulo>
+                    <contieneExtras>Si</contieneExtras>
+                    <fechaSalida>14/7/2008</fechaSalida>
+                </dvd>
+                <cintas_video>
+                    <formato>VHS</formato>
+                    <reboninada>No</reboninada>
+                </cintas_video>
+            </compra>
+        <datosFactura> 
+
+
+        <datosPelicula>
+            <titulo>Avatar</titulo>
+            <genero>Accion</genero>
+            <duracion>2 horas</duracion>
+            <id>B7434DF</id>
+            <valoracion>10</valoracion>
+            <actores>
+                <actor></actor>
+                <actor></actor>
+                <actor></actor>
+            </actores>
+            <aplicaciones>
+                <visordeimagenes.exe>
+                    <imagenPortada></imagenPortada>
+                </visordeimagenes.exe>
+
+                <caratulas>
+                    <caratula>c0360.jpg</caratula>
+                    <caratula>c0437.jpg</caratula>
+                    <caratula>c1201.jpg</caratula>
+                </caratulas>
+            </aplicaciones>
+        </datosPelicula>
+
+
+    </factura>
+
+    <factura>
+
+        <datosCliente>
+            <nombre>Antonio</nombre>
+            <apellidos>Gordillo Rodriguez</apellidos>
+            <dni>7254523I</dni>
+            <telefono>65644548</telefono>
+            <identificador>BT702</identificador>
+        </datosCliente>
+
+
+        <datosFactura>   
+            <resguardo>
+                <forma_de_pago>Efectivo</forma_de_pago>
+                <importeTotal>12 euros</importeTotal>
+            </resguardo>
+            
+            <alquiler>
+                <fechaDevolucion>12/12/2022</fechaDevolucion>
+            </alquiler>
+            
+            <compra>
+                <dvd>
+                    <titulo>Avatar</titulo>
+                    <contieneExtras>Si</contieneExtras>
+                    <fechaSalida>14/7/2008</fechaSalida>
+                </dvd>
+                <cintas_video>
+                    <formato>VHS</formato>
+                    <reboninada>No</reboninada>
+                </cintas_video>
+            </compra>
+        <datosFactura> 
+
+
+        <datosPelicula>
+            <titulo>Avatar</titulo>
+            <genero>Accion</genero>
+            <duracion>2 horas</duracion>
+            <id>B7434DF</id>
+            <valoracion>10</valoracion>
+            <actores>
+                <actor></actor>
+                <actor></actor>
+                <actor></actor>
+            </actores>
+            <aplicaciones>
+                <visordeimagenes.exe>
+                    <imagenPortada></imagenPortada>
+                </visordeimagenes.exe>
+
+                <caratulas>
+                    <caratula>c0360.jpg</caratula>
+                    <caratula>c0437.jpg</caratula>
+                    <caratula>c1201.jpg</caratula>
+                </caratulas>
+            </aplicaciones>
+        </datosPelicula>
+
+
+    </factura>
+</videoclub>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista departamentos</title>
+</head>
+<body>
+    <h2>Listado de departamentos</h2>
+    <button type="submit" (click)="viajarAnadirDepto()">Añadir departamento</button>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCION</th>
+        <th>ACCION</th>
+    </tr>
+    <tr *ngFor="let i of listaDepartamentos">
+        <td>{{i.id}}</td>
+        <td>{{i.nombre}}</td>
+        <td>{{i.descripcion}}</td>
+        <td><button (click)="viajarListadoProfesores(i)" type="submit">Ver profesores</button></td>
+    </tr>
+</table>
+</body>
+</html>

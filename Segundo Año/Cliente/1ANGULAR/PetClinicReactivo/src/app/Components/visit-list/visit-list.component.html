@@ -1,0 +1,25 @@
+<h3>Visitas</h3>
+
+@if (visits.length > 0) {
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Descripción</th>
+        <th colspan="2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (visit of visits; track $index) {
+        <tr>
+          <td>{{ visit.visitDate }}</td>
+          <td>{{ visit.description }}</td>
+          <td><a routerLink="/addVisit/{{idPet}}/{{idPet}}/{{visit.id}}">Editar</a></td>
+          <td><a (click)="eliminarVisita(visit)" role="button">Eliminar</a></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>No hay visitas registradas para esta mascota.</p>
+}

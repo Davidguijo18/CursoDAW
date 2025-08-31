@@ -1,0 +1,41 @@
+<h4>Nueva persona</h4>
+<div>
+    <p>Añadir nueva persona</p>
+
+<form class="form-horizontal" #personaForm="ngForm" (ngSubmit)="enviar()">
+    <div class="mb-3">
+        <label for="dni" class="form-label"><b>DNI</b></label>
+        <input type="text" class="form-control" id="dni" required [(ngModel)]="persona.DNI" name="dni" #dni="ngModel">
+
+        <div [hidden]="dni.valid || dni.pristine" class="alert alert-danger">
+            El DNI es obligatorio
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="nombre" class="form-label"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="nombre" required [(ngModel)]="persona.NOMBRE" name="nombre" #nombre="ngModel">
+
+        <div [hidden]="nombre.valid || nombre.pristine" class="alert alert-danger">
+            El nombre es obligatorio
+        </div>
+    </div>
+
+    <div class="row">
+        <label for="apellidos" class="form-label"><b>Apellidos</b></label>
+        <input type="text" class="form-control" id="apellidos" required [(ngModel)]="persona.APELLIDOS" name="apellidos" #apellidos="ngModel">
+
+        <div [hidden]="apellidos.valid || apellidos.pristine" class="alert alert-danger">
+            El apellido es obligatorio
+        </div>
+    </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-2" type="submit" [disabled]="!personaForm.valid">{{textBoton}}</button>
+        <span>|</span>
+        <a class="btn btn-primary col-2" routerLink="" role="button">Volver</a>  
+    </div>
+
+</form>
+
+</div>

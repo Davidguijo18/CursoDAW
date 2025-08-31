@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Plantilla</title>
+		<style type="text/css">
+			#coche{
+                margin-top: 30px;
+                width: 100px;
+                height: 100px;
+                margin-left: 90px;
+                animation: animacion 5s linear;
+				animation-iteration-count: infinite;
+            }
+
+            @keyframes animacion{
+            0% {
+                transform: translateX(0%) rotateY(0deg);
+            }
+            49.99% {
+                transform: translateX(85vw) rotateY(0deg);
+            }
+            50% {
+                transform: translateX(85vw) rotateY(180deg);
+            }
+            100% {
+                transform: translateX(0%) rotateY(180deg);
+            }
+            }
+
+    
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id ="coche">
+            <div id="foto">
+                <img src="coche_1.gif">
+            </div>
+		</div>
+		
+	</body>
+
+</html>

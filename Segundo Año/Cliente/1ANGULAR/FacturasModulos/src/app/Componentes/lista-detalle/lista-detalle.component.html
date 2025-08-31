@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista facturas</title>
+</head>
+<body>
+    <h2>Detalles de la factura {{numeroFactura}}</h2>
+    <button type="button" value="Nuevo detalle" (click)="anadirDetalle()">Nuevo detalle</button>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>CANTIDAD</th>
+        <th>CONCEPTO</th>
+        <th>PRECIO</th>
+        <th>IVA</th>
+        <th>TOTAL</th>
+        <th>EDITAR</th>
+        <th>BORRAR</th>
+    </tr>
+    <tr *ngFor="let i of listaDetallesFacturas">
+        <td>{{i.id}}</td>
+        <td>{{i.cantidad}}</td>
+        <td>{{i.concepto}}</td>
+        <td>{{i.precio}}</td>
+        <td>{{(i.precio * i.cantidad) * (i.tipo_iva / 100)}}</td>
+        <td>{{(i.precio * i.cantidad) + ((i.precio * i.cantidad) * (i.tipo_iva / 100))}}</td>
+        <td><button type="submit" (click)="modificarDetalle()">Editar</button></td>
+        <td><button type="submit" (click)="eliminarDetalle(i)">Eliminar</button></td>
+    </tr>
+    <tr>
+        <br><br>
+        <td>Total IVA: {{totalIva}}</td>
+        <td>Total TOTAL: {{totalTotal}}</td>
+    </tr>
+</table>
+
+<div *ngIf="anadir" class="container">
+
+<form class="form-horizontal" #profeForm="ngForm" (ngSubmit)="anadirLineaDetalle()">
+    <div class="mb-3">
+        <label for="cantidad" class="form-label"><b>Cantidad</b></label>
+        <input type="text" class="form-control" id="cantidad" required [(ngModel)]="detalleFactura.cantidad" name="cantidad" #cantidad="ngModel">
+
+        <div [hidden]="cantidad.valid || cantidad.pristine" class="alert alert-danger">
+            La cantidad es obligatoria
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="concepto" class="form-label"><b>Concepto</b></label>
+        <input type="text" class="form-control" id="concepto" required [(ngModel)]="detalleFactura.concepto" name="concepto" #concepto="ngModel">
+
+        <div [hidden]="concepto.valid || concepto.pristine" class="alert alert-danger">
+            El concepto es obligatorio
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="precio" class="form-label"><b>Precio</b></label>
+        <input type="text" class="form-control" id="precio" required [(ngModel)]="detalleFactura.precio" name="precio" #precio="ngModel">
+
+        <div [hidden]="precio.valid || precio.pristine" class="alert alert-danger">
+            El precio es obligatorio
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="iva" class="form-label"><b>IVA</b></label>
+        <input type="text" class="form-control" id="iva" required [(ngModel)]="detalleFactura.tipo_iva" name="iva" #iva="ngModel">
+
+        <div [hidden]="iva.valid || iva.pristine" class="alert alert-danger">
+            El IVA es obligatorio
+        </div>
+    </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-2" type="submit" [disabled]="!profeForm.valid" value="Añadir linea de detalle">Añadir</button>
+        <button class="btn btn-primary col-2" type="submit" (click)="cancelarFormulario()">Cancelar</button>
+    </div>
+</form>
+</div>
+<button type="submit" (click)="volverAlInicio()">Volver al inicio</button>
+</body>
+</html>

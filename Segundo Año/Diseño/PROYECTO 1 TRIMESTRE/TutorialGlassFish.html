@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación de GlassFish en Windows</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f9;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera */
+        #cabecera {
+            display: flex;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #222;
+            color: white;
+            justify-content: space-between;
+        }
+        #logo img {
+            width: 80px;
+            height: auto;
+        }
+        #nombreweb h1 {
+            font-size: 2em;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul {
+            display: flex;
+            list-style: none;
+        }
+        .menuDesplegable ul > li {
+            position: relative;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul a {
+            color: #444;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
+            background-color: #c6ddfa;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .menuDesplegable ul a:hover, .menuDesplegable ul a:focus {
+            background-color: #ff9101;
+        }
+        .menuDesplegable ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #c6ddfa;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0.5em 0;
+        }
+        .menuDesplegable ul li:hover ul {
+            display: block;
+        }
+
+        #tutorial {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 2em;
+            flex-grow: 1;
+        }
+        #tutorial h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+        #tutorial h3 {
+            font-size: 1.5em;
+            color: #444;
+            margin-top: 1.5em;
+        }
+        #tutorial p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1em;
+        }
+        #tutorial ul {
+            font-size: 1em;
+            margin-left: 1em;
+            list-style: none;
+        }
+        #tutorial ul li::before {
+            content: "• ";
+            color: #0077cc;
+        }
+        #tutorial pre {
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            padding: 1em;
+            overflow-x: auto;
+            margin-bottom: 1em;
+            font-size: 0.9em;
+        }
+        #tutorial a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        #tutorial a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        #piePagina {
+            background-color: #222;
+            color: white;
+            padding: 1.5em;
+            text-align: center;
+        }
+        #piePagina p, #piePagina a {
+            font-size: 0.9em;
+            color: #ddd;
+            margin: 0.5em 0;
+        }
+        #piePagina a:hover {
+            color: #c6ddfa;
+            text-decoration: underline;
+        }
+
+        #logo img:hover { transform: scale(1.1); transition: transform 0.3s ease; }
+
+        body{
+            background-color: #c6ddfa ;
+            color: #444 ;    
+        }
+
+        body #cabecera {
+            background-color: #ff9101 ;
+        }
+
+        body #piePagina{
+            background-color: #ff9101 ;
+        } 
+    </style>
+</head>
+<body>
+
+<!-- Cabecera -->
+<div id="cabecera">
+    <div id="logo">
+        <img src="imagenes/logopagina.jpg" alt="Logo GuijoWeb">
+    </div>
+    <div id="nombreweb">
+        <h1>GuijoWeb</h1>
+    </div>
+    <div class="menuDesplegable">
+        <ul>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Apache Tomcat</a>
+                <ul>
+                    <li><a href="DescargaApacheTomcat.html">Descarga</a></li>
+                    <li><a href="TutorialApacheTomcat.html">Intalacion</a></li>
+                    <li><a href="ConfiguracionApacheTomcat.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">WildFly</a>
+                <ul>
+                    <li><a href="DescargaWindFly.html">Descarga</a></li>
+                    <li><a href="TutorialWindFly.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionWindFly.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">GlassFish</a>
+                <ul>
+                    <li><a href="DescargaGlassFish.html">Descarga</a></li>
+                    <li><a href="TutorialGlassFish.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionGlassFish.html">Configuracion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<!-- Tutorial -->
+<div id="tutorial">
+    <h2>Instalación de GlassFish en Windows</h2>
+
+    <h3>1. Requisitos Previos</h3>
+    <p>Asegúrate de que tu sistema cumpla con los siguientes requisitos:</p>
+    <ul>
+        <li>Windows 10 o superior.</li>
+        <li>Java Development Kit (JDK) 8 o superior instalado.</li>
+        <li>Conexión a Internet.</li>
+    </ul>
+
+    <h3>2. Instalación de Java</h3>
+    <p>Verifica si Java está instalado en tu sistema. Abre una ventana de <strong>símbolo del sistema</strong> y escribe:</p>
+    <pre>java -version</pre>
+    <p>Si Java no está instalado, puedes descargarlo desde el <a href="https://www.java.com/es/" target="_blank"> sitio oficial de Oracle </a>. Una vez descargado, sigue el proceso de instalación del JDK.</p>
+
+    <h3>3. Descarga de GlassFish</h3>
+    <p>Si aún no has descargado GlassFish, visita nuestra  <a href="DescargaGlassFish.html"> página de descargas </a> y descarga la última versión de GlassFish. Una vez descargado el archivo, continúa con los siguientes pasos.</p>
+
+
+    <h3>4. Instalación de GlassFish</h3>
+    <p>Una vez descargado el archivo comprimido (por ejemplo, un archivo .zip), descomprímelo en la carpeta que desees, como <code>C:\glassfish</code>.</p>
+    <p>La estructura de carpetas resultante debería tener una carpeta llamada <code>glassfish</code> dentro de <code>C:\glassfish</code> con todos los archivos de instalación.</p>
+
+    <h3>5. Configuración de Variables de Entorno</h3>
+    <p>Configura las variables de entorno en tu sistema para que GlassFish funcione correctamente. Sigue estos pasos:</p>
+    <ul>
+        <li>Haz clic derecho en "Este PC" y selecciona "Propiedades".</li>
+        <li>Haz clic en "Configuración avanzada del sistema".</li>
+        <li>En la ventana de propiedades del sistema, selecciona "Variables de entorno".</li>
+        <li>Bajo "Variables del sistema", haz clic en "Nueva..." y crea una variable llamada <code>GLASSFISH_HOME</code> con el valor de la ruta donde descomprimiste GlassFish (por ejemplo, <code>C:\glassfish\glassfish</code>).</li>
+        <li>Añade la carpeta <code>bin</code> de GlassFish al <code>PATH</code>. Crea o edita una variable de sistema llamada <code>Path</code> y añade la siguiente ruta: <code>C:\glassfish\glassfish\bin</code>.</li>
+    </ul>
+
+    <h3>6. Iniciar GlassFish</h3>
+    <p>Para iniciar GlassFish, abre una ventana de <strong>símbolo del sistema</strong> y ejecuta el siguiente comando:</p>
+    <pre>asadmin start-domain</pre>
+    <p>GlassFish debería iniciar y podrás acceder a la consola de administración en <code>http://localhost:4848</code> desde tu navegador.</p>
+
+    <h3>7. Detener GlassFish</h3>
+    <p>Para detener GlassFish, ejecuta el siguiente comando:</p>
+    <pre>asadmin stop-domain</pre>
+
+    <h3>Video Tutorial</h3>
+    <p>Mira este video para aprender paso a paso cómo instalar GlassFish en Windows:</p>
+    <div style="text-align: center;">
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/nufEt2FYjsA" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<!-- Pie de Página -->
+<div id="piePagina">
+    <p>© 2024 GuijoWeb. Todos los derechos reservados.</p>
+    <p><a href="Index.html">Volver al Inicio</a></p>
+    <p>Contacto: <a href="mailto:contacto@guijoweb.com">contacto@guijoweb.com</a></p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+</div>
+
+</body>
+</html>

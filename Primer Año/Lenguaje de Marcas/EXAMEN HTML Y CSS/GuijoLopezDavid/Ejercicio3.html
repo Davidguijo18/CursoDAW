@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<title>Ejercicio 12 - Formulario de alta</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="ejercicio3act1.css">
+</head>
+
+<body>
+<div id="contenedor">
+
+<h2>Formulario de alta</h2>
+
+<form method="post" action="#">
+<div class="primerdiv">
+<li>
+  
+  <label class="titulo" for="nombre"><b>Nombre y apellidos</b> <span class="requerido">*</span></label><br>
+    <span>
+      <input id="nombre" name="nombre" value="" /><br>
+      <label for="nombre">Nombre</label>
+    </span>
+<br>
+    <span>
+      <input id="apellido1" name="apellido1" value="" /><br>
+      <label for="apellido1">Primer apellido</label>
+    </span>
+  <br>
+    <span>
+      <input id="apellido2" name="apellido2" value="" /><br>
+      <label for="apellido2">Segundo apellido</label>
+    </span>
+
+</li>
+</div>
+<div class="segundodiv">
+<li>
+  <label class="titulo" for="direccion"><b>Direccion</b> <span class="requerido">*</span></label><br>
+    <span>
+      <input id="direccion" name="direccion" value="" /><br>
+      <label for="direccion">Calle, numero, piso, puerta</label>
+    </span>
+    <br>
+    <span>
+      <input id="codigopostal" name="codigopostal" value="" /><br>
+      <label for="codigopostal">Codigo postal</label>
+    </span>
+    <span>
+      <input id="municipio" name="municipio" value="" />
+      <label for="municipio">Municipio</label>
+    </span>
+    <br>
+    <span>
+      <select id="provincia" name="provincia"><br>
+        <option value=""></option>
+        <option value="provincia1">Provincia 1</option>
+        <option value="provincia2">Provincia 2</option>
+        <option value="provincia3">Provincia 3</option>
+      </select>
+      <label for="provincia">Provincia</label>
+    </span>
+    
+    <span>
+      <select id="pais" name="pais">
+        <option value=""></option>
+        <option value="pais1">Pais 1</option>
+        <option value="pais2">Pais 2</option>
+        <option value="pais3">Pais 3</option>
+      </select>
+      <label for="pais">Pais</label>
+    </span>
+
+</li>
+</div>
+<div class="tercerdiv">
+<li>
+    <label class="titulo" for="email"><b>Email</b></label><br>
+    <span>
+      <input id="email" name="email" value="" />
+    </span>
+
+</li>
+</div>
+<div class="cuartodiv">
+<li>
+  <label class="titulo" for="telefonofijo"><b>Telefono</b> <span class="requerido">*</span></label><br>
+    <span>
+      <input id="telefonofijo" name="telefonofijo" value="" />
+      <label for="telefonofijo">Fijo</label>
+    </span>
+
+    <span>
+      <input id="telefonomovil" name="telefonomovil" value="" />
+      <label for="telefonomovil">Movil</label>
+    </span>
+
+</li>
+<br><br>
+<li>
+  <input id="alta" type="submit" value="Darme de alta &rarr;" />
+</li>
+</div>
+</form>
+
+
+</body>
+</html>

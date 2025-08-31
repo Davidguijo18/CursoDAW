@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Escolar - IES Antonio Domínguez Ortiz</title>
+    <meta name="description" content="Consulta el calendario escolar del IES Antonio Domínguez Ortiz.">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!-- Cabecera -->
+    <div id="header-placeholder"></div>
+
+    <!-- Barra de navegación -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Contenido principal -->
+    <main class="container my-5">
+        <h2 class="mb-4">Calendario Escolar</h2>
+        <p class="mb-4">Consulta aquí los eventos más importantes del curso y visualiza el calendario oficial.</p>
+
+        <!-- Calendario -->
+        <div class="ratio ratio-16x9 mb-5">
+            <iframe src="https://calendar.google.com/calendar/embed?src=es.spain%23holiday%40group.v.calendar.google.com&ctz=Europe%2FMadrid" style="border: 0;" frameborder="0" scrolling="no"></iframe>
+        </div>
+
+        <!-- Tabla de fechas -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Evento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>16 de septiembre de 2024</td><td>Inicio del curso escolar</td></tr>
+                    <tr><td>12 de octubre de 2024</td><td>Día de la Hispanidad (festivo)</td></tr>
+                    <tr><td>1 de noviembre de 2024</td><td>Día de Todos los Santos (festivo)</td></tr>
+                    <tr><td>6 de diciembre de 2024</td><td>Día de la Constitución (festivo)</td></tr>
+                    <tr><td>23 dic. 2024 – 6 ene. 2025</td><td>Vacaciones de Navidad</td></tr>
+                    <tr><td>28 de marzo – 6 de abril de 2025</td><td>Vacaciones de Semana Santa</td></tr>
+                    <tr><td>23 de junio de 2025</td><td>Fin del curso escolar</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/loader.js"></script>
+</body>
+</html>

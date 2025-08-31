@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Envio de parametros con AJAX externo</title>
+	<style type="text/css">
+
+	body{
+		background: url(sw.avif) no-repeat;
+		text-align: center;
+	}
+
+	table{
+		margin: auto;
+		margin-top: 70px;
+		border-radius: 15px;
+	}
+
+	h3{
+		margin: auto;
+		color: #ffd000;
+		font-size: larger;
+	}
+
+	.estilo_Tabla_1 {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		width: 70%;
+		border-collapse: collapse;
+	}
+	
+	.estilo_Tabla_1 td {
+		font-size: 1em;
+		border: 1px solid #000000;
+		padding: 4px;
+	}
+	
+	.estilo_Tabla_1 th {
+		border: 1px solid #000000;
+		font-size: 1.2em;
+		padding: 5px;
+		background-color: #000000;
+		color: #ffd000;
+	}
+
+	.estilo_Tabla_1 tr td {
+		color: #000000;
+		background-color: #cf0b0b;
+	}
+	
+
+	.estilo_Tabla_1 tr td:nth-child(-n+3) {
+		color: #000000;
+		background-color: rgb(59, 59, 228);
+	}
+
+
+	.estilo_Tabla_1 tr td:nth-child(5).horizontal-gradient{
+		background: linear-gradient(to right, blue, rgb(255, 0, 43));
+	}
+	
+	caption {
+		caption-side:bottom;
+		color: #ffd000;
+		font-size: large;
+		background-color: #000000;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		align-items: center;
+	}
+
+	h3{
+		margin: auto;
+	}
+
+	.botones input{
+		width: 8em;
+		height: 4em;
+		border-radius: 3em;
+		font-size: large;
+		background-color: #000000;
+		color: #ffd000;
+		margin-right: 40px;
+	}
+
+	#datosPlaneta, #datosPlaneta ul{
+		color: white;
+		list-style-type: none;
+	}
+
+	</style>
+	
+    <script type="text/javascript" src="UtilAJAX.js"></script>
+	<script type="text/javascript">
+
+    var surlPersonajes = 'https://swapi.dev/api/people/?format=json';
+	var enlaceAnterior = null;
+	var enlacePosterior = null;
+	var peti = new pAJAX();
+
+	window.onload = function(){
+        peti.peticion(surlPersonajes, 'GET', recibePersonajes);
+
+		document.getElementById("siguiente").onclick = cargarNuevaPagina;
+		document.getElementById("anterior").onclick = cargarPaginaAnterior;
+    }
+
+
+	function cargarNuevaPagina(){
+		if(enlacePosterior){
+			peti.peticion(enlacePosterior,'GET',recibePersonajes)
+		}
+	}
+
+	function cargarPaginaAnterior(){
+		if(enlaceAnterior){
+			peti.peticion(enlaceAnterior,'GET',recibePersonajes);
+		}
+	}
+
+    const pintaPlanetas = (planeta) =>{
+        var planetas = document.getElementById("datosPlaneta");
+        console.log("Mostrando información del planeta");
+
+        // Limpiar el contenido previo del div antes de agregar nueva información
+        planetas.innerHTML = ""; 
+
+		var datosPlaneta = [
+            "Nombre: " + planeta.name,
+            "Periodo de rotación: " + planeta.rotation_period,
+            "Periodo orbital: " + planeta.orbital_period,
+            "Diámetro: " + planeta.diameter,
+            "Clima: " + planeta.climate,
+            "Gravedad: " + planeta.gravity,
+            "Terreno: " + planeta.terrain
+        ];
+
+		var lista = document.createElement("ul");
+		datosPlaneta.forEach(element => {
+			var filaLista = document.createElement("li");
+			filaLista.innerHTML = element;
+			lista.appendChild(filaLista);
+		});
+
+		planetas.appendChild(lista);
+    }
+
+    const recibePersonajes = (personajes) =>{
+		console.log(personajes);
+        console.log(personajes.results);
+
+		enlaceAnterior = personajes.previous;
+		enlacePosterior = personajes.next;
+
+		var tabla = document.getElementById("cuerpoPersonajes");
+		tabla.innerHTML = "";
+
+		for(var i = 0; i < personajes.results.length; i++){
+			var fila = document.createElement("tr");
+
+			datosPersonaje = [
+                personajes.results[i].name,
+                personajes.results[i].height,
+                personajes.results[i].mass,
+                personajes.results[i].birth_year,
+                personajes.results[i].gender,
+                personajes.results[i].homeworld
+            ];
+
+			for(var j = 0; j < datosPersonaje.length; j++){
+                var columna = document.createElement("td");
+
+                if (datosPersonaje[j] == personajes.results[i].homeworld) {
+                    var enlace = document.createElement("a");
+                    enlace.href = datosPersonaje[j]; // La URL del homeworld es el enlace
+                    enlace.innerHTML = datosPersonaje[j]; // Muestra la URL como texto
+                    enlace.onclick = function(e) {
+                        e.preventDefault(); // Evita que el enlace abra la URL en el navegador
+                        peti.peticion(this.href, 'GET', pintaPlanetas); // Petición al planeta
+                    };
+                    columna.appendChild(enlace);
+                } else {
+                    columna.innerHTML = datosPersonaje[j];
+                }
+
+				fila.appendChild(columna);
+			}
+
+			tabla.appendChild(fila);
+		}
+    }
+	
+	
+	</script>
+</head>
+
+<body>
+	<h3>Ejemplo de llamada a la API de STAR WARS</h3>
+	<br/>
+
+	<p>
+		<table id="personajes" class="estilo_Tabla_1">
+			<caption>Personajes STAR WARS</caption>
+      	<thead>
+        <tr>
+          	<th>Nombre</th>
+          	<th>Altura</th>
+          	<th>Peso</th>
+			<th>Nacimiento</th>
+			<th>Género</th>
+			<th>Homeworld</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoPersonajes">
+        
+      </tbody>
+    </table>
+	</p>
+
+	<br>
+	<div class="botones">
+		<input type="button" name="anterior" id="anterior" value="Anterior">
+		<input type="button" name="siguiente" id="siguiente" value="Siguiente">
+	</div>
+	
+	<br/>
+	<!-- Div donde se mostrará la información del planeta -->
+	<div id="datosPlaneta">Datos del planeta:</div>
+</body>
+</html>

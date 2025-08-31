@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Provincias Localidades</title>
+    
+    <script type="text/javascript">
+
+    let peti;
+
+		window.onload = function(){
+      peti = new XMLHttpRequest();
+
+      peti.onreadystatechange = recibeProvincias;
+
+      // Realizar peticion HTTP para las provincias
+      peti.open('GET', 'servidor.php?servicio=provincias');
+      peti.send();
+      console.log("Acabo de hacer la peticion de provincias");
+
+      document.getElementById("provincia").onchange = pideLocalidades;
+    }
+
+
+    const recibeProvincias = () =>{
+      if(peti.readyState == 4) {
+        if(peti.status == 200) {
+          console.log(peti.responseText);
+          //Aqui metemos el codigo para poner 
+          //las provincias 
+
+          let provincias = JSON.parse(peti.responseText);
+          console.log(provincias);
+
+          var select = document.getElementById("provincia");
+          for(var i = 0; i < provincias.length; i++){
+
+            var option = document.createElement("option");
+            option.value = provincias[i].CODIGO;
+            option.innerHTML = provincias[i].NOMBRE;
+
+            select.appendChild(option);
+          }
+        }
+      }
+    }
+
+    //Obtener el codigo de la provincia
+    const pideLocalidades = (e) =>{
+      console.log(e.target.value);
+
+      peti.onreadystatechange = recibeLocalidades;
+
+      let url = 'servidor.php?servicio=localidades&codigop=' + e.target.value;
+      peti.open('GET', url);
+      peti.send();
+      console.log("Acabo de hacer la peticion de provincias");
+
+    }
+
+    const recibeLocalidades = () =>{
+      if(peti.readyState == 4) {
+        if(peti.status == 200) {
+          console.log(peti.responseText);
+          
+          let localidades = JSON.parse(peti.responseText);
+          console.log(localidades);
+
+          var select = document.getElementById("localidad");
+          select.innerHTML = "";
+          for(var i = 0; i < localidades.length; i++){
+
+            var option = document.createElement("option");
+            option.value = localidades[i].CODIGO;
+            option.innerHTML = localidades[i].NOMBRE;
+
+            select.appendChild(option);
+          }
+        }
+      }
+    }
+
+			
+    </script>
+    
+  </head>
+  <body>
+    <h2>Ejemplo proyecto web con JAVA y AJAX</h2>
+    
+    <label for="provincia">Provincia:</label>
+    <select id="provincia">
+      
+    </select>
+    <br><br>
+    
+    <label for="localidad">Localidad</label>
+    <select id="localidad">
+      <option value="-1">Seleccione Provincia</option>
+    </select>
+    <br><br>
+    
+  </body>
+</html>

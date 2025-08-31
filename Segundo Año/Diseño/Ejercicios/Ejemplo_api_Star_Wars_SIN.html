@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Envio de parametros con AJAX externo</title>
+	<style type="text/css">
+
+	body{
+		background: url(sw.avif) no-repeat;
+		text-align: center;
+	}
+
+	table{
+		margin: auto;
+		margin-top: 70px;
+		border-radius: 15px;
+	}
+
+	h3{
+		margin: auto;
+		color: #ffd000;
+		font-size: larger;
+
+	}
+
+	.estilo_Tabla_1 {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		width: 70%;
+		border-collapse: collapse;
+	}
+	
+	.estilo_Tabla_1 td {
+		font-size: 1em;
+		border: 1px solid #000000;
+		padding: 4px;
+	}
+	
+	.estilo_Tabla_1 th {
+		border: 1px solid #000000;
+		font-size: 1.2em;
+		padding: 5px;
+		background-color: #000000;
+		color: #ffd000;
+	}
+
+	.estilo_Tabla_1 tr td {
+		color: #000000;
+		background-color: #cf0b0b;
+	}
+	
+
+	.estilo_Tabla_1 tr td:nth-child(-n+3) {
+		color: #000000;
+		background-color: rgb(59, 59, 228);
+	}
+
+
+	.estilo_Tabla_1 tr td:nth-child(5).horizontal-gradient{
+		background: linear-gradient(to right, blue, rgb(255, 0, 43));
+	}
+	
+	caption {
+		caption-side:bottom;
+		color: #ffd000;
+		font-size: large;
+		background-color: #000000;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		align-items: center;
+	}
+
+	h3{
+		margin: auto;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	let peti;
+	window.onload = function(){
+		peti = new XMLHttpRequest();
+		peti.onreadystatechange = recibePersonajes;
+
+		// Realizar peticion HTTP para las provincias
+		peti.open('GET', 'https://swapi.dev/api/people/?format=json');
+		peti.send();
+		console.log("Acabo de hacer la peticion de personajes");
+	}
+
+	const recibePersonajes = () =>{
+		if(peti.readyState == 4) {
+        	if(peti.status == 200) {
+				let personajes = JSON.parse(peti.responseText);
+				console.log(personajes.results);
+
+				var tabla = document.getElementById("cuerpoPersonajes");
+
+				for(var i = 0; i < personajes.results.length;i++){
+					var fila = document.createElement("tr");
+
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].name;
+
+						fila.appendChild(personaje1);
+					}
+
+					
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].height;
+
+						fila.appendChild(personaje1);
+					}
+
+					
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].mass;
+
+						fila.appendChild(personaje1);
+					}
+
+					
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].birth_year;
+
+						fila.appendChild(personaje1);
+					}
+
+					
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].gender;
+
+						fila.appendChild(personaje1);
+					}
+
+					
+					for(var j = 0; j < 1;j++){
+						var personaje1 = document.createElement("td");
+						personaje1.innerHTML = personajes.results[i].homeworld;
+
+						fila.appendChild(personaje1);
+					}
+					tabla.appendChild(fila);
+        		}
+
+      		}
+		}
+	}
+	
+	
+	</script>
+</head>
+
+<body>
+	<h3>Ejemplo de llamada a la API de STAR WARS</h3>
+	<br/>
+
+	<p>
+		<table id="personajes" class="estilo_Tabla_1">
+			<caption>Personajes STAR WARS</caption>
+      	<thead>
+        <tr>
+          	<th>Nombre</th>
+          	<th>Altura</th>
+          	<th>Peso</th>
+			<th>Nacimiento</th>
+			<th>Género</th>
+			<th>Homeworld</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoPersonajes">
+        
+      </tbody>
+    </table>
+	</p>
+	
+	<br/>
+	<div id="datosPlaneta">Datos del planeta:</div>
+</body>
+</html>

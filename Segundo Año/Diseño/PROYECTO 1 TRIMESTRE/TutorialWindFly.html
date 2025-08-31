@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación de WindFly en Ubuntu</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            min-height: 100%;
+            height: auto;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera */
+        #cabecera {
+            display: flex;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #222;
+            color: white;
+            justify-content: space-between;
+        }
+        #logo img {
+            width: 80px;
+            height: auto;
+        }
+        #nombreweb h1 {
+            font-size: 2em;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul {
+            display: flex;
+            list-style: none;
+        }
+        .menuDesplegable ul > li {
+            position: relative;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul a {
+            color: #222;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
+            background-color: #e8f0f8;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .menuDesplegable ul a:hover, .menuDesplegable ul a:focus {
+            background-color: #0066cc;
+        }
+        .menuDesplegable ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #e8f0f8;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0.5em 0;
+        }
+        .menuDesplegable ul li:hover ul {
+            display: block;
+        }
+
+        #tutorial {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 2em;
+            flex-grow: 1;
+        }
+        #tutorial h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+        #tutorial h3 {
+            font-size: 1.5em;
+            color: #444;
+            margin-top: 1.5em;
+        }
+        #tutorial p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1em;
+        }
+        #tutorial ul {
+            font-size: 1em;
+            margin-left: 1em;
+            list-style: none;
+        }
+        #tutorial ul li::before {
+            content: "• ";
+            color: #0077cc;
+        }
+        #tutorial pre {
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            padding: 1em;
+            overflow-x: auto;
+            margin-bottom: 1em;
+            font-size: 0.9em;
+        }
+        #tutorial a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        #tutorial a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        #piePagina {
+            background-color: #222;
+            color: white;
+            padding: 1.5em;
+            text-align: center;
+        }
+        #piePagina p, #piePagina a {
+            font-size: 0.9em;
+            color: #ddd;
+            margin: 0.5em 0;
+        }
+        #piePagina a:hover {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        #logo img:hover { transform: scale(1.1); transition: transform 0.3s ease; }
+
+        body{
+            background-color: #e8f0f8;
+            color: #222 ;    
+        }
+
+        body #cabecera {
+            background-color: #003366 ;
+        }
+
+        body #piePagina{
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cabecera -->
+<div id="cabecera">
+    <div id="logo">
+        <img src="imagenes/logopagina.jpg" alt="Logo GuijoWeb">
+    </div>
+    <div id="nombreweb">
+        <h1>GuijoWeb</h1>
+    </div>
+    <div class="menuDesplegable">
+        <ul>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Apache Tomcat</a>
+                <ul>
+                    <li><a href="DescargaApacheTomcat.html">Descarga</a></li>
+                    <li><a href="TutorialApacheTomcat.html">Intalacion</a></li>
+                    <li><a href="ConfiguracionApacheTomcat.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">WildFly</a>
+                <ul>
+                    <li><a href="DescargaWindFly.html">Descarga</a></li>
+                    <li><a href="TutorialWindFly.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionWindFly.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">GlassFish</a>
+                <ul>
+                    <li><a href="DescargaGlassFish.html">Descarga</a></li>
+                    <li><a href="TutorialGlassFish.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionGlassFish.html">Configuracion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<!-- Tutorial -->
+<div id="tutorial">
+    <h2>Instalación de WildFly en Ubuntu</h2>
+
+    <h3>1. Requisitos Previos</h3>
+    <p>Asegúrate de que tu sistema cumpla con los siguientes requisitos:</p>
+    <ul>
+        <li>Ubuntu 20.04 o superior.</li>
+        <li>Java Development Kit (JDK) 11 o superior instalado.</li>
+        <li>Conexión a Internet.</li>
+    </ul>
+
+    <h3>2. Instalación de Java</h3>
+    <p>Primero, verifica si Java ya está instalado:</p>
+    <pre>java -version</pre>
+    <p>Si no está instalado, puedes instalar OpenJDK 11 con los siguientes comandos:</p>
+    <pre>sudo apt update sudo apt install openjdk-11-jdk</pre>
+
+    <h3>3. Instalación de WildFly</h3>
+    <p>Si aún no has descargado WildFly, visita nuestra  <a href="DescargaWindFly.html"> página de descargas </a> y descarga la última versión de WildFly. Una vez descargado el archivo, continúa con los siguientes pasos.</p>
+
+    <h3>4. Instalación</h3>
+    <p>Extrae el archivo descargado:</p>
+    <pre>tar xvf wildfly-10.0.0-bin.tar.gz</pre>
+    <p>Mueve la carpeta extraída a <code>/opt</code>:</p>
+    <pre>sudo mv wildfly-10.0.0 /opt/wildfly</pre>
+
+    <h3>5. Configuración</h3>
+    <p>Configura las variables de entorno en el archivo <code>~/.bashrc</code>:</p>
+    <pre>export WILDFLY_HOME=/opt/wildfly</pre>
+    <p>Aplica los cambios:</p>
+    <pre>source ~/.bashrc</pre>
+
+    <h3>6. Iniciar WildFly</h3>
+    <p>Para iniciar WildFly, ejecuta:</p>
+    <pre>$WILDFLY_HOME/bin/standalone.sh</pre>
+    <p>Para detenerlo:</p>
+    <pre>$WILDFLY_HOME/bin/standalone.sh --stop</pre>
+
+    <h3>7. Acceso a la Consola</h3>
+    <p>Abre tu navegador y accede a <code>http://localhost:9990</code> para verificar que WildFly está funcionando.</p>
+
+    <h3>Video Tutorial</h3>
+    <p>Mira este video para aprender paso a paso cómo instalar WildFly en Linux:</p>
+    <div style="text-align: center;">
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/llqU7S8JVcA" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<!-- Pie de Página -->
+<div id="piePagina">
+    <p>© 2024 GuijoWeb. Todos los derechos reservados.</p>
+    <p><a href="Index.html">Volver al Inicio</a></p>
+    <p>Contacto: <a href="mailto:contacto@guijoweb.com">contacto@guijoweb.com</a></p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+</div>
+
+</body>
+</html>

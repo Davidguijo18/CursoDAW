@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        function restriccionNumerosNegativos(event) {
+            var teclaPulsada = event.charCode || window.event.keyCode;
+            var input = event.target; // El campo de entrada actual
+            var valorActual = input.value;
+            console.log(teclaPulsada);
+
+            // Permitir números (teclas 0-9)
+            if (teclaPulsada >= 48 && teclaPulsada <= 57) {
+                return true;
+            }
+
+            // Permitir la tecla de retroceso (Backspace)
+            if (teclaPulsada === 8) {
+                return true;
+            }
+
+            // Permitir un solo signo menos, solo si está al principio
+            if (teclaPulsada === 45) { // Código de "-"
+                if (valorActual === "") {
+                    // Si el campo está vacío, permitir el "-"
+                    return true;
+                } else {
+                    // Si ya hay contenido, no permitir más "-"
+                    return false;
+                }
+            }
+
+            // Bloquear cualquier otra tecla
+            return false;
+        }
+
+
+
+
+        function restriccionNumerosDecimales(event) {
+            var teclaPulsada = event.charCode || window.event.keyCode;
+            var input = event.target; // El campo de entrada actual
+            var valorActual = input.value;
+            console.log(teclaPulsada);
+
+            // Permitir números (teclas 0-9)
+            if (teclaPulsada >= 48 && teclaPulsada <= 57) {
+                return true;
+            }
+
+            // Permitir la tecla de retroceso (Backspace)
+            if (teclaPulsada === 8) {
+                return true;
+            }
+
+            // Permitir un único separador decimal (`,`)
+            if (teclaPulsada === 44) { // Código ASCII de `,`
+                if (valorActual.includes(",")) {
+                    // Si ya hay una coma, no permitir otra
+                    return false;
+                } else {
+                    // Permitir una única coma
+                    return true;
+                }
+            }
+
+            // Bloquear cualquier otra tecla
+            return false;
+        }
+
+        document.querySelector("input").addEventListener("input", function(event) {
+            var input = event.target;
+            var valor = input.value;
+
+            // Transformar comas en puntos
+            input.value = valor.replace(",", ".");
+        });
+
+
+
+
+        
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

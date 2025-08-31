@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista profesores</title>
+</head>
+<body>
+    <h2>Profesores de {{nombreDepartamento}}</h2>
+    <button type="submit" (click)="viajarFormularioAnadir()">Añadir nuevo profesor</button>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>DNI</th>
+        <th>NOMBRE</th>
+        <th>APELLIDOS</th>
+        <th>MODIFICAR</th>
+        <th>ELIMINAR</th>
+    </tr>
+    <tr *ngFor="let i of listaProfesores">
+        <td>{{i.id}}</td>
+        <td>{{i.dni}}</td>
+        <td>{{i.nombre}}</td>
+        <td>{{i.apellidos}}</td>
+        <td><button type="submit" (click)="viajarFormularioModificar(i)">Modificar</button></td>
+        <td><button (click)="eliminarProfesor(i)">Eliminar</button></td>
+    </tr>
+</table>
+</body>
+</html>

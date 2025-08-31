@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ejercicio Listado Personas. AJAX</title>
+    <style type="text/css">
+        h3 {
+            color: red;
+        }
+        /* CSS para el formulario: */
+        .formPersonas {
+            visibility: hidden;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            z-index: 11;
+            background-color: pink;
+            border: 2px solid maroon;
+            border-radius: 15px;
+            padding: 1em;
+            color: red;
+        }
+        .formPersonas div label {
+            display: block;
+            margin-top: .5em;
+        }
+        .formPersonas .btn {
+            display: block;
+            margin-top: 1em;
+        }
+        .ver {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script type="text/javascript" src="UtilAJAX.js"></script>
+    <script type="text/javascript">
+        var peti = new pAJAX();
+        let url = 'servidor.php';
+        window.onload = function () {
+            cargarTabla();
+            document.getElementById("btNuevaPersona").onclick = function () {
+                mostrarFormulario();
+            }
+
+            document.getElementById("btCancelar").onclick = function () {
+                ocultarFormulario();
+            }
+            
+            document.getElementById("btAnade").onclick = function () {
+                if (document.getElementById("formPersonas").dataset.id) {
+                    
+                    modificarPersona();
+                } else {
+                    anadirPersona();
+                }
+            }
+        }
+
+        function mostrarFormulario() {
+            document.getElementById("formPersonas").classList.add("ver");
+            document.getElementById("btAnade").textContent = "Añadir";
+            document.getElementById("formLegend").textContent = "Alta en el servicio";
+        }
+
+        function mostrarFormularioEdicion() {
+            document.getElementById("formPersonas").classList.add("ver");
+            document.getElementById("btAnade").textContent = "Modificar";
+            document.getElementById("formLegend").textContent = "Editar persona";
+        }
+
+        function ocultarFormulario() {
+            document.getElementById("formPersonas").classList.remove("ver");
+            document.getElementById("formPersonas").dataset.id = "";
+            limpiarFormulario();
+        }
+
+        function limpiarFormulario() {
+            document.getElementById("dni").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("apellidos").value = "";
+        }
+
+        function anadirPersona() {
+            var dni = document.getElementById("dni").value;
+            var nombre = document.getElementById("nombre").value;
+            var apellidos = document.getElementById("apellidos").value;
+            var personaNueva = {
+                servicio: "insertar",
+                dni: dni,
+                nombre: nombre,
+                apellidos: apellidos
+            };
+            peti.peticion(url, "POST", cargarTabla, JSON.stringify(personaNueva));
+            ocultarFormulario();
+        }
+
+        function modificarPersona() {
+            var dni = document.getElementById("dni").value;
+            var nombre = document.getElementById("nombre").value;
+            var apellidos = document.getElementById("apellidos").value;
+            var idPersona = document.getElementById("formPersonas").dataset.id;
+            var personaModificada = {
+                servicio: "modificar",
+                id: idPersona,
+                dni: dni,
+                nombre: nombre,
+                apellidos: apellidos
+            };
+            peti.peticion(url, "POST", cargarTabla, JSON.stringify(personaModificada));
+            ocultarFormulario();
+        }
+
+        function cargarTabla() {
+            var p = { servicio: "listar" };
+            peti.peticion(url, 'POST', imprimeTablaPersonas, JSON.stringify(p));
+        }
+
+        const imprimeTablaPersonas = (personas) => {
+            var tabla = document.getElementById("filas_tabla");
+            tabla.innerHTML = "";
+            personas.forEach(persona => {
+                var fila = document.createElement("tr");
+                var atributosPersona = [persona.ID, persona.DNI, persona.NOMBRE, persona.APELLIDOS];
+                for (var i = 0; i < 4; i++) {
+                    var columna = document.createElement("td");
+                    columna.innerHTML = atributosPersona[i];
+                    fila.appendChild(columna);
+                }
+                var tdBorrar = document.createElement("td");
+                var botonBorrar = document.createElement("button");
+                botonBorrar.innerHTML = "Del";
+                botonBorrar.onclick = eliminarPersona;
+                botonBorrar.dataset.id = persona.ID;
+                botonBorrar.dataset.nombre = persona.NOMBRE + " " + persona.APELLIDOS;
+                tdBorrar.appendChild(botonBorrar);
+                fila.appendChild(tdBorrar);
+                var tdEditar = document.createElement("td");
+                var botonEditar = document.createElement("button");
+                botonEditar.innerHTML = "Edit";
+                botonEditar.onclick = obtenerPersona;
+                botonEditar.dataset.id = persona.ID;
+                tdEditar.appendChild(botonEditar);
+                fila.appendChild(tdEditar);
+                tabla.appendChild(fila);
+            });
+        }
+
+        function obtenerPersona() {
+            var p = {
+                servicio: "selPersonaID",
+                id: this.dataset.id
+            };
+            peti.peticion(url, "POST", mostrarDatosFormulario, JSON.stringify(p));
+        }
+
+        function mostrarDatosFormulario(persona) {
+            document.getElementById("dni").value = persona.DNI;
+            document.getElementById("nombre").value = persona.NOMBRE;
+            document.getElementById("apellidos").value = persona.APELLIDOS;
+            document.getElementById("formPersonas").dataset.id = persona.ID;
+            mostrarFormularioEdicion();
+        }
+
+        function eliminarPersona() {
+            var nombre = this.dataset.nombre;
+            if (confirm("Seguro que quieres eliminar a " + nombre + "?")) {
+                var p = {
+                    servicio: "borrar",
+                    id: this.dataset.id
+                };
+                peti.peticion(url, "POST", cargarTabla, JSON.stringify(p));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Registro de Usuarios</h3>
+    <div id="formPersonas" class="formPersonas">
+        <fieldset>
+            <legend id="formLegend">Alta en el servicio</legend>
+            <div>
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" size="10" maxlength="9" value=""/>
+            </div>
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" value=""/>
+            </div>
+            <div>
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" size="40" value=""/>
+            </div>
+            <div class="btn">
+                <button id="btAnade" data.id="-1">Añadir</button> 
+                <button id="btCancelar">Cancelar</button>
+            </div>
+        </fieldset>
+    </div>
+    <button class="btn" id="btNuevaPersona">Nueva persona</button> 
+    <br><br>
+    <table id="tabla_personas" border="1">
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>NOMBRE</th>
+            <th>APELLIDOS</th>
+            <th>Borrar</th>
+            <th>Editar</th>
+        </tr>
+        <tbody id="filas_tabla"></tbody>
+    </table>
+</body>

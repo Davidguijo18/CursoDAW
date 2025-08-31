@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Ejercicio Datos Ocupación Empleo</title>
+    <style type="text/css">
+      h2{
+				text-align: center;
+        color: maroon;
+      }
+    </style>
+
+	<link href="c3-0.7.20/c3.css" rel="stylesheet">
+	<script src="c3-0.7.20/docs/js/d3-5.8.2.min.js"></script>
+	<script src="c3-0.7.20/c3.min.js"></script>
+		
+    <script type="text/javascript">
+	var ficheroJSON;
+	var ambosSexos = [];
+	var hombres = [];
+	var mujeres = [];
+	var final = [];
+	var opcion = "pie";
+
+	//Leer ficheros JSON
+	function leerFichero(e){
+
+		var fichero = e.target.files[0];
+		const reader = new FileReader();
+
+		reader.onload = function () {
+			const contenido = reader.result;
+			//console.log("Contenido del archivo:", contenido);
+
+			const ficheroJSON = JSON.parse(contenido);	//Parseo el documento para darle formato
+            console.log(ficheroJSON); //Mostrar el contenido del JSON en la consola
+
+			//Relleno el select de forma dinamica
+			var select = document.getElementById("selDatos");
+			var contador = 0;
+			ficheroJSON.forEach(dato => {
+				var opciones = dato.MetaData[1].Nombre;
+				if(!Array.from(select.options).some(option => option.text === opciones)){
+					const option = new Option(dato.MetaData[1].Nombre,contador);
+					contador++;
+					select.add(option);
+				}
+
+				if(dato.MetaData[1].Nombre === "Ambos sexos"){
+					var datos = [];
+					datos.push(dato.MetaData[2].Nombre);
+					datos.push(dato.Data[0].Valor);
+					ambosSexos.push(datos);
+				}	
+
+				if(dato.MetaData[1].Nombre === "Hombres"){
+					var datos = [];
+					datos.push(dato.MetaData[2].Nombre);
+					datos.push(dato.Data[0].Valor);
+					hombres.push(datos);
+				}
+
+				if(dato.MetaData[1].Nombre === "Mujeres"){
+					var datos = [];
+					datos.push(dato.MetaData[2].Nombre);
+					datos.push(dato.Data[0].Valor);
+					mujeres.push(datos);
+				}
+			});
+		}
+
+		reader.readAsText(fichero); 
+	}
+
+
+	function seleccionSelect(e){
+		console.log(e.target.value)
+
+		switch(e.target.value){
+			case "0":
+				final = ambosSexos;
+				break;
+
+			case "1":
+				final = hombres;
+				break;
+				
+			case "2":
+				final = mujeres
+				break;	
+		}
+
+		generarGrafica(opcion);
+	}
+
+	function generarGrafica(tipo){
+		c3.generate({
+			bindto: '#grafico',
+			data: {
+				type: tipo,
+				columns: final
+			}
+		});
+	}
+
+	function tipoGrafico(e){
+		if(e.target.value == "queso"){
+			opcion = "pie"
+		}else if(e.target.value == "donut"){
+			opcion = "donut"
+		}else{
+			opcion = "bar"
+		}
+
+		generarGrafica(opcion);
+	}
+
+	window.onload = function(){
+		document.getElementById("fichero").onchange = leerFichero;
+		document.getElementById("selDatos").onchange = seleccionSelect;
+		document.getElementById("tipoGrafico").onchange = tipoGrafico;
+	}
+		
+		
+    </script>
+		
+  </head>
+	
+  <body>
+		<h2>Ocupados por sexo y grupo de edad</h2>
+		 <div>
+			<label for="fichero">Fichero: </label>
+			<input type="file" id="fichero" accept=".json" />
+		</div>
+	 
+		<br>
+		
+		<select id="selDatos" multiple size="7">
+		</select>
+
+		<div id="tipoGrafico">
+			<input type="radio" name="grafica" id="grafica1" value="queso">Quesico
+			<input type="radio" name="grafica" id="grafica2" value="donut">Donut
+			<input type="radio" name="grafica" id="grafica3" value="columnas">Columnas
+		</div>
+
+		<br><br>
+		
+		<p>
+			<div id="grafico"></div>
+		</p>
+		
+  </body>
+</html>
+

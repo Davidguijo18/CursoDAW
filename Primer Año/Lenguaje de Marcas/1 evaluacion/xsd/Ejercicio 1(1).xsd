@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="tiendaMoviles">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="nombre" type ="xs:string"/>
+            <xs:element name="direccion" type ="xs:string"/>
+            <xs:element name="distribuidor" type ="xs:string"/>
+            <xs:element name="movil">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codigoModelo" type ="xs:"/>
+                        <xs:element name="marca" type ="xs:string"/>
+                        <xs:element name="caracteristicas" type ="xs:decimal"/>
+                    </xs:sequence>
+                </xs:complexType>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>

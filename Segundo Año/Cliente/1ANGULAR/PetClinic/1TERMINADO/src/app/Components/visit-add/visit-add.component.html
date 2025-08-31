@@ -1,0 +1,56 @@
+<div class="container">
+    
+    <h1>{{textoForm}}</h1>
+    <br>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <th>Name</th>
+                <th>Birth Date</th>
+                <th>Type</th>
+                <th>Owner</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{this.pet.name}}</td>
+                    <td>{{this.pet.birthDate}}</td>
+                    <td>{{this.pet.type.name}}</td>
+                    <td>{{this.pet.owner.firstName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+    <form #visitForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Fecha de visita</span>
+            <input type="date" class="form-control" required [(ngModel)]="visit.visitDate" name="fechaVisita" #fechaVisita="ngModel" id="fechaVisita" >
+
+        </div>
+        <div [hidden]="fechaVisita.valid || fechaVisita.pristine" class="alert alert-danger">
+            La fecha de visita es obligatorio
+        </div>
+
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Descripcion</span>
+            <input type="text" class="form-control" required [(ngModel)]="visit.description" name="descripcion" #descripcion="ngModel" id="descripcion">
+
+        </div>
+        <div [hidden]="descripcion.valid || descripcion.pristine" class="alert alert-danger">
+            La descripcion es obligatoria
+        </div>
+
+
+        <div class="d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-primary" [disabled]="!visitForm.valid">{{textoBoton}}</button>
+            <button type="submit" class="btn btn-danger mx-1" routerLink="/detailOwner/{{this.pet.owner.id}}">Cancelar</button>
+        </div>
+    </form>
+
+    <a class="btn btn-warning d-flex justify-content-center mt-3" role="button" routerLink="/detailOwner/{{this.pet.owner.id}}">Volver atrás</a>
+    <br>
+</div>
+    
+
+

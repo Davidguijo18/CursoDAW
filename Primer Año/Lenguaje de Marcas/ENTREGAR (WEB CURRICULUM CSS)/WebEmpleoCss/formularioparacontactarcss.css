@@ -1,0 +1,62 @@
+.contacto {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .contacto fieldset {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .contacto legend {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .contacto p {
+    margin-bottom: 20px;
+  }
+  
+  .contacto input[type="text"],
+  .contacto input[type="number"],
+  .contacto textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .contacto input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  .contacto button[type="submit"],
+  .contacto input[type="reset"] {
+    background-color: #3498db;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .contacto button[type="submit"]:hover,
+  .contacto input[type="reset"]:hover {
+    background-color: #2980b9;
+  }
+  
+  .contacto button[type="submit"]:focus,
+  .contacto input[type="reset"]:focus {
+    outline: none;
+  }

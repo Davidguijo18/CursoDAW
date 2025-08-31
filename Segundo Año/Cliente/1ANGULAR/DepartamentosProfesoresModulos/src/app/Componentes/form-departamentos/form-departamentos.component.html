@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insercion de departamento</title>
+</head>
+<body>
+    <h4>Nueva departamento</h4>
+<div>
+    <p>Añadir un nuevo departamento</p>
+
+<form class="form-horizontal" #deptoForm="ngForm" (ngSubmit)="enviar()">
+    <div class="mb-3">
+        <label for="nombre" class="form-label"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="nombre" required [(ngModel)]="departamento.nombre" name="nombre" #nombre="ngModel">
+
+        <div [hidden]="nombre.valid || nombre.pristine" class="alert alert-danger">
+            El nombre es obligatorio
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="descripcion" class="form-label"><b>Descripcion</b></label>
+        <input type="text" class="form-control" id="descripcion" required [(ngModel)]="departamento.descripcion" name="descripcion" #descripcion="ngModel">
+
+        <div [hidden]="descripcion.valid || descripcion.pristine" class="alert alert-danger">
+            La descripcion es obligatoria
+        </div>
+    </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-2" type="submit" [disabled]="!deptoForm.valid">Añadir</button>
+        <span>|</span>
+        <a class="btn btn-primary col-2" routerLink="" role="button">Volver</a>  
+    </div>
+
+</form>
+
+</div>
+</body>
+</html>

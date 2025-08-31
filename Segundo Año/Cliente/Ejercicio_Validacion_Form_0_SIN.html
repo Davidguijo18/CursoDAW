@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Validar Formularios</title>
+		<style type="text/css">
+			span {
+				color: red;
+			}
+			
+		</style>
+		<script>
+
+		window.onload= function(){
+			document.getElementById("formulario_1").onsubmit = validarForm;
+		}
+
+		function validarForm(){
+			//Valido el formualrio. Esta va a ser la funcion manejadora del evenento onsubmit del formulario
+			var validacion = true;
+
+			//Validacion del nombre
+			var nombre= document.getElementById("nombre");
+			validacion = (nombre.value.trim().length >= 2);
+
+			//Validacion del NIF
+			var nif = document.getElementById("dni");
+			var letras ="TRWAGMYFPDXBNJZSQVHLCKE";
+
+			if(nif.value.length == 9){
+				var numero = nif.trim().substring(0,8);
+				res = letras[numero % 23] == nif[8].toUpperCase();
+			}else{
+				res = false;
+			}
+			
+			//Validacion del sexo
+			var sexo = document.getElementById("sexo");
+			validacion = validacion && (sexo.value != "");
+			
+			//Validacion de textarea
+			var textarea = document.getElementById("sugerencia");
+			validacion = validacion && (textarea.value.trim().length > 2);
+
+			return validacion;
+		}
+					
+			
+			
+		</script>
+	</head>
+
+	<body>
+
+		<h1>Ejercicio Validación de Formularios</h1>
+		<form id="formulario_1">
+		<p>
+			<h3>Formulario de Registro:</h3>
+			<label for="nombre">Nombre: </label>
+			<input type="text" name="nombre" id="nombre" maxlength="25" size="15" />
+			<span id="info_nombre"></span>
+			<div>(Mínimo 2 letras)</div>
+			<br><br>
+			
+			<label for="dni">NIF: </label>
+			<input type="text" name="dni" id="dni" maxlength="9" size="9" />
+			<span id="info_dni"></span>
+			<br><br><br>
+			
+      <label>Sexo: </label>
+			<select id="sexo">
+				<option value="">Selecciona una opcion</option>
+				<option value="F">Femenino</option>
+				<option value="M">Masculino</option>
+				<option value="Y">Ya quisiera yo</option>
+			</select>
+			<span id="info_sexo"></span>
+      
+      <br><br><br>
+      <label for="sugerencia">Alguna sugerencia: </label>
+      <textarea id="sugerencia" name="sugerencia"></textarea>
+			<span id="info_sugerencia"></span>
+      <br><br>
+		</p>
+		<p><b>Todos los campos son obligatorios.</b></p>
+		<br>
+		<p>
+			<input type="submit" value="ENVIAR" >
+			<br><br>
+			<input type="reset" value="Limpiar">
+			
+		</p>
+		</form>
+	</body>
+</html>
+
+

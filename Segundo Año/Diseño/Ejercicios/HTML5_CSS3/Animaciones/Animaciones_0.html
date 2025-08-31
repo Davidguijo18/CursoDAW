@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Plantilla</title>
+		<style type="text/css">
+			.prueba1 {
+				margin: 10px;
+				width: 200px;
+				height: 250px;
+				margin: 70px auto;
+				color: yellow;
+				background: black;
+				border: 1px solid #666;
+				
+				animation: muevelo 2s linear;  
+				animation-iteration-count: 5;
+				animation-delay: .5s;
+			}
+			
+
+		@keyframes agitalo {
+
+			25% {
+				transform: translateX(-100px);
+			}
+
+			50% {
+				transform: translateX(+100px);
+			}
+			
+			75%{
+				transform: translateX(-100px);
+			}
+		}
+		
+		
+			
+		@keyframes muevelo {
+			15% {
+			transform: translateX(200px) rotate(50deg);
+			}
+			30%	{
+			transform: translateY(200px);
+			}
+			50%	{
+			transform: translateX(-200px) rotate(-100deg);
+			}
+			65%	{
+			transform: translateY(-200px);
+			}
+			90%	{
+			transform: translateX(0px);
+			}
+			100% {
+			transform: translateY(0px);
+			}
+		}
+
+		</style>
+		
+	</head>
+
+	<body>
+
+		<div class="prueba1">
+			<p>
+				Hace mucho tiempo, en una galaxia lejana, muy lejana.
+			</p>
+			<p>
+				UNA NUEVA ESPERANZA
+				Nos encontramos en un periodo de
+				guerra civil. Las naves espaciales
+				rebeldes atacando desde una base
+				oculta, han logrado su primera
+				victoria contra el malvado Imperio
+				Galáctico.
+			</p>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<marcadores xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="marcadores.xsd">
+<tiendaMoviles>
+        <nombre>DBC Informatica</nombre>
+        <direccion> C. Sevilla, 62</direccion>
+        <distribuidor>Semic</distribuidor>
+        <movil>
+            <codigoModelo/>
+            <marca/>
+            <caracteristicas/>
+        </movil>       
+</tiendaMoviles>

@@ -1,0 +1,53 @@
+<h3>Specialities</h3>
+<table id="pettypes" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (speciality of listaSpecialities; track speciality.id; let element_id = $index) {
+            <tr>
+                <td>
+                    <input [id]="element_id" [readOnly]="!editando(element_id)" #name type="text" class="form-control" [(ngModel)]="speciality.name" name="speciality_name"/>
+                </td>
+                <td>
+                    <button class="btn btn-default" (click)="editSpeciality(speciality,name,element_id)">
+                        @if (editando(element_id)) {
+                            <span>Cancelar</span>
+                        }
+                        @if (!editando(element_id)) {
+                            <span>Editar</span>
+                        }
+                    </button>
+
+                    @if (editando(element_id)) {
+                        <button class="btn btn-default btCancelar" (click)="updateSpeciality(speciality)" [disabled]="!editando(element_id)">
+                            Guardar
+                        </button>
+                    }
+                    @if (!editando(element_id)) {
+                        <button class="btn btn-default btCancelar" (click)="deleteSpeciality(speciality)">
+                            Eliminar
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (is_insert) {
+    <div>
+        <app-specialty-add (onNew)="onNewSpeciality($event)"></app-specialty-add>
+    </div>
+}
+
+<div>
+    <a routerLink="/" routerLinkActive="active">
+        <button class="btn btn-default">Inicio</button>
+    </a>
+    <button class="btn btn-default btCancelar" (click)="showAddSpecialityComponent()">Add</button>
+</div>

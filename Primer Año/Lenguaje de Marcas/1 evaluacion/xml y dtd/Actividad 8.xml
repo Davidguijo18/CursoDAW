@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--He quitado parrafo y grafico del parentesis en aviso, he declarado titulo y he anadido el doctype y el encoding -->
+<!DOCTYPE aviso[
+<!ELEMENT aviso (titulo?)>
+<!ELEMENT titulo (#PCDATA)>
+]>
+
+<aviso>
+    <titulo>...</titulo>
+</aviso>

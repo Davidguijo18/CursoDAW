@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiendaMoviles[
+<!ELEMENT tiendaMoviles (nombre,direccion,distribuidor*,movil+)>
+<!ELEMENT nombre (#PCDATA) #REQUIRED>
+<!ELEMENT direccion (#PCDATA) #REQUIRED>
+<!ELEMENT distribuidor (#PCDATA) #IMPLIED>
+<!ELEMENT movil (codigoModelo,marca,caracteristicas)>
+<!ELEMENT codigoModelo EMPTY>
+<!ELEMENT marca EMPTY>
+<!ELEMENT caracteristicas EMPTY>
+]>
+
+<tiendaMoviles>
+    <nombre>DBC Informatica</nombre>
+    <direccion>Calle Palencia</direccion>
+    <distribuidor>SZ</distribuidor>
+    <movil>
+        <codigoModelo/>
+        <marca/>
+        <caracteristicas/>
+    </movil>
+</tiendaMoviles>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    <style>
+        a{
+           font-size: 50px;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){ //Comienzo de jquery
+            $("a").click(function(event){
+                event.preventDefault();
+
+                $(this).hide(3000, function(){
+                    alert("Salsa y picante y no fuimo")
+                });
+
+                $(this).show(3000, function(){
+                    alert("El que quiera peldel su tiempo que entre ya en mi perfil")
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <a href="#">Pincha en este enlace</a>
+    </p>
+</body>
+</html>

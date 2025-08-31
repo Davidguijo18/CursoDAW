@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ejemplo de acceso a fichero XML (local)</title>
+    <style type="text/css">
+        #lista{
+            height: 110px;
+            overflow-y: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="c3-0.7.20/c3.css">
+    <script src="c3-0.7.20/docs/js/d3-5.8.2.min.js"></script>
+    <script src="c3-0.7.20/c3.min.js"></script>
+
+    <script type="text/javascript">
+        var xmlFichero = null;
+        var objeto = {
+            root: []
+        };
+
+        var trimestres = [];
+        var activos = [];
+        var ocupados = [];
+        var parados = [];
+        var tasaActividad = [];
+        var tasaParo = [];
+        var grafico = [];
+
+        function Leer_Fichero(evento) {
+            var fichero = evento.target.files[0];
+
+            function convertir_a_XML(texto) {
+                var xml = null;
+                if (window.ActiveXObject) {
+                    xml = new ActiveXObject("Microsoft.XMLDOM");
+                    xml.loadXML(texto);
+                } else {
+                    xml = new DOMParser().parseFromString(texto, "text/xml");
+                }
+                return xml;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                xmlFichero = convertir_a_XML(reader.result);
+                console.log(xmlFichero);
+
+                var filas = xmlFichero.getElementsByTagName("row");
+                for(var i = 0; i < filas.length;i++){
+                    trimestres.push(filas[i].getElementsByTagName("trimestre")[0].textContent);
+                    activos.push(filas[i].getElementsByTagName("activos")[0].textContent);
+                    ocupados.push(filas[i].getElementsByTagName("ocupados")[0].textContent);
+                    parados.push(filas[i].getElementsByTagName("parados")[0].textContent);
+                    tasaActividad.push(filas[i].getElementsByTagName("tasa_actividad")[0].textContent);
+                    tasaParo.push(filas[i].getElementsByTagName("tasa_paro")[0].textContent);
+                }
+            };
+
+            reader.readAsText(fichero);
+        }
+
+
+
+
+        function graficos() {
+            if (!xmlFichero) {
+                alert("Selecciona primero un archivo XML");
+                return;
+            }
+
+            switch (event.target.value) {
+                case "1":
+                        
+                    break;
+
+                case "2":
+                    activos.unshift("activos");
+                    grafico.push(activos);
+                    break;
+
+                case "3":
+                    ocupados.unshift("ocupados");
+                    grafico.push(ocupados);
+                    break;
+
+                case "4":
+                    parados.unshift("parados");
+                    grafico.push(parados);
+                    break;
+
+                case "5":
+                    tasaActividad.unshift("tasaActividad");
+                    grafico.push(tasaActividad);
+                    break;
+
+                case "6":
+                    tasaParo.unshift("tasaParo");
+                    grafico.push(tasaParo);
+                    break;
+            }
+
+            generate();
+        }
+
+
+        window.onload = function () {
+            document.getElementById("id_fichero").addEventListener("change", Leer_Fichero, false);
+            document.getElementById("lista").onchange = graficos;
+            document.getElementById("descarga").onclick = descargarDatos;
+        };
+
+
+        function generate() {
+            c3.generate({
+                bindto: "#chart",
+                data: {
+                    columns: grafico,
+                },
+                axis: {
+                    x: {
+                        type: "category",
+                        categories: trimestres,
+                    },
+                },
+            });
+        }
+
+
+        const descargarDatos = () => {
+            if (xmlFichero == null) {
+                alert("Antes debes de seleccionar un archivo");
+                return;
+            }
+
+            if (confirm("¿Deseas descargar el archivo?")) {
+                var filas = xmlFichero.getElementsByTagName("row");
+
+                for (var i = 0; i < filas.length; i++) {
+                    var filaObj = {
+                        trimestre: filas[i].getElementsByTagName("trimestre")[0].textContent,
+                        activos: parseFloat(filas[i].getElementsByTagName("activos")[0].textContent),
+                        ocupados: parseFloat(filas[i].getElementsByTagName("ocupados")[0].textContent),
+                        parados: parseFloat(filas[i].getElementsByTagName("parados")[0].textContent),
+                        tasa_actividad: parseFloat(filas[i].getElementsByTagName("tasa_actividad")[0].textContent),
+                        tasa_paro: parseFloat(filas[i].getElementsByTagName("tasa_paro")[0].textContent),
+                    };
+
+                    objeto.root.push(filaObj);
+                }
+
+                let link = document.createElement("a");
+                const nombreFichero = prompt("Introduce el nombre del fichero (sin extension)", "Datos_EPA");
+
+                link.download = nombreFichero + ".json";
+                let blob = new Blob([JSON.stringify(objeto)], { type: "application/json" });
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                URL.revokeObjectURL(link.href);
+            }
+        };
+
+    </script>
+  </head>
+
+  <body>
+    <p>
+      <label for="id_fichero">Selecciona el fichero a leer:</label><br />
+      <input id="id_fichero" type="file" />
+
+      <input id="descarga" type="button" value="Descargar fichero JSON" />
+    </p>
+    <br /><br />
+    <select id="lista" multiple>
+        <option value="1">Trimestres</option>
+        <option value="2">Activos</option>
+        <option value="3">Ocupados</option>
+        <option value="4">Parados</option>
+        <option value="5">Tasa actividad</option>
+        <option value="6">Tasa paro</option>
+    </select>
+    <br /><br />
+    <div id="chart"></div>
+  </body>
+</html>

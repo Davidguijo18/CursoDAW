@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ejemplo de acceso a fichero XML (local)</title>
+    <style type="text/css">
+        #divmapa {
+            width: 700px;
+            height: 700px;
+            border: 1px solid blue; 
+           }
+
+        #distancia{
+            width: 300px;
+            height: 20px;
+        }   
+    </style>
+    <script type="text/javascript" 
+       src="http://maps.google.com/maps/api/js?libraries=geometry&key=AIzaSyB5KWBzrJvp3Pzrg6ilHkF4O1zFSTVmfjE">
+   </script>
+
+    <script type = "text/javascript">
+        var mapa;
+
+    function Leer_Fichero(evento) {
+		var e = evento | window.event;
+    	var fichero = evento.target.files[0];
+
+		function convertir_a_XML(texto){
+			var xml = null;
+			if(window.ActiveXObject){
+				xml = new ActiveXObject("Microsoft.XMLDOM");
+				xml.loadXML(texto);
+			}else
+				xml = new DOMParser().parseFromString(texto,"text/html");
+				return xml;
+		}
+
+    	var reader = new FileReader();
+    	reader.onload = function (e) {
+    		let miXml = convertir_a_XML(reader.result);
+			console.log(miXml);
+			tratarXML(miXml);
+    	}
+
+    	reader.readAsText(fichero);	
+    } 
+
+	
+	function tratarXML(xml){
+		var puntos = xml.getElementsByTagName("trkpt");
+		var sal = document.getElementById("sal");
+		var latitud = puntos[0].getAttributeNode("lat").nodeValue;
+		var longitud = puntos[0].getAttributeNode("lon").nodeValue;
+        mapa.setCenter(new google.maps.LatLng(latitud,longitud));
+        mapa.setZoom(13);
+
+        var ruta = new Array();
+
+		for(var i = 0; i < puntos.length; i++){
+			latitud = puntos[i].getAttributeNode("lat").nodeValue;
+			longitud = puntos[i].getAttributeNode("lon").nodeValue;
+            ruta.push(new google.maps.LatLng(latitud,longitud));
+		}
+
+        new google.maps.Polyline({
+            path:ruta,
+            map:mapa,
+            geodedsic:true,
+            strokeColor:"#FF0000",
+            strokeOpacity:1.0,
+            strokeWeight:2,
+            clickable:true
+        });
+
+        var distancia = google.maps.geometry.spherical.computeLength(ruta);
+
+
+        var ponerInfo = document.getElementById("informacion");
+        ponerInfo.innerHTML = "Distancia: " + (distancia/1000).toFixed(2) + " kilometros";
+
+
+        //Calculo del tiempo
+        var horaInicial = new Date(puntos[0].getElementsByTagName("time")[0].innerText);
+        var horaFinal = new Date(puntos[puntos.length - 1].getElementsByTagName("time")[0].innerText);
+        var diferencia = horaFinal - horaInicial;
+
+        var horasDiferencia = Math.floor(diferencia/(1000 * 60 * 60))
+        var minutosDiferencia = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60))
+        var segundosDiferencia = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        var tiempoRuta = horasDiferencia + ":" + minutosDiferencia + ":" + segundosDiferencia;
+        ponerInfo.innerHTML += "<br>Tiempo: " + tiempoRuta;
+
+
+        //Calculo de la velocidad
+        var velocidad =  ((distancia/1000)/(diferencia/(1000*60*60))).toFixed(2);
+        ponerInfo.innerHTML += "<br>Velocidad: " + velocidad + "Km/h";
+
+        new google.maps.Marker({
+            position: new google.maps.LatLng(puntos[0].getAttributeNode("lat").nodeValue,puntos[0].getAttributeNode("lon").nodeValue),
+            map:mapa,
+        });
+
+        new google.maps.Marker({
+            position: new google.maps.LatLng(puntos[puntos.length - 1].getAttributeNode("lat").nodeValue,puntos[puntos.length - 1].getAttributeNode("lon").nodeValue),
+            map:mapa,
+        });
+	}
+
+    function CargarMapa() {
+      	var divMapa = document.getElementById("divmapa");
+      	var centro = new google.maps.LatLng(36.996018,  -5.203535);
+      	
+      	var opciones = {
+					center: centro,  
+					zoom: 7,	
+				};
+
+      	mapa = new google.maps.Map(divMapa, opciones);
+      }
+
+    
+
+    window.onload = function () {
+        CargarMapa();
+    	document.getElementById("id_fichero").addEventListener('change', Leer_Fichero, false);
+    }
+
+    </script>
+  </head>
+
+  <body>
+
+  	<p>
+  		<label for="id_fichero">Selecciona el fichero a leer:</label><br>
+  		<input id="id_fichero" type="file" />
+  	</p>
+
+    <p>
+        <div id="informacion"></div>
+    </p>
+
+    <div id="divmapa">
+        Aquí pondremos el mapa
+    </div>
+
+	<p>
+    <div id="sal">
+    </div>
+    </p>
+  </body>
+
+</html>

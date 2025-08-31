@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        this.selConsultaPersonaEstados() = async function(fRes) {
+            let results = await jsStoreCon.select({
+                from:"personas2",
+                join:{
+                    with:"estados_civiles",
+                    on:"personas2.estado_civil=estados_civiles.id",
+                    as:{
+                        id:"idEstadoCivil",
+                        nombre:"estado_civil_nombre"
+                    },
+                    type:"inner"
+                }
+            });
+            fRes(results);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,47 @@
+<h4>Identificacion</h4>
+<div>
+    <p>Introduzca sus datos</p>
+    <form class="form-horizontal" [formGroup]="form" (ngSubmit)="validar()">
+        <div class="mb-3">
+            <label for="email" class="form-label"><b>Email</b></label>
+            <input type="text" class="form-control" id="email" required formControlName="email">
+
+            @if (form.controls["email"].invalid && (form.controls["email"].dirty || form.controls["email"].touched)) {
+                @if (form.controls["email"].errors?.["required"]) {
+                    <div class="alert alert-danger">
+                        El email es obligatorio
+                    </div>
+                }
+                @if (form.controls["email"].errors?.["email"]) {
+                    <div class="alert alert-danger">
+                        El email debe ser válido
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="mb-3">
+            <label for="clave" class="form-label"><b>Clave</b></label>
+            <input type="text" class="form-control" id="clave" required formControlName="clave">
+
+            @if (form.controls["clave"].invalid && (form.controls["clave"].dirty || form.controls["clave"].touched)) {
+                @if (form.controls["clave"].errors?.["required"]) {
+                    <div class="alert alert-danger">
+                        El nombre es obligatorio
+                    </div>
+                }
+                @if (form.controls["clave"].errors?.["minlength"]) {
+                    <div class="alert alert-danger">
+                        El nombre debe tener al menos 2 caracteres
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="container">
+            <button class="btn btn-primary col-2" type="submit" [disabled]="!form.valid">Entrar</button>
+            <span>|</span>
+            <a class="btn btn-primary col-2" role="button">Registrate</a>  
+        </div>
+    </form>
+</div>

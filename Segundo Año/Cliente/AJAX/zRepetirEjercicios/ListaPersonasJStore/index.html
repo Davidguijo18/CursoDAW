@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+  <title>Prueba IndexedDB</title>
+
+	
+	<script src="jsstore/jsstore.min.js"></script>
+	<script src="jsstore/jsstore.worker.min.js"></script>
+	<script src="ListaPersonaBD.js"></script>
+	
+	<script>
+		BD();
+
+        window.onload = function(){
+            mostrarPersonas();
+        }
+
+        async function mostrarPersonas() {
+            const personas = await obtenerPersonas();
+            const tabla = document.getElementById("filas_tabla");
+            tabla.innerHTML = "";
+
+            personas.forEach(persona => {
+                const fila = document.createElement("tr");
+                const atributosPersona = [persona.id, persona.dni, persona.nombre, persona.apellidos, persona.fnacimiento, persona.estatura];
+
+                atributosPersona.forEach(atributo => {
+                    const columna = document.createElement("td");
+                    columna.innerHTML = atributo;
+                    fila.appendChild(columna);
+                });
+
+                // Botón de borrar
+                const tdBorrar = document.createElement("td");
+                const botonBorrar = document.createElement("button");
+                botonBorrar.innerHTML = "Borrar";
+                botonBorrar.dataset.id = persona.id;
+                botonBorrar.dataset.nombreape = `${persona.nombre} ${persona.apellidos}`;
+                botonBorrar.onclick = borrarPersona;
+                tdBorrar.appendChild(botonBorrar);
+                fila.appendChild(tdBorrar);
+
+                // Botón de editar
+                const tdEditar = document.createElement("td");
+                const botonEditar = document.createElement("button");
+                botonEditar.innerHTML = "Editar";
+                botonEditar.dataset.id = persona.id;
+                botonEditar.onclick = editarPersona;
+                tdEditar.appendChild(botonEditar);
+                fila.appendChild(tdEditar);
+
+                tabla.appendChild(fila);
+            });
+        }
+	</script>
+
+
+</head>
+
+<body >
+
+  <div  id="pPrincipal">
+
+		<div id="sal">
+		</div>
+    
+
+  </div>
+   
+
+
+
+</body>
+
+</html>

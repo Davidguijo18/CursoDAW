@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    <style>
+        div{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 44px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: auto;
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+            color: brown;
+            font-size: 70px;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){ //Comienzo de jquery
+            $("div").click(function(){
+                $(this).hide(4000); //Efecto que esconde (hidden)
+                $(this).show(4000);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Ejemplo de JQuery</h2>
+    <p>
+        <div>Pulsame para ocultarme</div>
+    </p>
+</body>
+</html>

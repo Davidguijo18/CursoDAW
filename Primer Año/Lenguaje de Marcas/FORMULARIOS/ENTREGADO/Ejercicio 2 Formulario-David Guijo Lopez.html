@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Ejercicio 2-David Guijo Lopez</title>
+</head>
+
+<body>
+    <form action="insertar_cv.php" method="get">
+        <h1>Rellena tu CV</h1>
+    <br>
+        Nombre
+        <p><input type="text" name="nombre" maxlength="30"></p>
+    <br>
+        Apellidos
+        <p><input type="text" name="apellidos" maxlength="80"></p>
+    <br>
+        Contraseña
+        <p><input type="password" name="contrasena" maxlength="10"></p>
+
+    <br>
+        DNI
+        <p><input type="text" name="dni" maxlength="9" required></p>
+
+    <br>
+        Sexo
+        <br>
+        <input type="radio" name="sexo" value="Hombre">Hombre
+        <br>
+        <input type="radio" name="sexo" value="Mujer">Mujer
+
+    <br>
+        <p>Incluir mi foto
+        <input type="file" name="fichero">
+        </p>
+
+    <br>
+        <p>
+        <input type="checkbox" name="suscribirse" checked> Suscribirme al boletin de novedades    
+        </p>
+
+    <br>
+        <input type="submit" value="Guardar cambios">
+        <input type="reset" value="Borrar los datos introducidos">
+
+    </form>
+</body>
+
+</html>

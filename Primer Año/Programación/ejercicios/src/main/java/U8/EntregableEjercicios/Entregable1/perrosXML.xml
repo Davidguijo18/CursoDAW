@@ -1,0 +1,31 @@
+<perros>
+    <perro peso="9">
+        <nombre>Matias</nombre>
+        <edad>3</edad>
+        <raza>Bulldog frances</raza>
+    </perro>
+
+    <perro peso="5">
+        <nombre>Nicolas</nombre>
+        <edad>7</edad>
+        <raza>Yorsai</raza>
+    </perro>
+
+    <perro peso="4">
+        <nombre>Juan</nombre>
+        <edad>9</edad>
+        <raza>Chihuahua</raza>
+    </perro>
+
+    <perro peso="20">
+        <nombre>Ramon</nombre>
+        <edad>5</edad>
+        <raza>Pastor Aleman</raza>
+    </perro>
+
+    <perro peso="60">
+        <nombre>Pastelito de fresa</nombre>
+        <edad>8</edad>
+        <raza>Pitbull</raza>
+    </perro>
+</perros>

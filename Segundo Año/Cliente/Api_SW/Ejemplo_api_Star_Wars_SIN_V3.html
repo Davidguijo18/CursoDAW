@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Envio de parametros con AJAX externo</title>
+	<style type="text/css">
+	body {
+		background: url(sw.avif) no-repeat;
+		text-align: center;
+	}
+	table {
+		margin: auto;
+		margin-top: 70px;
+		border-radius: 15px;
+	}
+	h3 {
+		margin: auto;
+		color: #ffd000;
+		font-size: larger;
+	}
+	.estilo_Tabla_1 {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		width: 70%;
+		border-collapse: collapse;
+	}
+	.estilo_Tabla_1 td {
+		font-size: 1em;
+		border: 1px solid #000000;
+		padding: 4px;
+	}
+	.estilo_Tabla_1 th {
+		border: 1px solid #000000;
+		font-size: 1.2em;
+		padding: 5px;
+		background-color: #000000;
+		color: #ffd000;
+	}
+	.estilo_Tabla_1 tr td {
+		color: #000000;
+		background-color: #cf0b0b;
+	}
+	.estilo_Tabla_1 tr td:nth-child(-n+3) {
+		color: #000000;
+		background-color: rgb(59, 59, 228);
+	}
+	caption {
+		caption-side: bottom;
+		color: #ffd000;
+		font-size: large;
+		background-color: #000000;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		align-items: center;
+	}
+	.botones input {
+		width: 8em;
+		height: 4em;
+		border-radius: 3em;
+		font-size: large;
+		background-color: #000000;
+		color: #ffd000;
+		margin-right: 40px;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	let paginaAnterior = null;
+	let paginaPosterior = null;
+
+	window.onload = function() {
+    cargarPersonajes('https://swapi.dev/api/people/?format=json');
+
+    document.getElementById("siguiente").onclick = function() {
+        if (paginaPosterior) {
+            cargarPersonajes(paginaPosterior);
+        }
+    }
+
+    document.getElementById("anterior").onclick = function() {
+        if (paginaAnterior) {
+            cargarPersonajes(paginaAnterior);
+        }
+    }
+}
+
+const cargarPersonajes = (url) => {
+    let peti = new XMLHttpRequest();
+    peti.onreadystatechange = function() {
+        if (peti.readyState == 4 && peti.status == 200) {
+            let respuesta = JSON.parse(peti.responseText);
+            let personajes = respuesta.results;
+
+            paginaAnterior = respuesta.previous; 
+            paginaPosterior = respuesta.next;
+
+            let tabla = document.getElementById("cuerpoPersonajes");
+            tabla.innerHTML = ""; 
+
+            personajes.forEach(personaje => {
+                let fila = document.createElement("tr");
+                let datosPersonaje = [
+                    personaje.name, 
+                    personaje.height, 
+                    personaje.mass, 
+                    personaje.birth_year, 
+                    personaje.gender, 
+                    personaje.homeworld
+                ];
+
+                datosPersonaje.forEach(dato => {
+                    let columna = document.createElement("td");
+                    columna.innerHTML = dato;
+                    fila.appendChild(columna);
+                });
+                tabla.appendChild(fila);
+            });
+
+            document.getElementById("siguiente").disabled = !paginaPosterior;
+            document.getElementById("anterior").disabled = !paginaAnterior;
+        }
+    };
+
+    peti.open('GET', url);
+    peti.send();
+}
+
+	</script>
+</head>
+
+<body>
+	<h3>Ejemplo de llamada a la API de STAR WARS</h3>
+	<br/>
+
+	<p>
+		<table id="personajes" class="estilo_Tabla_1">
+			<caption>Personajes STAR WARS</caption>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Altura</th>
+					<th>Peso</th>
+					<th>Nacimiento</th>
+					<th>Género</th>
+					<th>Homeworld</th>
+				</tr>
+			</thead>
+			<tbody id="cuerpoPersonajes"></tbody>
+		</table>
+	</p>
+
+	<br>
+	<div class="botones">
+		<input type="button" name="anterior" id="anterior" value="Anterior">
+		<input type="button" name="siguiente" id="siguiente" value="Siguiente">
+	</div>
+	
+	<br/>
+	<div id="datosPlaneta">Datos del planeta:</div>
+</body>
+</html>

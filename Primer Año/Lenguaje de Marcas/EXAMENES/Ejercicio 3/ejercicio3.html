@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Ejercicio 3-David Guijo</title>
+</head>
+<body>
+    <form action="https://iesjacaranda.es/lmsgi/resultado.php" method="get">
+        <h2>Formulario</h2>
+        <fieldset>
+            <legend>Datos personales</legend>
+                DNI <input type="text" name="dni" maxlength="9" placeholder="Introducir DNI">
+                <br> <br>
+                Nombre <input type="text" name="nombre" maxlength="20" placeholder="Introducir Nombre">
+                <br> <br>
+                Apellidos <input type="text" name="apellidos" maxlength="40" placeholder="Introducir Apellidos">
+                <br> <br>
+                Email <input type="email" name="email" placeholder="Introducir correo electronico">
+                <br> <br>
+                Teléfono <input type="tel" name="telefono" placeholder="Introducir teléfono">
+                <br> <br>
+                <textarea name="texto" rows="8" cols="49" placeholder="Inserte aqui el texto"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Informacion requerida </legend>
+            <br> <br> <br>
+            Elija un fichero <input type="file" name="fichero">
+            <br> <br>
+            <select name="puertos">
+                <option value="USB">USB</option>
+                <option value="Paralelo">Paralelo</option>
+                <option value="PS2">PS2</option>
+            <br><br>
+            <input type="radio" name="SO" value="win">Windows
+            <input type="radio" name="SO" value="mac">Mac
+            <input type="radio" name="SO" value="lin">Linux
+            <br> <br>
+            Elija una fecha <input type="date" name="fecha">
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Preferencias</legend>
+            Elija una hora <input type="time" name="hora">
+            <br> <br>
+            Elija un fichero <input type="file" name="fichero">
+            <br> <br>
+            <input type="checkbox" name="h">Historia<br>
+            <input type="checkbox" name="g">Geografia<br>
+            <input type="checkbox" name="l">Lengua<br>
+            <input type="checkbox" name="m">Matematicas<br>
+            <br><br>
+            Elija un color <input type="color" name="color">
+            <br> <br>
+            <select name="bits[]" size="2" multiple>
+                <option value="1">100 Mbits</option>
+                <option value="2">1000 Mbits</option>
+            </select>
+            <br><br>
+            <textarea name="textoo" rows="6" cols="49" placeholder="Por favor, escribe aquí"></textarea>
+            <br> <br>
+            <input type="checkbox" name="am">AMD<br>
+            <input type="checkbox" name="i5">Intel i5<br>
+            <input type="checkbox" name="i7">Intel i7<br>
+            <br><br>
+            Elija una hora <input type="time" name="elijehora">
+            <br>
+            <input type="radio" name="g" value="3">3G <br>
+            <input type="radio" name="g" value="4">4G <br>
+            <input type="radio" name="g" value="5">5G <br>
+            <br><br>
+            Elija un fichero <input type="file" name="ficheritoto">
+        </fieldset>
+        <br> <br>
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>

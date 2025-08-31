@@ -1,0 +1,120 @@
+<h4>{{textoH4}}</h4>
+<div>
+    <p>{{textoP}}</p>
+
+<form class="form-horizontal" [formGroup]="form" (ngSubmit)="anadir()">
+    <div class="mb-3">
+        <label for="firstName" class="form-label"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="firstName" required formControlName="firstName">
+
+        @if (form.controls["firstName"].invalid && (form.controls["firstName"].dirty || form.controls["firstName"].touched)) {
+            
+            @if (form.controls["firstName"].errors?.["required"]){
+                <div class="alert alert-danger">
+                    El nombre es obligatorio
+                </div>
+            }
+
+            @if (form.controls["firstName"].errors?.["minlength"]) {
+                <div class="alert alert-danger">
+                    El nombre debe tener al menos 2 caracteres
+                </div>
+            }
+        }
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="form-label"><b>Apellidos</b></label>
+        <input type="text" class="form-control" id="lastName" required formControlName="lastName">
+
+        @if (form.controls["lastName"].invalid && (form.controls["lastName"].dirty || form.controls["lastName"].touched)) {
+            
+            @if (form.controls["lastName"].errors?.["required"]){
+                <div class="alert alert-danger">
+                    Los apellidos son obligatorios
+                </div>
+            }
+
+            @if (form.controls["lastName"].errors?.["minlength"]) {
+                <div class="alert alert-danger">
+                    Los apellidos deben tener al menos 4 caracteres
+                </div>
+            }
+        }
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label"><b>Direccion</b></label>
+        <input type="text" class="form-control" id="address" required formControlName="address">
+
+        @if (form.controls["address"].invalid && (form.controls["address"].dirty || form.controls["address"].touched)) {
+            
+            @if (form.controls["address"].errors?.["required"]){
+                <div class="alert alert-danger">
+                    La direccion es obligatoria
+                </div>
+            }
+
+            @if (form.controls["address"].errors?.["minlength"]) {
+                <div class="alert alert-danger">
+                    La direccion debe tener al menos 5 caracteres
+                </div>
+            }
+        }
+    </div>
+
+    <div class="mb-3">
+        <label for="city" class="form-label"><b>Ciudad</b></label>
+        <input type="text" class="form-control" id="city" required formControlName="city">
+
+        @if (form.controls["city"].invalid && (form.controls["city"].dirty || form.controls["city"].touched)) {
+            
+            @if (form.controls["city"].errors?.["required"]){
+                <div class="alert alert-danger">
+                    La ciudad es obligatoria
+                </div>
+            }
+
+            @if (form.controls["city"].errors?.["minlength"]) {
+                <div class="alert alert-danger">
+                    La ciudad debe tener al menos 2 caracteres
+                </div>
+            }
+        }
+    </div>
+
+    <div class="mb-3">
+        <label for="telephone" class="form-label"><b>Telefono</b></label>
+        <input type="text" class="form-control" id="telephone" required formControlName="telephone">
+
+        @if (form.controls["telephone"].invalid && (form.controls["telephone"].dirty || form.controls["telephone"].touched)) {
+            
+            @if (form.controls["telephone"].errors?.["required"]){
+                <div class="alert alert-danger">
+                    El telefono es obligatorio
+                </div>
+            }
+
+            @if (form.controls["telephone"].errors?.["minlength"]) {
+                <div class="alert alert-danger">
+                    El telefono debe tener 9 caracteres
+                </div>
+            }
+
+            @if (form.controls["telephone"].errors?.["maxlength"]) {
+                <div class="alert alert-danger">
+                    El telefono debe tener 9 caracteres
+                </div>
+            }
+        }
+    </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-2" type="submit" [disabled]="!form.valid">{{textoBoton}}</button>
+        <span>|</span>
+        <a class="btn btn-primary col-2" routerLink="" role="button">Volver</a>  
+    </div>
+
+</form>
+
+</div>

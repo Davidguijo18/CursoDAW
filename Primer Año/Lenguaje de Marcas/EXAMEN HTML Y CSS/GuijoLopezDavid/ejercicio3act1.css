@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.contenedor{
+    display: flex;
+}
+
+.primerdiv{
+    height: 400px;
+    width: 500px;
+    position: absolute;
+    top: 5em;
+    left: 5em;
+}
+
+.segundodiv{
+    height: 400px;
+    width: 700px;
+    position: absolute;
+    top:5em;
+    left: 25em;
+}
+
+.tercerdiv{
+    height: 400px;
+    width: 500px;
+    position: absolute;
+    top: 15em;
+    left: 5em;
+}
+
+.cuartodiv{
+    height: 400px;
+    width: 500px;
+    position: absolute;
+    top:15em;
+    left: 25em;
+}

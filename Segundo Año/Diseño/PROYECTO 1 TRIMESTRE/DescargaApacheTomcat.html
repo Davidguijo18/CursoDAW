@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Apache Tomcat</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f9;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera */
+        #cabecera {
+            display: flex;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #222;
+            color: white;
+            justify-content: space-between;
+        }
+        #logo img {
+            width: 80px;
+            height: auto;
+        }
+        #nombreweb h1 {
+            font-size: 2em;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul {
+            display: flex;
+            list-style: none;
+        }
+        .menuDesplegable ul > li {
+            position: relative;
+            margin-left: 1em;
+        }
+        .menuDesplegable ul a {
+            color: #333;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
+            background-color: #ebeba8;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .menuDesplegable ul a:hover, .menuDesplegable ul a:focus {
+            background-color: #b8a314;
+        }
+        .menuDesplegable ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ebeba8;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0.5em 0;
+        }
+        .menuDesplegable ul li:hover ul {
+            display: block;
+        }
+
+        #descargas {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 2em;
+            flex-grow: 1;
+        }
+        #descargas h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+        #descargas h3 {
+            font-size: 1.5em;
+            color: #444;
+            margin-top: 1.5em;
+        }
+        #descargas p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1em;
+        }
+        #descargas ul {
+            font-size: 1em;
+            margin-left: 1em;
+            list-style: none;
+        }
+        #descargas a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        #descargas a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        #piePagina {
+            background-color: #222;
+            color: white;
+            padding: 1.5em;
+            text-align: center;
+        }
+        #piePagina p, #piePagina a {
+            font-size: 0.9em;
+            color: #ddd;
+            margin: 0.5em 0;
+        }
+        #piePagina a:hover {
+            color: #ebeba8;
+            text-decoration: underline;
+        }
+
+        #logo img:hover { transform: scale(1.1); transition: transform 0.3s ease; }
+
+        body{
+            background-color: #ebeba8;
+            color: #333;    
+        }
+
+        body #cabecera {
+            background-color: #b8a314;
+        }
+
+        body #piePagina{
+            background-color: #b8a314;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cabecera -->
+<div id="cabecera">
+    <div id="logo">
+        <img src="imagenes/logopagina.jpg" alt="Logo GuijoWeb">
+    </div>
+    <div id="nombreweb">
+        <h1>GuijoWeb</h1>
+    </div>
+    <div class="menuDesplegable">
+        <ul>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Apache Tomcat</a>
+                <ul>
+                    <li><a href="DescargaApacheTomcat.html">Descarga</a></li>
+                    <li><a href="TutorialApacheTomcat.html">Intalacion</a></li>
+                    <li><a href="ConfiguracionApacheTomcat.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">WildFly</a>
+                <ul>
+                    <li><a href="DescargaWindFly.html">Descarga</a></li>
+                    <li><a href="TutorialWindFly.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionWindFly.html">Configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="#">GlassFish</a>
+                <ul>
+                    <li><a href="DescargaGlassFish.html">Descarga</a></li>
+                    <li><a href="TutorialGlassFish.html">Instalacion</a></li>
+                    <li><a href="ConfiguracionGlassFish.html">Configuracion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<!-- Sección de Descargas -->
+<div id="descargas">
+    <h2>Descargar Apache Tomcat para Ubuntu</h2>
+    <p>Apache Tomcat es uno de los servidores web más populares para ejecutar aplicaciones Java. Ideal para proyectos de tamaño pequeño a mediano, Tomcat es reconocido por su simplicidad y eficacia. Aquí puedes encontrar los requisitos, enlaces de descarga y pasos para instalar y configurar Tomcat en tu sistema.</p>
+
+    <h3>Requisitos del Sistema</h3>
+    <p>Antes de instalar Apache Tomcat, asegúrate de cumplir con los siguientes requisitos:</p>
+
+    <h4>Para Linux (Ubuntu):</h4>
+    <ul>
+        <li>Ubuntu 20.04 o superior.</li>
+        <li>Java Development Kit (JDK) 11 o superior.</li>
+        <li>Espacio en disco duro: 500 MB.</li>
+        <li>Acceso a la terminal para configurar variables de entorno.</li>
+        <li>Conexión a internet para la descarga de actualizaciones y plugins.</li>
+    </ul>
+
+    <h3>Enlaces de Descarga</h3>
+    <p>A continuación se encuentra el enlace para descargar Apache Tomcat para Linux (Ubuntu):</p>
+
+    <h4>Linux (Ubuntu):</h4>
+    <a href="https://tomcat.apache.org/download-90.cgi" target="_blank">Descargar Apache Tomcat para Linux (Ubuntu)</a>
+
+</div>
+
+<!-- Pie de Página -->
+<div id="piePagina">
+    <p>© 2024 GuijoWeb. Todos los derechos reservados.</p>
+    <p><a href="Index.html">Volver al Inicio</a></p>
+    <p>Contacto: <a href="mailto:contacto@guijoweb.com">contacto@guijoweb.com</a></p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+</div>
+
+</body>
+</html>

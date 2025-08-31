@@ -1,0 +1,57 @@
+<h4>{{ textoH4 }}</h4>
+<div>
+  <p>{{ textoP }}</p>
+
+  <form class="form-horizontal" [formGroup]="form" (ngSubmit)="anadirPet()">
+    <div class="mb-3">
+      <label for="owner" class="form-label"><b>Dueño</b></label>
+      <input type="text" class="form-control" id="owner" formControlName="owner" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="form-label"><b>Nombre</b></label>
+      <input type="text" class="form-control" id="name" formControlName="name">
+
+      @if (form.controls["name"].invalid && (form.controls["name"].dirty || form.controls["name"].touched)) {
+        <div class="alert alert-danger">
+          El nombre es obligatorio
+        </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="birthDate" class="form-label"><b>Fecha de nacimiento</b></label>
+      <input type="date" class="form-control" id="birthDate" formControlName="birthDate">
+
+      @if (form.controls["birthDate"].invalid && (form.controls["birthDate"].dirty || form.controls["birthDate"].touched)) {
+        <div class="alert alert-danger">
+          La fecha de nacimiento es obligatoria
+        </div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="type" class="form-label"><b>Tipo</b></label>
+      <select id="type" class="form-control" formControlName="type">
+        <option [value]="null">Selecciona un tipo</option>
+        @for (petType of listaPetTypes; track $index) {
+          <option [value]="petType.id">
+            {{ petType.name }}
+          </option>
+        }
+      </select>
+
+      @if (form.controls["type"].invalid && (form.controls["type"].dirty || form.controls["type"].touched)) {
+        <div class="alert alert-danger">
+          El tipo es obligatorio
+        </div>
+      }
+    </div>
+
+    <div class="container">
+      <button class="btn btn-primary col-2" type="submit" [disabled]="!form.valid">{{ textoBoton }}</button>
+      <span>|</span>
+      <a class="btn btn-primary col-2" role="button" routerLink="/detailOwner/{{pet.owner.id}}">Volver</a>
+    </div>
+  </form>
+</div>

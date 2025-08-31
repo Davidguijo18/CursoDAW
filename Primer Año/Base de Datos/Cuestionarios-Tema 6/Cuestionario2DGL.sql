@@ -1,0 +1,34 @@
+CREATE OR REPLACE TRIGGER CUESTIONARIO2DGL
+AFTER UPDATE OF NUMEM,FECNA,SALAR ON EMPLEADOS
+FOR EACH ROW
+BEGIN 
+    IF UPDATING ('NUMEM')THEN
+        RAISE_APPLICATION_ERROR(-20100,'El numero de empleado no puede ser modificado');
+    END IF;
+    
+    IF UPDATING ('NUMEM')THEN
+        RAISE_APPLICATION_ERROR(-20101,'El numero de empleado no puede ser modificado');
+    END IF;
+    
+    IF UPDATING (':new.NUMEM > :old.NUMEM*1.1')THEN
+            RAISE_APPLICATION_ERROR(-20102,'El numero de empleado no puede ser modificado');
+    END IF;
+END;
+/
+    
+UPDATE EMPLEADOS 
+SET NUMEM=980
+WHERE NUMEM=110;
+
+UPDATE EMPLEADOS
+SET FECNA='17//1189'
+WHERE FECNA='10/11/70';
+
+UPDATE EMPLEADOS
+SET SALAR =SALAR*1.5
+WHERE SALAR=1800;
+
+
+
+
+

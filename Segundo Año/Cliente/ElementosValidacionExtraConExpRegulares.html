@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación Completa del Formulario</title>
+
+    <script type = "text/javascript">
+        
+        function validarFormulario() {
+            var foco = null;
+            var requisitosCumplidos = 0;
+
+            // Validación del nombre
+            var nombre = document.getElementById("nombre");
+            if (nombre.value.trim().length < 2) {
+                foco = nombre;
+                document.getElementById("info_nombre").innerHTML = "El nombre debe tener al menos 2 caracteres";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_nombre").innerHTML = "";
+            }
+
+            // Validación del correo electrónico
+            var correo = document.getElementById("correo");
+            var regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regexCorreo.test(correo.value.trim())) {
+                if (!foco) foco = correo;
+                document.getElementById("info_correo").innerHTML = "El correo no tiene un formato válido";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_correo").innerHTML = "";
+            }
+
+            // Validación de la contraseña
+            var contrasena = document.getElementById("contrasena");
+            var regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!regexContrasena.test(contrasena.value)) {
+                if (!foco) foco = contrasena;
+                document.getElementById("info_contrasena").innerHTML = "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_contrasena").innerHTML = "";
+            }
+
+            // Validación del número de teléfono
+            var telefono = document.getElementById("telefono");
+            var regexTelefono = /^\d{9}$/;
+            if (!regexTelefono.test(telefono.value)) {
+                if (!foco) foco = telefono;
+                document.getElementById("info_telefono").innerHTML = "El número de teléfono debe tener 9 dígitos";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_telefono").innerHTML = "";
+            }
+
+            // Validación de tarjeta de crédito (Algoritmo de Luhn)
+            var tarjeta = document.getElementById("tarjeta");
+            var regexTarjeta = /^\d{16}$/;
+
+            function luhnCheck(numero) {
+                var suma = 0;
+                var esPar = false;
+                for (var i = numero.length - 1; i >= 0; i--) {
+                    var digito = parseInt(numero.charAt(i), 10);
+                    if (esPar) {
+                        if ((digito *= 2) > 9) digito -= 9;
+                    }
+                    suma += digito;
+                    esPar = !esPar;
+                }
+                return (suma % 10) === 0;
+            }
+
+            if (!regexTarjeta.test(tarjeta.value) || !luhnCheck(tarjeta.value)) {
+                if (!foco) foco = tarjeta;
+                document.getElementById("info_tarjeta").innerHTML = "El número de tarjeta es inválido";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_tarjeta").innerHTML = "";
+            }
+
+            // Validación de la fecha de caducidad
+            var mes = parseInt(document.getElementById("mes").value);
+            var ano = parseInt(document.getElementById("ano").value);
+
+            var fechaActual = new Date();
+            var anoActual = fechaActual.getFullYear();
+            var mesActual = fechaActual.getMonth() + 1; // Los meses van de 0 a 11
+
+            if (ano < anoActual || (ano == anoActual && mes < mesActual) || mes < 1 || mes > 12) {
+                if (!foco) foco = document.getElementById("mes");
+                document.getElementById("info_fecha").innerHTML = "La fecha de caducidad no es válida";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_fecha").innerHTML = "";
+            }
+
+            // Validación del código postal
+            var codigoPostal = document.getElementById("codigo_postal");
+            var regexPostal = /^\d{5}$/;
+            if (!regexPostal.test(codigoPostal.value)) {
+                if (!foco) foco = codigoPostal;
+                document.getElementById("info_codigo_postal").innerHTML = "El código postal debe tener 5 dígitos";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_codigo_postal").innerHTML = "";
+            }
+
+            // Validación de aceptación de términos y condiciones
+            var terminos = document.getElementById("terminos");
+            if (!terminos.checked) {
+                if (!foco) foco = terminos;
+                document.getElementById("info_terminos").innerHTML = "Debes aceptar los términos y condiciones";
+            } else {
+                requisitosCumplidos++;
+                document.getElementById("info_terminos").innerHTML = "";
+            }
+
+            // Si hay algún campo con error, enfocar en él
+            if (foco) {
+                foco.focus();
+                return false;
+            }
+
+            // Verificar si se cumplieron todos los requisitos
+            return requisitosCumplidos == 8;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validarFormulario()">
+        <!-- Nombre -->
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <div id="info_nombre" class="error"></div><br>
+
+        <!-- Correo electrónico -->
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo">
+        <div id="info_correo" class="error"></div><br>
+
+        <!-- Contraseña -->
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena">
+        <div id="info_contrasena" class="error"></div><br>
+
+        <!-- Teléfono -->
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono">
+        <div id="info_telefono" class="error"></div><br>
+
+        <!-- Tarjeta de crédito -->
+        <label for="tarjeta">Tarjeta de crédito:</label>
+        <input type="text" id="tarjeta">
+        <div id="info_tarjeta" class="error"></div><br>
+
+        <!-- Fecha de caducidad de tarjeta -->
+        <label for="mes">Mes de caducidad:</label>
+        <input type="number" id="mes" min="1" max="12">
+        <label for="ano">Año de caducidad:</label>
+        <input type="number" id="ano" min="2023">
+        <div id="info_fecha" class="error"></div><br>
+
+        <!-- Código postal -->
+        <label for="codigo_postal">Código postal:</label>
+        <input type="text" id="codigo_postal">
+        <div id="info_codigo_postal" class="error"></div><br>
+
+        <!-- Aceptación de términos y condiciones -->
+        <label>
+            <input type="checkbox" id="terminos"> Acepto los términos y condiciones
+        </label>
+        <div id="info_terminos" class="error"></div><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

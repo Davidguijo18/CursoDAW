@@ -1,0 +1,107 @@
+
+*{margin:0;
+ padding:0;
+ box-sizing: border-box
+ }
+
+body {background:#F0F2F5}
+
+.contenedor{
+    width:100%;
+    max-width:1000px;
+    margin: auto;
+    height: 95vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden
+}
+
+.facebook{
+    width: 60%;
+    margin-right: 70px;
+}
+
+.facebook h2{
+    font-size: 55px;
+    color:#1877f2 
+}
+
+.facebook p{
+    color:#1C1E21;
+    font-size:26px;
+    font-weight:500;
+    line-height: 35px
+}
+
+.formulario{
+    width: 396px;
+    height: 348px;
+    border-radius: 10px;
+    border: 1px solid #E8E8E9;
+    box-shadow: 0px 8px 32px rgba(153,153,153 0.30);
+    padding: 20px 0 20px 0;
+    background: #fff;
+    margin: 40px 0px 0px0;
+    text-align: center
+}
+
+.formulario input{
+    width: 365px;
+    height: 50px;
+    background: #fff;
+    padding: 14px 16px;
+    font-size: 16px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border: none;
+    border: 1px solid #E4E3E3
+}
+
+.formulario .iniciarsesion{
+    width: 365px;
+    height: 52px;
+    background: #1877f2;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size: 22px;
+    margin-bottom:10px 
+}
+
+.formulario a{
+    text-decoration: none;
+    color:#1877f2;
+    font-size:15px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.formulario hr{
+    margin: 0 20px 0 20px;
+    margin-bottom: 20px;
+    border: 0.2px solid #E4E3E3
+}
+
+.formulario .cambiarcontra{
+    width: 190px;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    color:#fff;
+    background:#42B72A
+}
+
+.final{
+    width: 90%
+}
+
+.parafinal{
+    font-size: 14px;
+    text-align: center;
+    margin-top:24px
+}
+
+
+

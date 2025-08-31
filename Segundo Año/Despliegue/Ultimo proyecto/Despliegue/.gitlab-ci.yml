@@ -1,0 +1,14 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: node:latest
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm install
+    - npm test 
+  only:
+    - main

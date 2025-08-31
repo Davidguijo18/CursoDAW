@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ejercicio Listado Personas. AJAX</title>
+    <style type="text/css">
+        h3 {
+            color: red;
+        }
+        /* CSS para el formulario: */
+        .formPersonas {
+            visibility: hidden;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            z-index: 11;
+            background-color: pink;
+            border: 2px solid maroon;
+            border-radius: 15px;
+            padding: 1em;
+            color: red;
+        }
+        .formPersonas div label {
+            display: block;
+            margin-top: .5em;
+        }
+        .formPersonas .btn {
+            display: block;
+            margin-top: 1em;
+        }
+        .ver {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script type="text/javascript" src="UtilAJAX.js"></script>
+    <script type="text/javascript">
+        var peti = new pAJAX();
+        let url = 'servidor.php';
+
+
+        var accion = {
+            tipo:0,
+            id_persona:-1,
+            texto_legend:"Añadir persona",
+            texto_boton:"Añadir",
+            clase_css:"ver"
+        }
+
+
+
+        window.onload = function () {
+            cargarTabla();
+            document.getElementById("btAnade").onclick = anadePersona;
+            document.getElementById("btNuevaPersona").onclick = mostrarParaAnadir;
+            document.getElementById("btCancelar").onclick = cancelarForm;
+
+        }
+
+        function Crea_Fila(aCol){
+            var fila = document.createElement("tr");
+            var col;var cont;
+            for(var i in aCol){
+                col = document.createElement("td");
+                cont = document.createTextNode(aCol[i]);
+                col.appendChild(cont);
+                fila.appendChild(col);
+            }
+            return fila;
+        }
+
+        function LLenaTabla(aTabla,cuerpoTabla){
+            var fila,td,boton;
+            
+            for(var i = 0; i < aTabla.length;i++){
+                fila = Crea_Fila(aTabla[i]);
+
+                //Borrar
+                td = document.createElement("td");
+                boton = document.createElement("button");
+                boton.innerHTML = "Del";
+                boton.onclick = borrarPersona;
+                boton.dataset.id_persona = aTabla[i].ID;
+                boton.dataset.nombreape = aTabla[i].NOMBRE + " " + aTabla[i].APELLIDOS;
+                td.appendChild(boton);
+                fila.appendChild(td);
+
+                //Anadir
+                td = document.createElement("td");
+                boton = document.createElement("button");
+                boton.innerHTML = "Edit";
+                boton.onclick = editarPersona;
+                boton.dataset.id_persona = aTabla[i].ID;
+                td.appendChild(boton);
+                fila.appendChild(td);
+
+                cuerpoTabla.appendChild(fila);
+            }
+        }
+
+        function MuestraPersona(datos){
+            console.log(datos);
+            document.getElementById("filas_tabla").innerHTML = "";
+            LLenaTabla(datos,document.getElementById("filas_tabla"));
+        }
+
+        function anadePersona(e){
+            e.preventDefault();
+
+            if(accion.tipo == 0)
+                var p = {
+                    servicio:"insertar",
+                    dni:document.getElementById("dni").value,
+                    nombre:document.getElementById("nombre").value,
+                    apellidos:document.getElementById("apellidos").value
+                };
+            else
+                var p = {
+                    servicio:"modificar",
+                    id:accion.id_persona,
+                    dni:document.getElementById("dni").value,
+                    nombre:document.getElementById("nombre").value,
+                    apellidos:document.getElementById("apellidos").value
+                }
+
+            console.log(p);
+            peti.peticion(url,"POST",MuestraPersona,JSON.stringify(p));
+            cancelarForm();    
+        }
+
+        function cargarTabla(){
+            var p = { 
+                servicio:"listar"
+            }
+            peti.peticion(url,"POST",MuestraPersona,JSON.stringify(p));
+        }
+
+        function borrarPersona(e) {
+            e.preventDefault
+            var nombre = this.dataset.nombreape;
+            if (confirm("Seguro que quieres eliminar a " + nombre + "?")) {
+                var p = {
+                    servicio: "borrar",
+                    id: this.dataset.id_persona
+                };
+                peti.peticion(url, "POST", MuestraPersona, JSON.stringify(p));
+            }
+        }
+
+        function mostrarParaAnadir(){
+            accion = {
+                tipo:0,
+                id_persona:-1,
+                texto_legend:"Añadir persona",
+                texto_boton:"Añadir",
+                clase_css:"ver"
+            }
+
+            mostrarForm();
+        }
+
+        function mostrarForm(){
+            document.getElementById("formPersonas").classList.add(accion.clase_css);
+            document.querySelector("#formPersonas legend").innerHTML = accion.texto_legend;
+            document.getElementById("btAnade").innerHTML = accion.texto_boton;
+        }
+
+        function cancelarForm(){
+            document.getElementById("formPersonas").classList.remove(accion.clase_css);
+            limpiaForm();
+        }
+
+        function limpiaForm(){
+            document.getElementById("dni").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("apellidos").value = ""
+        }
+
+        function editarPersona(e){
+            e.preventDefault();
+
+            accion =  {
+                tipo:1,
+                id_persona:this.dataset.id_persona,
+                texto_legend:"Modificar persona",
+                texto_boton:"Modificar",
+                clase_css:"ver"
+            }
+
+            var p= {
+                servicio:"selPersonaID",
+                id:this.dataset.id_persona
+            }
+
+            peti.peticion(url,"POST",llenarForm,JSON.stringify(p));
+        }
+
+        function llenarForm(datos){
+            document.getElementById("dni").value = datos.DNI;
+            document.getElementById("nombre").value = datos.NOMBRE;
+            document.getElementById("apellidos").value = datos.APELLIDOS;
+            mostrarForm();
+        }
+    </script>
+</head>
+<body>
+    <h3>Registro de Usuarios</h3>
+    <div id="formPersonas" class="formPersonas">
+        <fieldset>
+            <legend id="formLegend">Alta en el servicio</legend>
+            <div>
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" size="10" maxlength="9" value=""/>
+            </div>
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" value=""/>
+            </div>
+            <div>
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" size="40" value=""/>
+            </div>
+            <div class="btn">
+                <button id="btAnade" data.id="-1">Añadir</button> 
+                <button id="btCancelar">Cancelar</button>
+            </div>
+        </fieldset>
+    </div>
+    <button class="btn" id="btNuevaPersona">Nueva persona</button> 
+    <br><br>
+    <table id="tabla_personas" border="1">
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>NOMBRE</th>
+            <th>APELLIDOS</th>
+            <th>Borrar</th>
+            <th>Editar</th>
+        </tr>
+        <tbody id="filas_tabla"></tbody>
+    </table>
+</body>

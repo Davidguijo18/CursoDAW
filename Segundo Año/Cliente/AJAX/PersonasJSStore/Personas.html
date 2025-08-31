@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personas</title>
+    <style>
+        h3 {
+            color: red;
+        }
+        .formPersonas {
+            visibility: hidden;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            z-index: 11;
+            background-color: pink;
+            border: 2px solid maroon;
+            border-radius: 15px;
+            padding: 1em;
+            color: red;
+        }
+        .formPersonas div label {
+            display: block;
+            margin-top: .5em;
+        }
+        .formPersonas .btn {
+            display: block;
+            margin-top: 1em;
+        }
+        .ver {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script src="jsstore/jsstore.min.js"></script>
+    <script src="jsstore/jsstore.worker.min.js"></script>
+    <script src="Personas.js"></script>
+    <script>
+        BD();
+
+        window.onload = async function(){
+            cargarPersonas();
+
+        }
+
+        const cargarPersonas = async() =>{
+            const personas = await mostrarPersonas();
+            var tabla = document.getElementById("filas_tabla");
+            tabla.innerHTML = "";
+
+            personas.forEach(persona => {
+                var fila = document.createElement("tr");
+                var atributosPerona = [persona.id, persona.dni, persona.nombre, persona.apellidos, persona.fnacimiento, persona.estatura];
+
+                atributosPerona.forEach(atributo => {
+                    var columna = document.createElement("td");
+                    columna.innerHTML = atributo;
+
+                    fila.appendChild(columna);
+                });
+
+                var td = document.createElement("td");
+                var boton = document.createElement("button");
+                boton.innerHTML = "Borrar"
+                boton.dataset.id = persona.id;
+                boton.dataset.nombreape = persona.nombre + " " + persona.apellidos;
+                boton.onclick = eliminarPersona;
+                td.appendChild(boton);
+                fila.appendChild(td);
+
+
+                var td = document.createElement("td");
+                var boton = document.createElement("button");
+                boton.innerHTML = "Editar"
+                boton.dataset.id = persona.id;
+                boton.onclick = editarPersona;
+                td.appendChild(boton);
+                fila.appendChild(td);
+
+                tabla.appendChild(fila);
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <h3>Registro de Personas</h3>
+    <div id="formPersonas" class="formPersonas">
+        <fieldset>
+            <legend id="formLegend">Alta en el servicio</legend>
+            <div><label for="dni">DNI</label><input type="text" id="dni" size="10" maxlength="9" value=""/></div>
+            <div><label for="nombre">Nombre</label><input type="text" id="nombre" value=""/></div>
+            <div><label for="apellidos">Apellidos</label><input type="text" id="apellidos" size="40" value=""/></div>
+            <div><label for="fnacimiento">Fecha de nacimiento</label><input type="date" id="fnacimiento" value=""/></div>
+            <div><label for="estatura">Estatura</label><input type="text" id="estatura" value=""/></div>
+            <div class="btn"><button id="btAnade" data.id="-1">Añadir</button> <button id="btCancelar">Cancelar</button></div>
+        </fieldset>
+    </div>
+
+    <button class="btn" id="btNuevaPersona">Nueva persona</button>
+    <br><br>
+    <table id="tabla_personas" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>APELLIDOS</th>
+                <th>FECHA NACIMIENTO</th>
+                <th>ESTATURA</th>
+                <th>Borrar</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody id="filas_tabla"></tbody>
+    </table>
+</body>
+</html>

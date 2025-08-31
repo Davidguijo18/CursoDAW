@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personas</title>
+    <style>
+        h3 {
+            color: red;
+        }
+        .formPersonas {
+            visibility: hidden;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            z-index: 11;
+            background-color: pink;
+            border: 2px solid maroon;
+            border-radius: 15px;
+            padding: 1em;
+            color: red;
+        }
+        .formPersonas div label {
+            display: block;
+            margin-top: .5em;
+        }
+        .formPersonas .btn {
+            display: block;
+            margin-top: 1em;
+        }
+        .ver {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script src="jsstore/jsstore.min.js"></script>
+    <script src="jsstore/jsstore.worker.min.js"></script>
+    <script src="ListaPersonasBD.js"></script>
+    <script>
+        BD(); // Inicializa la base de datos
+        let fImagen;
+
+        function leerImagen() {
+            var fichero = this.files[0];
+            fImagen = this.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById("imagenPersona").src = reader.result;
+            };
+            reader.readAsDataURL(fichero);
+        }
+
+        window.onload = async function () {
+            mostrarPersonas();
+            document.getElementById("btNuevaPersona").onclick = mostrarFormulario;
+            document.getElementById("btAnade").onclick = guardarPersona;
+            document.getElementById("btCancelar").onclick = cerrarFormulario;
+            document.getElementById("fimagen").onchange = leerImagen;
+        };
+
+        function mostrarFormulario() {
+            document.getElementById("formPersonas").classList.add("ver");
+            limpiarFormulario();
+            document.getElementById("formLegend").textContent = "Alta en el servicio";
+            document.getElementById("btAnade").textContent = "Añadir";
+            document.getElementById("btAnade").dataset.id = -1; // ID -1 para nueva persona
+        }
+
+        function mostrarFormularioEdicion() {
+            document.getElementById("formPersonas").classList.add("ver");
+            document.getElementById("formLegend").textContent = "Modificación en el servicio";
+            document.getElementById("btAnade").textContent = "Guardar cambios";
+        }
+
+        function cerrarFormulario() {
+            document.getElementById("formPersonas").classList.remove("ver");
+        }
+
+        function limpiarFormulario() {
+            document.getElementById("dni").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("apellidos").value = "";
+            document.getElementById("fnacimiento").value = "";
+            document.getElementById("estatura").value = "";
+        }
+
+        async function guardarPersona() {
+            const id = parseInt(document.getElementById("btAnade").dataset.id);
+            const nuevaPersona = {
+                dni: document.getElementById("dni").value,
+                nombre: document.getElementById("nombre").value,
+                apellidos: document.getElementById("apellidos").value,
+                fnacimiento: document.getElementById("fnacimiento").value,
+                estatura: parseFloat(document.getElementById("estatura").value)
+            };
+
+            if (id === -1) {
+                // Agregar nueva persona
+                await agregarPersona(nuevaPersona);
+            } else {
+                // Editar persona existente
+                await actualizarPersona(id, nuevaPersona);
+            }
+
+            cerrarFormulario();
+            mostrarPersonas();
+        }
+
+        async function mostrarPersonas() {
+            const personas = await obtenerPersonas();
+            const tabla = document.getElementById("filas_tabla");
+            tabla.innerHTML = "";
+
+            personas.forEach(persona => {
+                const fila = document.createElement("tr");
+                const atributosPersona = [persona.id, persona.dni, persona.nombre, persona.apellidos, persona.fnacimiento, persona.estatura];
+
+                atributosPersona.forEach(atributo => {
+                    const columna = document.createElement("td");
+                    columna.innerHTML = atributo;
+                    fila.appendChild(columna);
+                });
+
+                // Botón de borrar
+                const tdBorrar = document.createElement("td");
+                const botonBorrar = document.createElement("button");
+                botonBorrar.innerHTML = "Borrar";
+                botonBorrar.dataset.id = persona.id;
+                botonBorrar.dataset.nombreape = `${persona.nombre} ${persona.apellidos}`;
+                botonBorrar.onclick = borrarPersona;
+                tdBorrar.appendChild(botonBorrar);
+                fila.appendChild(tdBorrar);
+
+                // Botón de editar
+                const tdEditar = document.createElement("td");
+                const botonEditar = document.createElement("button");
+                botonEditar.innerHTML = "Editar";
+                botonEditar.dataset.id = persona.id;
+                botonEditar.onclick = editarPersona;
+                tdEditar.appendChild(botonEditar);
+                fila.appendChild(tdEditar);
+
+                tabla.appendChild(fila);
+            });
+        }
+
+        async function borrarPersona() {
+            const id = parseInt(this.dataset.id);
+            if (confirm(`¿Desea eliminar a ${this.dataset.nombreape}?`)) {
+                await eliminarPersona(id);
+                mostrarPersonas();
+            }
+        }
+
+        async function editarPersona() {
+            const id = parseInt(this.dataset.id);
+            const personas = await obtenerPersonas();
+            const persona = personas.find(p => p.id === id);
+
+            if (persona) {
+                document.getElementById("dni").value = persona.dni;
+                document.getElementById("nombre").value = persona.nombre;
+                document.getElementById("apellidos").value = persona.apellidos;
+                document.getElementById("fnacimiento").value = persona.fnacimiento;
+                document.getElementById("estatura").value = persona.estatura;
+
+                document.getElementById("btAnade").dataset.id = id;
+                mostrarFormularioEdicion();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Registro de Personas</h3>
+    <div id="formPersonas" class="formPersonas">
+        <fieldset>
+            <legend id="formLegend">Alta en el servicio</legend>
+            <div><label for="dni">DNI</label><input type="text" id="dni" size="10" maxlength="9"/></div>
+            <div><label for="nombre">Nombre</label><input type="text" id="nombre"/></div>
+            <div><label for="apellidos">Apellidos</label><input type="text" id="apellidos" size="40"/></div>
+            <div><label for="fnacimiento">Fecha de nacimiento</label><input type="date" id="fnacimiento"/></div>
+            <div><label for="estatura">Estatura</label><input type="number" step="0.01" id="estatura"/></div>
+            <div><label for="fimagen">Imagen</label><input type="file" id="fimagen"/></div>
+            <div class="imagen"><img id="imagenPersona" src="" alt="Imagen persona"></div>
+            <div class="btn"><button id="btAnade" data-id="-1">Añadir</button> <button id="btCancelar">Cancelar</button></div>
+        </fieldset>
+    </div>
+    <button class="btn" id="btNuevaPersona">Nueva persona</button>
+    <br><br>
+    <table id="tabla_personas" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Estatura</th>
+                <th>Borrar</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody id="filas_tabla"></tbody>
+    </table>
+</body>
+</html>

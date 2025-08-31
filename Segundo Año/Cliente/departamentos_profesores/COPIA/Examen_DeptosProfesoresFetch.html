@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Examen 1ª Evaluación DWEC</title>
+		<style>
+		
+		 h3{
+        color: red;
+      }
+			
+			/* CSS para el formulario:   */
+			.formProfes{
+				visibility: hidden;  
+				position: absolute;
+				top: 20%;
+				left: 20%;
+				z-index:11;
+				background-color: pink;
+				border: 2px solid maroon;
+				border-radius: 15px;
+				padding: 1em;
+				color: red;
+			}
+
+			.formProfes div label {
+				display: block;
+				margin-top: .5em;
+			}
+			
+			.formProfes .btn {
+				display: block;
+				margin-top: 1em;
+			}
+			
+			
+			.ver {
+				visibility: visible;  
+			}
+		
+		
+		#deptoDelProfe{
+			font-family: "Lucida Console", "Courier New", monospace;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: blue;
+		}
+		
+		</style>
+		
+	<script type="text/javascript" src="UtilAJAX.js"></script>	
+    <script type="text/javascript">
+
+		let peti = new pAJAX();
+		let url = 'deptosProfes.php';
+		idDepartamentoActual = {
+			id:0
+		}
+
+		window.onload = function(){
+			cargarDepartamentos();
+
+			document.getElementById("btNuevaProfe").onclick = mostrarFormularioAnadirProfe;
+			document.getElementById("btCancelar").onclick = ocultarFormulario;
+			document.getElementById("btAnade").onclick = function(){
+				if(document.getElementById("formProfes").dataset.idprofe){
+					modificarProfesor();
+				}else{
+					anadirProfe();
+				}
+			}
+		}
+
+		function mostrarFormularioAnadirProfe(){
+			console.log(idDepartamentoActual);
+
+			if(idDepartamentoActual.id !=0){
+				document.querySelector("#formProfes legend").innerHTML = "Alta en el servicio"
+				document.getElementById("btAnade").innerHTML = "Añadir";
+				document.getElementById("formProfes").classList.add("ver");
+			}
+		}
+
+		function mostrarFormularioEditarProfesor(){
+			document.querySelector("#formProfes legend").innerHTML = "Modificacion en el servicio"
+			document.getElementById("btAnade").innerHTML = "Modificar";
+			document.getElementById("formProfes").classList.add("ver");
+		}
+
+		function ocultarFormulario(){
+			document.getElementById("formProfes").classList.remove("ver");
+			document.getElementById("formProfes").dataset.idprofe = "";
+			limpiarFormulario();
+		}
+
+		function limpiarFormulario(){
+			document.getElementById("dni").value = "";
+			document.getElementById("nombre").value = "";
+			document.getElementById("apellidos").value = "";
+		}
+
+		function cargarDepartamentos(){
+			var p ={
+				servicio:"departamentos"
+			}
+
+            var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => mostrarTablaDepartamentos(datos))
+            .catch(error => console.error('Error:', error));
+		}
+
+		const mostrarTablaDepartamentos = (departamentos) =>{
+			var tabla = document.getElementById("detalle_departamentos");
+			tabla.innerHTML = "";
+			departamentos.forEach(departamento => {
+				var fila = document.createElement("tr");
+
+				var atributosDepartamento = [departamento.ID,departamento.NOMBRE,departamento.DESCRIPCION];
+				console.log(atributosDepartamento);
+
+				atributosDepartamento.forEach(atributo => {
+					var columna = document.createElement("td");
+					columna.innerHTML = atributo;
+
+					fila.appendChild(columna);
+				});
+
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Boton";
+				boton.onclick = obtenerProfesoresDepartamento;
+				boton.dataset.idDepartamento = departamento.ID;
+				boton.dataset.nombreDepartamento = departamento.NOMBRE;
+				td.appendChild(boton);
+				fila.append(td);
+
+
+				tabla.appendChild(fila);
+			});
+		}
+
+		function obtenerProfesoresDepartamento(e){
+			e.preventDefault();
+
+			//Establezco el nombre del departamento
+			var departamento = document.getElementById("deptoDelProfe").innerHTML = this.dataset.nombreDepartamento;
+			idDepartamentoActual.id = this.dataset.idDepartamento;
+
+			var p ={
+				servicio:"profesores",
+				id_departamento:this.dataset.idDepartamento
+			}
+
+            var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => mostrarProfesoresDepartamento(datos))
+            .catch(error => console.error("Error: ",error))
+		}
+
+		const mostrarProfesoresDepartamento = (profesores) =>{
+			var tabla = document.getElementById("detalle_profesores");
+			tabla.innerHTML = "";
+
+			profesores.forEach(profesor => {
+				var fila = document.createElement("tr");
+
+				var atributosPersona = [profesor.ID,profesor.DNI,profesor.NOMBRE,profesor.APELLIDOS];
+				console.log(atributosPersona);
+
+				atributosPersona.forEach(atributo => {
+					var columna = document.createElement("td");
+					columna.innerHTML = atributo;
+
+					fila.appendChild(columna);
+				});
+
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Eliminar";
+				boton.onclick = eliminarProfe;
+				boton.dataset.idProfesor = profesor.ID;
+				boton.dataset.nombreape = profesor.NOMBRE + " " + profesor.APELLIDOS;
+				td.appendChild(boton);
+				fila.append(td);
+
+				var td = document.createElement("td");
+				var boton = document.createElement("button");
+				boton.innerHTML = "Editar";
+				boton.onclick = obtenerProfesor;
+				boton.dataset.idProf = profesor.ID;
+				td.appendChild(boton);
+				fila.append(td);
+
+
+
+				tabla.appendChild(fila);
+			});
+		}
+
+		function eliminarProfe(e){
+			e.preventDefault();
+
+			confirm("¿Desea eliminar a " + this.dataset.nombreape + " ?")
+			var p ={
+				servicio:"eliminaProfe",
+				id:this.dataset.idProfesor,
+				id_departamento: idDepartamentoActual.id
+			}
+
+			var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => mostrarProfesoresDepartamento(datos))
+            .catch(error => console.error("Error: ",error))
+		}	
+
+		function anadirProfe(){
+			var dniProfe = document.getElementById("dni").value;
+			var nombreProfe = document.getElementById("nombre").value;
+			var apellidosProfe = document.getElementById("apellidos").value;
+
+			var p ={
+				servicio:"anadeProfe",
+				id_departamento: idDepartamentoActual.id,
+				dni:dniProfe,
+				nombre:nombreProfe,
+				apellidos:apellidosProfe
+			}
+
+			var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => mostrarProfesoresDepartamento(datos))
+            .catch(error => console.error("Error: ",error))
+			ocultarFormulario();
+		}
+
+		function obtenerProfesor(e){
+			e.preventDefault();
+
+			var p ={
+				servicio:"selProfeID",
+				id:this.dataset.idProf
+			}
+
+			var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => obtenerDatosProfesor(datos))
+            .catch(error => console.error("Error: ",error))
+		}
+
+		function obtenerDatosProfesor(profesor){
+			document.getElementById("dni").value = profesor.DNI;
+			document.getElementById("nombre").value = profesor.NOMBRE;
+			document.getElementById("apellidos").value = profesor.APELLIDOS;
+			document.getElementById("formProfes").dataset.idprofe = profesor.ID;
+			mostrarFormularioEditarProfesor();
+		}
+
+		function modificarProfesor(){
+			var idProfesor = document.getElementById("formProfes").dataset.idprofe;
+			var dni = document.getElementById("dni").value;
+			var nombre = document.getElementById("nombre").value;
+			var apellidos = document.getElementById("apellidos").value;
+
+			var p ={
+				servicio:"modificaProfe",
+				dni:dni,
+				nombre:nombre,
+				apellidos:apellidos,
+				id:idProfesor,
+				id_departamento: idDepartamentoActual.id
+			}
+
+			var accion ={
+                method:"POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(p)
+            }
+
+			fetch(url,accion)
+            .then(r => r.json())
+            .then(datos => mostrarProfesoresDepartamento(datos))
+            .catch(error => console.error("Error: ",error))
+			ocultarFormulario();
+		}
+		
+    
+    </script>
+		
+  </head>
+  <body>
+    <h1>Registro de Usuarios</h1>
+    <form>
+			<br>
+      <h4>Selecciona Departamento:</h4>
+      <p>
+      	<div id="departamentos">
+      		<table border="1">
+      			<thead>
+      			<tr>
+      				<th>ID</th>
+      				<th>NOMBRE</th>
+							<th>DESCRIPCION</th>
+      				<th>Acción</th>
+      			</tr>
+      			</thead>
+      			
+      			<tbody id="detalle_departamentos">
+      				
+      			</tbody>
+      			
+      			
+      		</table>
+      	</div>
+      </p>
+      
+      
+      
+      <br/>
+			<br/>
+      Tabla de Profesores. Departamento de <span id="deptoDelProfe"></span>:
+			<br><br>
+			<button class="btn" id="btNuevaProfe" type="button">Nueva profe</button> 
+			
+      <p>
+      	<div id="profesores">
+      		<table border="1">
+      			<thead>
+							<tr>
+								<th>ID</th>
+								<th>DNI</th>
+								<th>NOMBRE</th>
+								<th>APELLIDOS</th>
+								<th>Eliminar</th>
+								<th>Editar</th>
+							</tr>
+						</thead>
+      			
+      			<tbody id="detalle_profesores">
+      				
+      			</tbody>
+      			
+      			
+      		</table>
+      	</div>
+      </p>
+      
+			
+			<div id="formProfes" class="formProfes">
+			<fieldset>
+				<legend>Alta en el servicio</legend>
+				<div>
+					<label for="dni">DNI</label>
+					<input type="text" id="dni" size="10" maxlength="9" />
+				</div>
+				<div>
+					<label for="nombre">Nombre</label>
+					<input type="text" id="nombre" />
+				</div>
+				<div>
+					<label for="apellidos">Apellidos</label>
+					<input type="text" id="apellidos" size="40" />
+				</div>
+				<div class="btn">
+					<button id="btAnade" type="button" data-idprofe="-1">Añadir </button> 
+					<button id="btCancelar" type="button">Cancelar </button>
+				</div>
+			</fieldset>
+		</div>
+      
+    </form>
+
+  </body>
+</html>

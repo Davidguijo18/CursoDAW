@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--He quitado todo lo que habia en el parentesis de aviso y he puesto un #EMPTY-->
+<!DOCTYPE aviso[
+<!ELEMENT aviso #EMPTY>
+]>
+
+<aviso>
+</aviso>

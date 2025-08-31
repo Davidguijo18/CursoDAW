@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+
+        const obtenerUsuariosP = () =>{
+            return new Promise((resolve,reject) =>{
+                setTimeout(() => {
+                    resolve("Usuarios listos !!!!");
+                },500)
+            });
+        }
+
+        const obtenerClientesP = (res) =>{
+            return new Promise((resolve,reject) =>{
+                setTimeout(() => {
+                    resolve("Clientes listos !!!!");
+                },500)
+            });
+        }
+
+        const obtenerProductosP = (res) =>{
+            return new Promise((resolve,reject) =>{
+                setTimeout(() => {
+                    resolve("Productos listos !!!!");
+                },500)
+            });
+        }
+
+        obtenerUsuariosP(idgrupo)
+        .then(res =>{
+            console.log("Usuarios: ",res)
+            return obtenerClientesP(res)
+        })
+        .then(res =>{
+            console.log("Clientes: ",res)
+            return obtenerProductosP(res)
+        })
+        .then(res => console.log("Productos: ",res))
+        .catch(err => console.log("Error: ",err));
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

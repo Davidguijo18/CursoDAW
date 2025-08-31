@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Validar Formularios</title>
+	<style type="text/css">
+		span {
+			color: red;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			document.getElementById("formulario_1").onsubmit = validarFormulario;
+			document.getElementById("nombre").onkeydown = restriccionNombre;
+		}
+
+		function validarFormulario() {
+			var requisitosCumplidos = 0;
+			var primerError = null;
+
+			// Validacion del nombre
+			var nombre = document.getElementById("nombre");
+			if (nombre.value.trim().length > 2) {
+				requisitosCumplidos++;
+				document.getElementById("info_nombre").innerHTML = "";
+			} else {
+				document.getElementById("info_nombre").innerHTML = "El nombre debe ser de mínimo 2 letras";
+				if (primerError === null) {
+					primerError = nombre;
+				}
+			}
+
+			// Validacion del dni
+			var dni = document.getElementById("dni");
+			var letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+			if (dni.value.length == 9) {
+				var numero = dni.value.trim().substring(0, 8);
+				if (letras[numero % 23] == dni.value[8].toUpperCase()) {
+					requisitosCumplidos++;
+					document.getElementById("info_dni").innerHTML = "";
+				} else {
+					document.getElementById("info_dni").innerHTML = "El DNI es INCORRECTO";
+					if (primerError === null) {
+						primerError = dni;
+					}
+				}
+			} else {
+				document.getElementById("info_dni").innerHTML = "El DNI es INCORRECTO";
+				if (primerError === null) {
+					primerError = dni;
+				}
+			}
+
+			// Validacion del sexo
+			var sexo = document.getElementById("sexo");
+			if (sexo.value != "") {
+				requisitosCumplidos++;
+				document.getElementById("info_sexo").innerHTML = "";
+			} else {
+				document.getElementById("info_sexo").innerHTML = "Debe seleccionar una opción sexual";
+				if (primerError === null) {
+					primerError = sexo;
+				}
+			}
+
+			// Validacion de sugerencia
+			var sugerencia = document.getElementById("sugerencia");
+			if (sugerencia.value.trim().length > 10) {
+				requisitosCumplidos++;
+				document.getElementById("info_sugerencia").innerHTML = "";
+			} else {
+				document.getElementById("info_sugerencia").innerHTML = "Te sugiero que sugieras algo más extenso";
+				if (primerError === null) {
+					primerError = sugerencia;
+				}
+			}
+
+			if (primerError !== null) {
+				primerError.focus();
+			}
+
+			return (requisitosCumplidos == 4);
+		}
+
+		function restriccionNombre(event) {
+			var teclaPulsada = event.charCode || window.event.keyCode;
+			console.log(teclaPulsada);
+
+			return ((teclaPulsada >= 65 && teclaPulsada <= 90) || teclaPulsada == 32 || teclaPulsada == 8);
+		}
+
+	</script>
+</head>
+
+<body>
+
+	<h1>Ejercicio Validación de Formularios</h1>
+	<form id="formulario_1">
+		<p>
+		<h3>Formulario de Registro:</h3>
+		<label for="nombre">Nombre: </label>
+		<input type="text" name="nombre" id="nombre" maxlength="25" size="15" />
+		<span id="info_nombre"></span>
+		<div>(Mínimo 2 letras)</div>
+		<br><br>
+
+		<label for="dni">NIF: </label>
+		<input type="text" name="dni" id="dni" maxlength="9" size="9" />
+		<span id="info_dni"></span>
+		<br><br><br>
+
+		<label>Sexo: </label>
+		<select id="sexo">
+			<option value="">Selecciona una opcion</option>
+			<option value="F">Femenino</option>
+			<option value="M">Masculino</option>
+			<option value="Y">Ya quisiera yo</option>
+		</select>
+		<span id="info_sexo"></span>
+
+		<br><br><br>
+		<label for="sugerencia">Alguna sugerencia: </label>
+		<textarea id="sugerencia" name="sugerencia"></textarea>
+		<span id="info_sugerencia"></span>
+		<br><br>
+		</p>
+		<p><b>Todos los campos son obligatorios.</b></p>
+		<br>
+		<p>
+			<input type="submit" value="ENVIAR">
+			<br><br>
+			<input type="reset" value="Limpiar">
+
+		</p>
+	</form>
+</body>
+
+</html>

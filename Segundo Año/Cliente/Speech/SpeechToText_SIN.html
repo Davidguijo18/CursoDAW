@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>Voz a texto</title>
+    <script type="text/javascript">
+      window.onload = function() {
+        const startButton = document.getElementById("inicioBtn");
+        const outputDiv = document.getElementById("sal");
+
+        if ("webkitSpeechRecognition" in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = "es-ES";
+
+            recognition.onstart = () => {
+                startButton.textContent = "Grabando...";
+            };
+
+            recognition.onresult = (event) => {
+                let interimTranscript = "";
+                let finalTranscript = "";
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + " ";
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                outputDiv.innerHTML = `
+                    <p>Provisional: ${interimTranscript}</p>
+                    <p>Final: ${finalTranscript}</p>
+                `;
+            };
+
+            recognition.onend = () => {
+                startButton.textContent = "Parar";
+            };
+
+            startButton.addEventListener("click", () => {
+                if (recognition.start) {
+                    recognition.start();
+                }
+            });
+
+
+        } else {
+            outputDiv.textContent = "Este navegador no soporta Web Speech API";
+        }
+      };
+    </script>
+  </head>
+  
+  <body>
+    <button id="inicioBtn"> Iniciar grabación </button> 
+    <div id="sal"></div> 
+  </body>
+</html>

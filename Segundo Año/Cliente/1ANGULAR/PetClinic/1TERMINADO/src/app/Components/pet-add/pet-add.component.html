@@ -1,0 +1,47 @@
+<h4>{{ textoH4 }}</h4>
+<div>
+    <p>{{ textoP }}</p>
+
+    <form class="form-horizontal" #petForm="ngForm" (ngSubmit)="anadirPet()">
+        <div class="mb-3">
+            <label for="owner" class="form-label"><b>Dueño</b></label>
+            <input type="text" class="form-control" id="owner" required [(ngModel)]="pet.owner.firstName" name="owner" #owner="ngModel" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label"><b>Nombre</b></label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="pet.name" name="name" #name="ngModel">
+
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                El nombre es obligatorio
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="birthDate" class="form-label"><b>Fecha de nacimiento</b></label>
+            <input type="date" class="form-control" id="birthDate" required [(ngModel)]="pet.birthDate" name="birthDate" #birthDate="ngModel">
+
+            <div [hidden]="birthDate.valid || birthDate.pristine" class="alert alert-danger">
+                La fecha de nacimiento es obligatoria
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="type" class="form-label"><b>Tipo</b></label>
+            <select id="facturaSelect" class="form-control" name="type" [(ngModel)]="pet.type.id">
+              <option [value]="null">Selecciona un tipo</option>
+              @for (petType of listaPetTypes; track $index) {
+                <option [value]="petType.id">
+                  {{ petType.name }}
+                </option>
+              }
+            </select>
+          </div>
+
+        <div class="container">
+            <button class="btn btn-primary col-2" type="submit" [disabled]="!petForm.valid">{{ textoBoton }}</button>
+            <span>|</span>
+            <a class="btn btn-primary col-2" role="button" routerLink="/detailOwner/{{pet.owner.id}}">Volver</a>
+        </div>
+    </form>
+</div>

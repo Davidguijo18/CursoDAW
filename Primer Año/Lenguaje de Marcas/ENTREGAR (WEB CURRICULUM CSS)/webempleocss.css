@@ -1,0 +1,210 @@
+
+*{margin:0;
+  padding:0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+   
+body {background:#F0F2F5}
+
+.cabecera{
+width: 100%;
+height: 30%;
+background-image: url(fondo.jpg);
+position: relative;
+margin: auto;
+}
+
+.arribacabecera{
+  height: 50%;
+  margin: auto;
+  width: 100%;
+  position: relative;
+}
+
+.nombre{
+  width:30%;
+  height: 100px;
+  margin-top: 1em;
+  margin-left: 1em;
+  background-color: #59a195;
+  border-radius: 12px;
+  padding-left: 120px;
+  float: left;
+  display: flex;
+  position: relative;
+}
+
+.nombre p{
+  color:#1C1E21;
+  font-size:60px;
+  font-weight:500;
+  line-height: 35px;
+  text-align: center;
+  padding-top: 30px;
+  font-family: Verdana;
+}
+
+.contacto {
+  width: 20%;
+  height: 100%;
+  float: right;
+  display: flex;
+  position: relative;
+  margin-top: 5px;
+  margin-right: 20px;
+  border-radius: 12px;
+  padding: 0%;
+}
+
+.contacto a img{
+  height: 40px;
+  width: 40px;
+  margin-right: 25px;
+}
+
+.contacto .formulario{
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.contacto .formulario p{
+font-size: 15px;
+font-family: Verdana;
+}
+
+.cuerpo{
+  width: 100%;
+  height: 63%;
+  background: linear-gradient(white, black);
+  border-radius: 1px;
+  text-align: center; 
+}
+
+.buscador p{
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.buscar{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #59a195;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.eliminar{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #59a195;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.trabajos{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: relative;
+}
+
+
+.trabajo1{
+  display: inline-block;
+  width:550px;
+  height: 300px;
+  margin-top: 7em;
+  margin-left: 2em;
+  background-color: #59a195;
+  border-radius: 12px;
+  position: relative;
+}
+
+.trabajo1 a{
+  font-size: 30px;
+}
+
+.trabajo2{
+  display: inline-block;
+  width:550px;
+  height: 300px;
+  margin-top: 7em;
+  margin-left: 2em;
+  background-color: #59a195;
+  border-radius: 12px;
+  position: relative;
+}
+
+.trabajo2 a{
+  font-size: 30px;
+}
+
+.trabajo3{
+  display: inline-block;
+  width:550px;
+  height: 300px;
+  margin-top: 7em;
+  margin-left: 2em;
+  background-color: #59a195;
+  border-radius: 12px;
+  position: relative;
+}
+
+.trabajo3 a{
+  font-size: 30px;
+}
+
+.final{
+  height: 7%;
+  width: 100%;
+  background-color: #59a195;
+}
+
+.ipcion{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  justify-content: space-between;
+}
+
+.descripcion{
+  display: inline-block;
+  width:650px;
+  position: relative;
+}
+
+.descripcion p{
+  margin-top: 5px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.inscripcion{
+  display: inline-block;
+  width:250px;
+  position: relative;
+  margin-right: 15em;
+}
+
+.inscripcion a{
+  text-decoration: none;
+}
+
+.inscripcion a p{
+  font-size: 40px;
+}
+

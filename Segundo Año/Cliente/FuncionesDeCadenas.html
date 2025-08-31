@@ -1,0 +1,221 @@
+1. Convertir a mayúsculas
+function toUpperCase(str) {
+    return str.toUpperCase();
+}
+
+// 2. Convertir a minúsculas
+function toLowerCase(str) {
+    return str.toLowerCase();
+}
+
+// 3. Capitalizar la primera letra de una cadena
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 4. Capitalizar cada palabra en una cadena
+function capitalizeWords(str) {
+    return str.split(' ').map(word => capitalizeFirstLetter(word)).join(' ');
+}
+
+// 5. Eliminar espacios en blanco al inicio y al final
+function trimWhitespace(str) {
+    return str.trim();
+}
+
+// 6. Eliminar todos los espacios en blanco
+function removeSpaces(str) {
+    return str.replace(/\s+/g, '');
+}
+
+// 7. Verificar si una cadena contiene otra cadena
+function containsSubstring(str, substring) {
+    return str.includes(substring);
+}
+
+// 8. Obtener la longitud de una cadena
+function getLength(str) {
+    return str.length;
+}
+
+// 9. Reemplazar una subcadena con otra
+function replaceSubstring(str, oldSubstring, newSubstring) {
+    return str.replace(new RegExp(oldSubstring, 'g'), newSubstring);
+}
+
+// 10. Contar la cantidad de ocurrencias de un substring
+function countOccurrences(str, substring) {
+    const regex = new RegExp(substring, 'g');
+    const matches = str.match(regex);
+    return matches ? matches.length : 0;
+}
+
+// 11. Invertir una cadena
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+
+// 12. Verificar si una cadena es un palíndromo
+function isPalindrome(str) {
+    const normalizedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return normalizedStr === reverseString(normalizedStr);
+}
+
+// 13. Extraer una subcadena
+function substring(str, start, end) {
+    return str.substring(start, end);
+}
+
+// 14. Obtener el índice de la primera aparición de un carácter
+function indexOfChar(str, char) {
+    return str.indexOf(char);
+}
+
+// 15. Dividir una cadena en un array de subcadenas
+function splitString(str, delimiter) {
+    return str.split(delimiter);
+}
+
+// 16. Unir un array de cadenas en una sola cadena
+function joinStrings(arr, delimiter) {
+    return arr.join(delimiter);
+}
+
+// 17. Repetir una cadena varias veces
+function repeatString(str, count) {
+    return str.repeat(count);
+}
+
+// 18. Comparar dos cadenas
+function compareStrings(str1, str2) {
+    return str1.localeCompare(str2);
+}
+
+// 19. Convertir un objeto a una cadena JSON
+function objectToString(obj) {
+    return JSON.stringify(obj);
+}
+
+// 20. Convertir una cadena JSON a un objeto
+function stringToObject(jsonString) {
+    return JSON.parse(jsonString);
+}
+
+// Ejemplo de uso
+const exampleStr = "   hola mundo   ";
+console.log(toUpperCase(exampleStr)); // "   HOLA MUNDO   "
+console.log(toLowerCase(exampleStr)); // "   hola mundo   "
+console.log(capitalizeWords(exampleStr)); // "   Hola Mundo   "
+console.log(trimWhitespace(exampleStr)); // "hola mundo"
+console.log(reverseString("hello")); // "olleh"
+console.log(isPalindrome("A man a plan a canal Panama")); // true
+
+
+// 21. Verificar si una cadena comienza con un substring
+function startsWith(str, substring) {
+    return str.startsWith(substring);
+}
+
+// 22. Verificar si una cadena termina con un substring
+function endsWith(str, substring) {
+    return str.endsWith(substring);
+}
+
+// 23. Convertir la primera letra de cada palabra a minúsculas
+function decapitalizeWords(str) {
+    return str.split(' ').map(word => word.charAt(0).toLowerCase() + word.slice(1)).join(' ');
+}
+
+// 24. Remplazar caracteres específicos en una cadena
+function replaceChars(str, charToReplace, newChar) {
+    return str.split(charToReplace).join(newChar);
+}
+
+// 25. Contar cuántas vocales hay en una cadena
+function countVowels(str) {
+    return (str.match(/[aeiouAEIOU]/g) || []).length;
+}
+
+// 26. Contar cuántas consonantes hay en una cadena
+function countConsonants(str) {
+    return (str.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g) || []).length;
+}
+
+// 27. Eliminar caracteres no alfabéticos
+function removeNonAlphabetic(str) {
+    return str.replace(/[^a-zA-Z]/g, '');
+}
+
+// 28. Eliminar caracteres no numéricos
+function removeNonNumeric(str) {
+    return str.replace(/[^0-9]/g, '');
+}
+
+// 29. Cambiar el primer carácter de una cadena a un carácter específico
+function changeFirstChar(str, newChar) {
+    return newChar + str.slice(1);
+}
+
+// 30. Cambiar el último carácter de una cadena a un carácter específico
+function changeLastChar(str, newChar) {
+    return str.slice(0, -1) + newChar;
+}
+
+// 31. Comprobar si una cadena es igual a otra, ignorando mayúsculas y minúsculas
+function equalsIgnoreCase(str1, str2) {
+    return str1.toLowerCase() === str2.toLowerCase();
+}
+
+// 32. Obtener el índice de la última aparición de un carácter
+function lastIndexOfChar(str, char) {
+    return str.lastIndexOf(char);
+}
+
+// 33. Repetir una cadena un número específico de veces y unir con un delimitador
+function repeatStringWithDelimiter(str, count, delimiter) {
+    return Array(count).fill(str).join(delimiter);
+}
+
+// 34. Convertir un string en formato kebab-case
+function toKebabCase(str) {
+    return str.replace(/\s+/g, '-').toLowerCase();
+}
+
+// 35. Convertir un string en formato snake_case
+function toSnakeCase(str) {
+    return str.replace(/\s+/g, '_').toLowerCase();
+}
+
+// 36. Eliminar todas las vocales de una cadena
+function removeVowels(str) {
+    return str.replace(/[aeiouAEIOU]/g, '');
+}
+
+// 37. Eliminar todas las consonantes de una cadena
+function removeConsonants(str) {
+    return str.replace(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g, '');
+}
+
+// 38. Contar cuántos caracteres hay en una cadena, excluyendo espacios
+function countCharsExcludingSpaces(str) {
+    return str.replace(/\s+/g, '').length;
+}
+
+// 39. Extraer los caracteres únicos de una cadena
+function uniqueChars(str) {
+    return Array.from(new Set(str.split(''))).join('');
+}
+
+// 40. Verificar si una cadena es un anagrama de otra
+function isAnagram(str1, str2) {
+    const normalize = str => str.toLowerCase().replace(/[^a-z]/g, '').split('').sort().join('');
+    return normalize(str1) === normalize(str2);
+}
+
+// Ejemplo de uso
+const exampleStr = "Hola Mundo!";
+console.log(startsWith(exampleStr, "Hola")); // true
+console.log(endsWith(exampleStr, "!")); // true
+console.log(countVowels(exampleStr)); // 4
+console.log(removeNonAlphabetic(exampleStr)); // "HolaMundo"
+console.log(isAnagram("listen", "silent")); // true
